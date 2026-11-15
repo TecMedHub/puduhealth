@@ -57,6 +57,10 @@ p { margin: 0; }
 .tarjeta h3 { font-size: 27px; margin: 0; line-height: 1.2; }
 .tarjeta p { font-size: 20px; line-height: 1.45; color: var(--tenue); }
 .tarjeta .fuente { font-size: 15px; color: var(--secundario); margin-top: 4px; }
+.tarjeta.clave { border-color: var(--acento); box-shadow: 0 0 0 1px var(--acento) inset; }
+.lista li.clave { font-weight: 700; }
+.lista li.clave span.tenue { font-weight: 400; }
+.lista li.clave::before { background: var(--acento); }
 .cita { margin-top: 26px; font-size: 22px; color: var(--tenue); border-left: 4px solid var(--acento); padding: 4px 0 4px 18px; }
 
 /* 3 solución */
@@ -197,38 +201,38 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
   <!-- 2 · Problema (impacto) -->
   <section class="diapo" data-segundos="45" data-titulo-es="El problema" data-titulo-en="The problem">
     <p class="etiqueta"><span lang="es">Impacto · el problema</span><span lang="en">Impact · the problem</span></p>
-    <h2><span lang="es">Camino a Marte, nadie sigue tu salud día a día</span><span lang="en">On the way to Mars, nobody follows your health day by day</span></h2>
+    <h2><span lang="es">Lejos de la ayuda, el peligro no es lo que no se mide: es lo que se calla</span><span lang="en">Far from help, the danger is not what goes unmeasured: it is what goes unsaid</span></h2>
     <div class="tres">
-      <div class="tarjeta">
+      <div class="tarjeta clave">
         <span class="num">01</span>
+        <h3><span lang="es">Los síntomas se callan</span><span lang="en">Symptoms go unreported</span></h3>
+        <p><span lang="es">Los astronautas tienden a no informar síntomas a los médicos de vuelo, por miedo a perder futuras misiones. Más sensores que envían datos a la Tierra no lo resuelven.</span><span lang="en">Astronauts tend not to report symptoms to flight surgeons, fearing they may lose future flights. More sensors sending data to Earth do not solve that.</span></p>
+        <p class="fuente"><span lang="es">Institute of Medicine 2001, <em>Safe Passage</em>, cap. 6, p. 174 · NASA OCHMO-TB-014 (2023)</span><span lang="en">Institute of Medicine 2001, <em>Safe Passage</em>, ch. 6, p. 174 · NASA OCHMO-TB-014 (2023)</span></p>
+      </div>
+      <div class="tarjeta">
+        <span class="num">02</span>
         <h3><span lang="es">Los límites fijos avisan tarde</span><span lang="en">Fixed limits warn late</span></h3>
         <p><span lang="es">"VO2max bajo el 80 % del valor previo" se dispara cuando la pérdida ya ocurrió. Y un límite poblacional no conoce a la persona.</span><span lang="en">"VO2max below 80 % of the pre-flight value" fires once the loss has happened. And a population limit does not know the person.</span></p>
         <p class="fuente">NASA-STD-3001</p>
       </div>
       <div class="tarjeta">
-        <span class="num">02</span>
-        <h3><span lang="es">Los síntomas se callan</span><span lang="en">Symptoms go unreported</span></h3>
-        <p><span lang="es">Los astronautas tienden a no informar síntomas a los médicos de vuelo, por miedo a perder futuras misiones.</span><span lang="en">Astronauts tend not to report symptoms to flight surgeons, fearing they may lose future flights.</span></p>
-        <p class="fuente"><span lang="es">Institute of Medicine 2001, <em>Safe Passage</em>, cap. 6, p. 174 · NASA OCHMO-TB-014 (2023)</span><span lang="en">Institute of Medicine 2001, <em>Safe Passage</em>, ch. 6, p. 174 · NASA OCHMO-TB-014 (2023)</span></p>
-      </div>
-      <div class="tarjeta">
         <span class="num">03</span>
-        <h3><span lang="es">El enlace se corta</span><span lang="en">The link goes down</span></h3>
-        <p><span lang="es">Cada dos años el Sol bloquea la comunicación con Marte unas dos semanas. El software que depende de la Tierra deja de ayudar justo entonces.</span><span lang="en">Every two years the Sun blocks communication with Mars for about two weeks. Software that depends on Earth stops helping exactly then.</span></p>
+        <h3><span lang="es">Nadie llega a tiempo</span><span lang="en">Nobody arrives in time</span></h3>
+        <p><span lang="es">Hasta 22 minutos de retraso por mensaje, y cada dos años el Sol corta la comunicación unas dos semanas. Quien puede actuar es el propio astronauta.</span><span lang="en">Up to 22 minutes of delay per message, and every two years the Sun cuts communication for about two weeks. The one who can act is the astronaut.</span></p>
         <p class="fuente"><span lang="es">Conjunción solar</span><span lang="en">Solar conjunction</span></p>
       </div>
     </div>
-    <p class="cita"><span lang="es">NASA pide justamente esto: apoyo a la decisión clínica a bordo, con tendencias y alertas tempranas (EIMO).</span><span lang="en">NASA asks for exactly this: onboard clinical decision support, with trends and early alerts (EIMO).</span></p>
+    <p class="cita"><span lang="es">Lo conocemos de cerca: en las islas de Quemchi el médico llega por mar. NASA pide apoyo a la decisión clínica a bordo, con tendencias y alertas tempranas (EIMO).</span><span lang="en">We know it first-hand: on the islands of Quemchi the doctor arrives by sea. NASA asks for onboard clinical decision support, with trends and early alerts (EIMO).</span></p>
     <aside class="notas">
-      <p lang="es">En una misión a Marte nadie en la Tierra puede seguir la salud de cada astronauta día a día. Tres problemas. Uno: los límites fijos avisan tarde; el de VO2max salta cuando el astronauta ya perdió la capacidad. Dos: los astronautas callan síntomas por miedo a no volar de nuevo; el Institute of Medicine lo escribe así: "el miedo a quedar fuera de una misión aumenta su reticencia a informar", y NASA reconoce en 2023 que por eso los casos reales pueden estar subestimados. Tres: cada dos años el Sol corta la comunicación unas dos semanas. NASA pide apoyo clínico a bordo; eso construimos.</p>
-      <p lang="en">On a mission to Mars nobody on Earth can follow each astronaut's health day by day. Three problems. One: fixed limits warn late; the VO2max limit fires when the capacity is already lost. Two: astronauts keep symptoms quiet for fear of not flying again; in the Institute of Medicine's words, "the fear of mission disqualification increases their reluctance to report", and NASA acknowledged in 2023 that real cases may be underestimated for that reason. Three: every two years the Sun cuts communication for about two weeks. NASA asks for onboard clinical support; that is what we built.</p>
+      <p lang="es">En las islas de Quemchi, donde vivimos, el médico llega en lancha. Sabemos lo que es estar lejos de la ayuda. Camino a Marte será peor, y el problema principal no es medir: es que el astronauta calle. El Institute of Medicine lo escribe así: "el miedo a quedar fuera de una misión aumenta su reticencia a informar", y NASA reconoce en 2023 que por eso los casos reales pueden estar subestimados. Más sensores que mandan datos a la Tierra no arreglan eso. Además, los límites fijos avisan tarde: el de VO2max salta cuando la capacidad ya se perdió. Y nadie llega a tiempo: hasta 22 minutos por mensaje, y dos semanas sin enlace cada dos años. Quien puede actuar es el propio astronauta.</p>
+      <p lang="en">On the islands of Quemchi, where we live, the doctor arrives by boat. We know what it is to be far from help. On the way to Mars it will be worse, and the main problem is not measuring: it is the astronaut keeping quiet. In the Institute of Medicine's words, "the fear of mission disqualification increases their reluctance to report", and NASA acknowledged in 2023 that real cases may be underestimated for that reason. More sensors sending data to Earth do not fix that. Fixed limits also warn late: the VO2max limit fires when the capacity is already lost. And nobody arrives in time: up to 22 minutes per message, and two weeks without a link every two years. The one who can act is the astronaut.</p>
     </aside>
   </section>
 
   <!-- 3 · La plataforma (creatividad) -->
   <section class="diapo" data-segundos="35" data-titulo-es="La plataforma" data-titulo-en="The platform">
-    <p class="etiqueta"><span lang="es">Creatividad · la plataforma</span><span lang="en">Creativity · the platform</span></p>
-    <h2><span lang="es">Cualquier sensor, una API, tu propia referencia</span><span lang="en">Any sensor, one API, your own reference</span></h2>
+    <p class="etiqueta"><span lang="es">Creatividad · la respuesta</span><span lang="en">Creativity · the answer</span></p>
+    <h2><span lang="es">Al revés de lo habitual: tus datos se quedan contigo</span><span lang="en">The other way around: your data stays with you</span></h2>
     <div class="ciclo">
       <div class="paso"><b><span lang="es">FUENTES</span><span lang="en">SOURCES</span></b><span><span lang="es">Sensores propios o de terceros y el registro diario. La cámara, como alternativa</span><span lang="en">Our own or third-party sensors and the daily check-in. The camera, as a fallback</span></span></div>
       <span class="flecha">›</span>
@@ -245,15 +249,15 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
         <p><span lang="es">para marcar un alza sostenida de +5 lpm en datos reales de 14 personas, con alertas en sólo el 2,5 % de los días comunes.</span><span lang="en">to flag a sustained +5 bpm rise in real data from 14 people, with alerts on only 2.5 % of ordinary days.</span></p>
       </div>
       <ul class="lista">
-        <li><span lang="es">El hardware cambia; el motor no.</span><span lang="en">Hardware changes; the engine does not.</span><span class="tenue"><span lang="es">Hoy entran por la API en la página, por archivo y por la cámara. Diseñado: Bluetooth estándar para bandas, relojes y termómetros, y nuestro wearable ESP32.</span><span lang="en">Today they enter through the in-page API, by file and by camera. Designed: standard Bluetooth for straps, watches and thermometers, and our ESP32 wearable.</span></span></li>
-        <li><span lang="es">Compara contigo, no con un promedio.</span><span lang="en">Compares you with you, not with an average.</span><span class="tenue"><span lang="es">Los primeros 7 días calibran tu línea base.</span><span lang="en">The first 7 days calibrate your baseline.</span></span></li>
-        <li><span lang="es">La privacidad como medida de salud.</span><span lang="en">Privacy as a health measure.</span><span class="tenue"><span lang="es">Los datos no salen del teléfono y van cifrados.</span><span lang="en">Data never leaves the phone and is encrypted.</span></span></li>
-        <li><span lang="es">Un dato que falta no es un cero.</span><span lang="en">A missing value is not a zero.</span></li>
+        <li class="clave"><span lang="es">Privado, para que te atrevas a contarlo.</span><span lang="en">Private, so you dare to tell.</span><span class="tenue"><span lang="es">Las respuestas no salen del teléfono y van cifradas. Tú decides qué contarle al médico.</span><span lang="en">Answers never leave the phone and are encrypted. You decide what to tell the doctor.</span></span></li>
+        <li><span lang="es">Te avisa a ti, que puedes actuar.</span><span lang="en">It tells you, the one who can act.</span><span class="tenue"><span lang="es">Qué hacer, con la norma de NASA que lo respalda, y cuándo avisar al oficial médico.</span><span lang="en">What to do, with the NASA standard behind it, and when to call the medical officer.</span></span></li>
+        <li><span lang="es">Compara contigo, no con un promedio.</span><span lang="en">Compares you with you, not with an average.</span><span class="tenue"><span lang="es">Los primeros 7 días calibran tu línea base. Un dato que falta no es un cero.</span><span lang="en">The first 7 days calibrate your baseline. A missing value is not a zero.</span></span></li>
+        <li><span lang="es">Cualquier sensor, una API abierta.</span><span lang="en">Any sensor, one open API.</span><span class="tenue"><span lang="es">El hardware cambia; el motor no.</span><span lang="en">Hardware changes; the engine does not.</span></span></li>
       </ul>
     </div>
     <aside class="notas">
-      <p lang="es">PuduHealth es una plataforma, no un sensor. Cualquier fuente entrega sus mediciones por una API abierta con un solo formato: una banda o un reloj con Bluetooth estándar, un termómetro, el wearable que diseñamos o un equipo de la nave. Como no teníamos hardware, construimos un adaptador con la cámara del celular, pero es solo una fuente más. El motor compara a cada persona con su propia línea base y decide con reglas citadas. Con datos reales de Fitbit de 14 personas, marca un alza sostenida de +5 lpm en 3 días, con alertas en el 2,5 % de los días comunes. En la misión de ejemplo escribimos un deterioro (desde el día 135 la comandante duerme y entrena menos) y sus primeros avisos llegan 55 días antes del límite de VO2max: ilustra el mecanismo, no es una medición.</p>
-      <p lang="en">PuduHealth is a platform, not a sensor. Any source delivers its measurements through one open API with a single format: a chest strap or watch with standard Bluetooth, a thermometer, the wearable we designed, or onboard equipment. We had no hardware, so we built an adapter with the phone camera, but it is just one more source. The engine compares each person with their own baseline and decides with cited rules. On real Fitbit data from 14 people, it flags a sustained +5 bpm rise in 3 days, with alerts on 2.5 % of ordinary days. In the example mission we scripted a decline (from day 135 the commander sleeps and trains less) and her first warnings arrive 55 days before the VO2max limit: it illustrates the mechanism, it is not a measurement.</p>
+      <p lang="es">Por eso hicimos lo contrario de lo habitual: en vez de mandar los datos del astronauta a la Tierra, se quedan con el astronauta, privados y cifrados, para que se atreva a contar lo que siente. La app le dice qué hacer, con la norma de NASA que lo respalda, y cuándo avisar al oficial médico. PuduHealth es una plataforma, no un sensor. Cualquier fuente entrega sus mediciones por una API abierta con un solo formato: una banda o un reloj con Bluetooth estándar, un termómetro, el wearable que diseñamos o un equipo de la nave. Como no teníamos hardware, construimos un adaptador con la cámara del celular, pero es solo una fuente más. El motor compara a cada persona con su propia línea base y decide con reglas citadas. Con datos reales de Fitbit de 14 personas, marca un alza sostenida de +5 lpm en 3 días, con alertas en el 2,5 % de los días comunes. En la misión de ejemplo escribimos un deterioro (desde el día 135 la comandante duerme y entrena menos) y sus primeros avisos llegan 55 días antes del límite de VO2max: ilustra el mecanismo, no es una medición.</p>
+      <p lang="en">So we did the opposite of the usual: instead of sending the astronaut's data to Earth, we leave it with them, private and encrypted, so they dare to say how they feel. The app tells them what to do, with the NASA standard behind it, and when to call the medical officer. PuduHealth is a platform, not a sensor. Any source delivers its measurements through one open API with a single format: a chest strap or watch with standard Bluetooth, a thermometer, the wearable we designed, or onboard equipment. We had no hardware, so we built an adapter with the phone camera, but it is just one more source. The engine compares each person with their own baseline and decides with cited rules. On real Fitbit data from 14 people, it flags a sustained +5 bpm rise in 3 days, with alerts on 2.5 % of ordinary days. In the example mission we scripted a decline (from day 135 the commander sleeps and trains less) and her first warnings arrive 55 days before the VO2max limit: it illustrates the mechanism, it is not a measurement.</p>
     </aside>
   </section>
 
