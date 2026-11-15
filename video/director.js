@@ -26,6 +26,26 @@
         background: rgba(12, 9, 34, 0.86); border: 2px solid #b9a6f0; color: #fff;
         font: 700 26px/1.3 'Inter', sans-serif; text-align: center; box-shadow: 0 6px 30px rgba(0,0,0,.45);
       }
+      .v-api { position: absolute; inset: 0; display: grid; align-items: center; gap: 2%;
+               grid-template-columns: 1.15fr .1fr .9fr .1fr 1.1fr; padding: 9% 6% 18%; font-family: 'Inter', sans-serif; }
+      .v-vert .v-api { grid-template-columns: 1fr; grid-template-rows: auto auto auto auto auto; padding: 30px 7% 0; gap: 5px; align-content: start; top: 9%; }
+      .v-col { display: grid; gap: 10px; }
+      .v-vert .v-col.fuentes { grid-template-columns: 1fr 1fr; gap: 5px; }
+      .v-vert .v-col { gap: 5px; }
+      .v-chip { background: rgba(34,32,72,.92); border: 2px solid #34316a; border-radius: 12px; padding: 10px 14px; font-size: 21px; font-weight: 700; color: #f3eefc; }
+      .v-vert .v-chip { font-size: 11px; line-height: 1.25; padding: 5px 8px; border-radius: 8px; border-width: 1.5px; }
+      .v-chip.alt { color: #aaa3c8; border-style: dashed; }
+      .v-chip.motor { border-color: #b9a6f0; }
+      .v-api-centro { text-align: center; background: rgba(255,138,61,.14); border: 3px solid #ff8a3d; border-radius: 18px; padding: 22px 12px; }
+      .v-vert .v-api-centro { padding: 8px; border-width: 2px; border-radius: 12px; }
+      .v-api-centro .v-pix { font-size: 26px; color: #ff8a3d; }
+      .v-vert .v-api-centro .v-pix { font-size: 15px; }
+      .v-api-centro code { display: block; margin-top: 10px; font: 600 19px ui-monospace, monospace; color: #f3eefc; }
+      .v-vert .v-api-centro code { font-size: 12px; margin-top: 6px; }
+      .v-flecha { text-align: center; font-size: 40px; color: #b9a6f0; font-weight: 800; }
+      .v-vert .v-flecha { font-size: 18px; line-height: 1; }
+      .v-api-titulo { position: absolute; left: 50%; top: 9%; transform: translateX(-50%); white-space: nowrap; font-size: 22px; color: #cfc6f2; }
+      .v-vert .v-api-titulo { top: 6%; font-size: 12px; }
       /* vertical (9:16): subtítulo sobre la zona que tapan los controles de Instagram */
       #v-sub.v-vert { bottom: 21%; max-width: 88%; width: max-content; padding: 9px 14px; border-radius: 10px; font-size: 16px; border-width: 1.5px; }
     </style>`);
@@ -136,8 +156,30 @@
     dibujarEstrellas(t + 10);
     pintarPudu(poseDeEstado('contento', t * 1000), D(18, 58), D(1, 2));
     return txt(D(70, 54), 'PUDUHEALTH', { tam: D(46, 24), pix: true, extra: 'letter-spacing:2px' })
-      + txt(D(80, 63), L('Comparado contigo mismo: a tiempo, privado, a bordo', 'Compared with yourself: early, private, on board'), { tam: D(30, 19), color: '#cfc6f2' })
+      + txt(D(80, 63), L('Plataforma abierta de salud: te compara contigo mismo', 'Open health platform: compared with yourself'), { tam: D(30, 19), color: '#cfc6f2' })
       + txt(D(89, 72), L('con el Astropudú', 'with Astropudú'), { tam: D(16, 11), color: '#b9a6f0', pix: true });
+  }
+
+  // La plataforma: cualquier fuente entrega mediciones por la API abierta; el motor no sabe de dónde vienen.
+  function escenaAPI(t) {
+    dibujarEstrellas(t + 40);
+    const ver = (k) => `opacity:${Math.max(0, Math.min(1, (t - k) / 0.35)).toFixed(2)}`;
+    const fuentes = [
+      L('Banda de pecho · BLE', 'Chest strap · BLE'), L('Reloj', 'Smartwatch'), L('Termómetro', 'Thermometer'),
+      L('Wearable ESP32 propio', 'Our ESP32 wearable'), L('Registro diario', 'Daily check-in'),
+    ].map((f, i) => `<div class="v-chip" style="${ver(0.1 + i * 0.18)}">${f}</div>`).join('')
+      + `<div class="v-chip alt" style="${ver(1.0)}">${L('Cámara del celular (alternativa)', 'Phone camera (fallback)')}</div>`;
+    const motor = [L('Línea base personal', 'Personal baseline'), L('14 reglas citadas', '14 cited rules'), L('Qué hacer · cuándo avisar', 'What to do · when to call')]
+      .map((m, i) => `<div class="v-chip motor" style="${ver(1.9 + i * 0.2)}">${m}</div>`).join('');
+    const flecha = VERTICAL ? '↓' : '→';
+    return `<div class="v-api-titulo" style="${ver(0)}">${L('Sensores propios o de terceros', 'Our own sensors or anyone else\'s')}</div>
+      <div class="v-api">
+        <div class="v-col fuentes">${fuentes}</div>
+        <div class="v-flecha" style="${ver(1.2)}">${flecha}</div>
+        <div class="v-api-centro" style="${ver(1.3)}"><div class="v-pix">${L('API ABIERTA', 'OPEN API')}</div><code>puduhealth/v1</code></div>
+        <div class="v-flecha" style="${ver(1.8)}">${flecha}</div>
+        <div class="v-col">${motor}</div>
+      </div>`;
   }
 
   function escenaValidacion(t) {
@@ -147,17 +189,17 @@
     return txt(D(42, 44), L('PROBADO CON DATOS REALES', 'TESTED ON REAL DATA'), { tam: D(28, 15), pix: true })
       + txt(D(56, 54), L(`Modelo de estrés: ${b('AUC 0,93')} · 15 personas (WESAD)`, `Stress model: ${b('AUC 0.93')} · 15 people (WESAD)`), { tam: D(34, 18) })
       + txt(D(67, 63), L(`Falsas alarmas: ${b('21 % → 2,5 %')} · 14 personas (PMData)`, `False alarms: ${b('21 % → 2.5 %')} · 14 people (PMData)`), { tam: D(34, 18) })
-      + txt(D(78, 72), L(`Pulso vs ECG en reposo: ${b('0,8 lpm')} de error mediano`, `Heart rate vs ECG at rest: ${b('0.8 bpm')} median error`), { tam: D(34, 18) });
+      + txt(D(78, 72), L(`Infecciones reales: la FC sube ${b('+2 lpm')} (Welltory)`, `Real infections: heart rate rises ${b('+2 bpm')} (Welltory)`), { tam: D(34, 18) });
   }
 
   function escenaCierre(t) {
     dibujarEstrellas(t + 30);
     pintarPudu(poseDeEstado('contento', t * 1000), D(10, 12), D(1, 2));
     const lema = VERTICAL
-      ? L('AVISA SEMANAS<br>ANTES<br>PRIVADO · CIFRADO<br>A BORDO<br>CADA CONSEJO<br>CON SU FUENTE',
-        'WEEKS BEFORE<br>THE LIMIT<br>PRIVATE · ENCRYPTED<br>ON BOARD<br>EVERY RECOMMENDATION<br>CITED')
-      : L('AVISA SEMANAS ANTES<br>PRIVADO · CIFRADO · A BORDO<br>CADA CONSEJO CON SU FUENTE',
-        'WEEKS BEFORE THE LIMIT<br>PRIVATE · ENCRYPTED · ON BOARD<br>EVERY RECOMMENDATION CITED');
+      ? L('API ABIERTA<br>CUALQUIER SENSOR<br>AVISA SEMANAS ANTES<br>PRIVADO · CIFRADO<br>CADA CONSEJO<br>CON SU FUENTE',
+        'OPEN API<br>ANY SENSOR<br>WEEKS BEFORE THE LIMIT<br>PRIVATE · ENCRYPTED<br>EVERY RECOMMENDATION<br>CITED')
+      : L('API ABIERTA · CUALQUIER SENSOR<br>AVISA SEMANAS ANTES<br>PRIVADO · CIFRADO · A BORDO<br>CADA CONSEJO CON SU FUENTE',
+        'OPEN API · ANY SENSOR<br>WEEKS BEFORE THE LIMIT<br>PRIVATE · ENCRYPTED · ON BOARD<br>EVERY RECOMMENDATION CITED');
     return txt(D(47, 53), lema, { tam: D(26, 13), pix: true, extra: `line-height:${D(1.9, 1.75)}; white-space:nowrap` })
       + txt(D(75, 70), L('NASA-STD-3001 · riesgos HRP · MSL RAD · OCHMO', 'NASA-STD-3001 · HRP risks · MSL RAD · OCHMO'), { tam: D(30, 15), color: '#cfc6f2' })
       + txt(D(88, 78), 'TECMEDHUB · NASA SPACE APPS 2026 · QUEMCHI, CHILE', { tam: D(18, 10), color: '#b9a6f0', pix: true });
@@ -174,6 +216,7 @@
   const ESCENAS = [
     [0, 6, escenaEspacio],
     [6, 9, escenaTitulo],
+    [9, 12.5, escenaAPI],
     [25.6, 27.8, escenaValidacion],
     [27.8, 30.1, escenaCierre],
   ];
@@ -196,8 +239,6 @@
 
   const EVENTOS = [
     [0, () => { clic('[data-persona="P01"]'); fijarDia(100); irA('vista-pudu'); }],
-    [5.0, () => { clic('#btn-medir'); clic('#med-prueba'); }],
-    [12.5, () => $('#medicion').close()],
     [12.6, () => clic('#btn-registrar')],
     [13.3, () => clic('.celda[data-v="2"][data-a="1"]')],
     [13.8, () => clic('.kss[data-kss="3"]')],

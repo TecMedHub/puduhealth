@@ -1,0 +1,5 @@
+tipo,valor,fuente,calidad
+fc_reposo,74,banda-ble,92
+vfc_rmssd,38,banda-ble,92
+temperatura,37.4,termometro-ble,
+sueno,5.5,reloj,

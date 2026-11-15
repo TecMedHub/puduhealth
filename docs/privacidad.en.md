@@ -21,8 +21,9 @@ the person can do with it.
 
 | Part | Data | Where it stays |
 |---|---|---|
-| App, *My record* | Mood, sleepiness, hours of sleep, minutes of exercise, symptoms, temperature and the result of the camera measurements (heart rate, HRV). Start date of the record | Only on the device, encrypted |
-| App, camera measurement | During the 60 s, the camera frames are processed in memory to obtain the average color of the fingertip. The frames are discarded immediately | Only the result is stored. "Download recording" gives the color signal to the person, and only if they ask for it |
+| App, *My record* | Mood, sleepiness, hours of sleep, minutes of exercise, symptoms, temperature, and the measurements received through the API (sensors, devices, file import, camera adapter). Start date of the record | Only on the device, encrypted |
+| App, platform API | Measurements sent by sensors or devices (`window.puduHealth`) or imported from a file, in the `puduhealth/v1` format | Only on the device, encrypted, like the check-ins |
+| App, camera adapter | During the 60 s, the camera frames are processed in memory to obtain the average color of the fingertip. The frames are discarded immediately | Only the result is stored. "Download recording" gives the color signal to the person, and only if they ask for it |
 | App, *example mission* | Simulated data of a fictional crew | Not stored |
 | Pulsometro (pulse-meter tool, the team's study tool) | Fingertip color signal, heart rate, movement, optional perceived effort and times of each test, associated with a participant code (`P-XXXX`), never with a name | Team server, folder not accessible from the web. See section 7 |
 | Public datasets (WESAD, PMData, Welltory) | Research data already de-identified by their authors | Not stored in the repository: the scripts download them from their source |

@@ -207,7 +207,7 @@ export const TEXTOS = {
     exportarNota: 'El archivo exportado no va cifrado: guárdalo en un lugar seguro.',
     privacidadTitulo: 'Cómo tratamos tus datos',
     privacidad: [
-      { t: 'Qué guardamos', p: 'Lo que registras (ánimo, somnolencia, sueño, ejercicio, síntomas, temperatura) y el resultado de tus mediciones con la cámara (frecuencia cardíaca y su variabilidad). Nunca se guardan imágenes: la cámara se procesa en el momento y sólo queda el número.' },
+      { t: 'Qué guardamos', p: 'Lo que registras (ánimo, somnolencia, sueño, ejercicio, síntomas, temperatura) y las mediciones que llegan por la API: de tus sensores o equipos, de un archivo importado o del adaptador de la cámara. De la cámara nunca se guardan imágenes: sólo el número.' },
       { t: 'Dónde', p: 'Sólo en este dispositivo. La app no tiene servidor, cuentas, publicidad ni analítica: nada de lo que registras sale de aquí.' },
       { t: 'Cómo se protege', p: 'Cifrado con AES-GCM de 256 bits. La llave se crea en el dispositivo y no se puede copiar fuera de él. Con PIN, la llave queda además cerrada por tu PIN (PBKDF2, 600 000 iteraciones).' },
       { t: 'Cuánto tiempo', p: 'Hasta que tú los borres. Borrar elimina los datos y la llave, sin vuelta atrás.' },
@@ -257,7 +257,7 @@ export const TEXTOS = {
     },
     bienvenida: [
       { titulo: 'Hola, soy Astropudú', texto: 'Te acompaño durante la misión. Cada día registras cómo estás en 10 segundos y yo cuido que no se te pase.' },
-      { titulo: 'Tu rango, no el promedio', texto: 'Cada valor se compara con tu propia línea base medida en Tierra. Las alertas salen de reglas con su fuente científica citada.' },
+      { titulo: 'Cualquier sensor, tu propio rango', texto: 'Tus sensores y equipos entregan sus mediciones por una API abierta. Cada valor se compara con tu propia línea base, y las alertas salen de reglas con su fuente científica citada.' },
       { titulo: 'Sin nube, sin señal', texto: 'Todo se calcula en este dispositivo y funciona sin conexión, incluso a 20 minutos-luz de la Tierra.' },
       { titulo: '¿Cómo quieres empezar?', texto: 'Tu registro empieza vacío y arma tu línea base en 7 días. La misión de ejemplo muestra a una tripulación simulada camino a Marte. Puedes cambiar cuando quieras en Ajustes.' },
     ],
@@ -471,7 +471,7 @@ export const TEXTOS = {
     exportarNota: 'The exported file is not encrypted: keep it somewhere safe.',
     privacidadTitulo: 'How we handle your data',
     privacidad: [
-      { t: 'What we store', p: 'What you log (mood, sleepiness, sleep, exercise, symptoms, temperature) and the result of your camera measurements (heart rate and its variability). Images are never stored: the camera is processed on the spot and only the number remains.' },
+      { t: 'What we store', p: 'What you log (mood, sleepiness, sleep, exercise, symptoms, temperature) and the measurements that arrive through the API: from your sensors or devices, an imported file or the camera adapter. Camera images are never stored: only the number.' },
       { t: 'Where', p: 'Only on this device. The app has no server, accounts, ads or analytics: nothing you log leaves it.' },
       { t: 'How it is protected', p: 'Encrypted with 256-bit AES-GCM. The key is created on the device and cannot be copied off it. With a PIN, the key is also locked by your PIN (PBKDF2, 600,000 iterations).' },
       { t: 'How long', p: 'Until you delete it. Deleting removes the data and the key, with no way back.' },
@@ -521,7 +521,7 @@ export const TEXTOS = {
     },
     bienvenida: [
       { titulo: "Hi, I'm Astropudú", texto: "I'll keep you company during the mission. Each day you log how you feel in 10 seconds, and I make sure you don't miss it." },
-      { titulo: 'Your range, not the average', texto: 'Every value is compared with your own baseline measured on Earth. Alerts come from rules with their scientific source cited.' },
+      { titulo: 'Any sensor, your own range', texto: 'Your sensors and devices deliver their measurements through an open API. Every value is compared with your own baseline, and alerts come from rules with their scientific source cited.' },
       { titulo: 'No cloud, no signal needed', texto: 'Everything is computed on this device and works offline, even 20 light-minutes from Earth.' },
       { titulo: 'How do you want to start?', texto: 'Your record starts empty and builds your baseline in 7 days. The example mission shows a simulated crew on its way to Mars. You can switch anytime in Settings.' },
     ],

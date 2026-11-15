@@ -8,9 +8,11 @@
 
 ## 1. The idea
 
-**An onboard health decision-support system that warns weeks before a standard limit is crossed.** It
-compares the astronaut with their own baseline taken on Earth, detects trends and recommends what to
-do according to NASA standards and clinical guidelines. Every recommendation carries its citation.
+**An open onboard health decision-support platform that warns weeks before a standard limit is
+crossed.** Any sensor or medical device, of our own design or third-party, delivers its measurements
+through an open API with a single format (`puduhealth/v1`). The platform compares the astronaut with
+their own baseline taken on Earth, detects trends and recommends what to do according to NASA
+standards and clinical guidelines. Every recommendation carries its citation.
 
 > "A fixed limit warns when the problem already exists. We warn when the person starts to move away
 > from themselves."
@@ -43,6 +45,9 @@ not the central argument: the app's recommendations act over days or weeks.
 
 **The contribution is not the sensor:**
 
+- an open API: any sensor or device enters with the same format, and hardware can be changed or
+  added without touching the engine (the phone camera is only a fallback adapter, built for the
+  challenge because we had no hardware; see the [API wiki](https://github.com/TecMedHub/puduhealth/wiki));
 - the personal baseline taken before the mission, which warns earlier than fixed limits;
 - the decision layer onboard, in the hands of the person who has to act;
 - the privacy of the answers;
@@ -248,10 +253,14 @@ event takes place.
 ### Prototype
 
 ```
-phone (PPG, mood, KSS) ──► static web HTML + JS (simulator, z/EWMA, rules engine, charts)
+sources: own or third-party sensors, daily check-in, camera (fallback)
+   ──► open API puduhealth/v1 (app/js/entrada.js)
+   ──► engine: z/EWMA personal baseline + cited rules ──► static web app HTML + JS
 ```
 
-- Heart rate uses the signal processing in `pulsometro/assets/ppg.js`.
+- The API (`window.puduHealth`, JSON/CSV import) is documented in the [wiki](https://github.com/TecMedHub/puduhealth/wiki) and in
+  [`conexion.md`](conexion.md) (Spanish).
+- The camera adapter uses the signal processing in `pulsometro/assets/ppg.js`.
 - Any web server delivers the files (GitHub Pages in the demo, an onboard computer on a mission); all
   computation happens on the device and the data does not leave it.
 - Offline mode: `app/sw.js` caches the app on the first visit. With a network it always uses the

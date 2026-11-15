@@ -31,15 +31,16 @@ On a phone, open the app and choose *Install*: it then works like any other app,
 
 ## In 30 seconds
 
-**PuduHealth is an onboard health app that compares each astronaut with their own baseline and
-warns weeks before a standard limit is crossed.** It tells the person who has to act what to do and
+**PuduHealth is an open health-monitoring platform for space missions. Any medical sensor, our own
+designs or third-party devices, connects through one open API; the engine compares each astronaut
+with their own baseline and warns weeks before a standard limit is crossed.** It tells the person who has to act what to do and
 when to call the crew medical officer, cites the source of every recommendation, keeps the answers
 private and encrypted on the device, and works with no link to Earth.
 
 | | |
 |---|---|
 | **Impact** | Fixed limits warn late. In the simulated Mars mission, the first personal warnings come **55 days before** the NASA VO2max limit is crossed, while there is still time to correct course. The same approach fits rural health posts in Chiloé, where we built it |
-| **Creativity** | Each person is their own reference. Answers stay with the astronaut, a companion rewards habits without judging feelings, and an ordinary phone camera is the first sensor |
+| **Creativity** | A platform, not a sensor: any device plugs in through one open API, so hardware changes without touching the engine. Each person is their own reference, answers stay with the astronaut, and a companion rewards habits without judging feelings |
 | **Validity** | Deterministic rules with cited thresholds. Drift detector calibrated on real data (14 people, ~5 months). Heart rate from the app's PPG algorithm within 0.8 bpm of chest ECG. 64 automated tests |
 | **Relevance** | It gathers indicators, evaluates five NASA risks, shows trends and recommends actions. The scenario is built on NASA standards, OCHMO briefs and Curiosity's MSL RAD radiation measurements |
 | **Presentation** | An installable phone app in Spanish and English. Every indicator explains itself, and an example mission shows the whole system in one minute |
@@ -107,6 +108,10 @@ deliver it, from GitHub Pages to a computer on board.
 
 ## 2. Creativity: what is new about it
 
+- **A platform, not a sensor.** Every source (our own sensors, third-party devices, onboard
+  equipment, the daily check-in) delivers measurements through one open API (`puduhealth/v1`), and
+  the engine treats them the same. Hardware can change or be added without touching the baseline,
+  the rules or the app. [API documentation](https://github.com/TecMedHub/puduhealth/wiki).
 - **Each person is their own reference.** Most monitoring compares people with a population. The
   app learns each astronaut's range before the mission and watches for drift from it. In
   *My record*, anyone starts their own: the first 7 days calibrate the baseline, and from day 8
@@ -121,10 +126,9 @@ deliver it, from GitHub Pages to a computer on board.
 - **A missing value is not a zero.** If something has not been measured, the card says how to get
   it (daily check-in, camera, onboard equipment) instead of showing a misleading number. Weekly
   rules wait for a full week of history.
-- **The phone is the first sensor.** A 60-second measurement with the camera and flash gives resting
-  heart rate and heart rate variability, with motion checked through the accelerometer.
-- **One open door for any data.** Every source (camera, file, another system, a future chest strap)
-  sends measurements in one format, and the engine treats them the same.
+- **The phone camera, a fallback adapter.** We had no hardware for the challenge, so we built an
+  adapter: a 60-second measurement with the camera and flash gives resting heart rate and HRV, with
+  motion checked through the accelerometer. It is one more source, not the product.
 - **Real radiation, replayed.** The example crew lives day by day what Curiosity's RAD instrument
   measured on its way to Mars and on the surface, including the solar storms it recorded.
 
@@ -171,10 +175,11 @@ Scripts and full results: [`ml/README.md`](ml/README.md) (Spanish).
 
 - **Runs anywhere.** Static files with no backend. Installable as a phone app (web app manifest
   and service worker) and fully usable offline after the first visit.
-- **Open format.** `{ tipo, valor, persona?, dia?, fuente?, calidad? }`. Units are checked, so a
-  temperature in °F is rejected instead of entering wrong. There are three ways in: the phone
-  camera, a JSON / JSON Lines / CSV file (*Settings → My data → Import*) and
-  `window.astroHealth.registrar(...)` from the same page. Spec: [`docs/conexion.md`](docs/conexion.md) (Spanish).
+- **Open API.** One measurement format, `{ tipo, valor, persona?, dia?, fuente?, calidad? }`, with
+  units checked (a temperature in °F is rejected instead of entering wrong). Built today:
+  `window.puduHealth.registrar(...)` in the page, JSON / JSON Lines / CSV import (*Settings → My
+  data → Import*, [sample file](docs/ejemplo-mediciones.csv)) and the phone-camera adapter.
+  Documentation: [API wiki](https://github.com/TecMedHub/puduhealth/wiki) and [`docs/conexion.md`](docs/conexion.md) (Spanish).
 - **Encrypted at rest.** AES-GCM 256-bit with a non-exportable device key, or a key derived from an
   optional PIN (PBKDF2-SHA-256, 600,000 iterations). Details and limits: [personal data handling](docs/privacidad.en.md).
 - **Path to hardware.** We propose the standard Bluetooth Low Energy Heart Rate and Health
@@ -185,8 +190,8 @@ Scripts and full results: [`ml/README.md`](ml/README.md) (Spanish).
 
 | Real | Simulated |
 |---|---|
-| *My record*: your own check-ins, sleep and exercise logs and camera measurements, stored only on your device | *Example mission*: a four-person crew (`app/js/simulador.js`, reproducible from a seed) on a full 860-day Mars mission, or the 210-day outbound trip shown in the video (`?escenario=transito`) |
-| Heart rate measured with the phone camera | Illness, sleep loss and conflict events in the example crew |
+| *My record*: your own measurements from any source (API, file import, camera adapter) and check-ins, stored only on your device | *Example mission*: a four-person crew (`app/js/simulador.js`, reproducible from a seed) on a full 860-day Mars mission, or the 210-day outbound trip shown in the video (`?escenario=transito`) |
+| The open API, the file import and the camera adapter | Illness, sleep loss and conflict events in the example crew |
 | Stress model and drift detector, trained and calibrated on public data | Radiation dose, from MSL RAD dose rates in transit and on the surface |
 
 **This is a hackathon prototype. It is not a medical device and has not been clinically
@@ -200,7 +205,7 @@ validated.** Limitations are listed in the [project plan](docs/plan.en.md), sect
 
 | The astronaut… | How |
 |---|---|
-| gathers indicators | A 10-second daily check-in (mood, sleepiness, sleep, exercise, symptoms, temperature) and a 60-second heart-rate measurement with the phone camera |
+| gathers indicators | From any sensor or medical device through the open API (our own designs or third-party), plus a 10-second daily check-in. The phone camera works as a fallback adapter |
 | evaluates | A traffic light for five risks (cardiovascular, bone and muscle, behavioral, immune, radiation) and trends drawn against the personal range |
 | acts | Each alert gives the action and its source. A sober clinical screen appears when the medical officer should be contacted |
 | understands | Tapping any indicator explains what it is, how it is measured in space, why it matters there, the related NASA spaceflight hazards, when to ask for help and what to do |
@@ -237,6 +242,8 @@ processes them. Full list with links: [project plan](docs/plan.en.md), section 1
 
 ## 5. The app
 
+- **Open API for devices.** Sensors and equipment send measurements in the `puduhealth/v1` format;
+  the app shows them with the same baseline and rules whatever the source ([API wiki](https://github.com/TecMedHub/puduhealth/wiki)).
 - **Phone first, installable.** Four sections in a bottom bar: **Pudú** (companion, check-in,
   measurement), **Today** (overall status, five risks, alerts), **Data** (indicators with a
   30-day trend) and **Trends** (charts you can read with a finger, over 30 days, 90 days or the
@@ -274,7 +281,7 @@ known limits: [personal data handling](docs/privacidad.en.md).
 | Folder | Content |
 |---|---|
 | [`index.html`](index.html) | Project site: links to the app and the pitch, and the videos |
-| [`app/`](app/) | The web app: personal baseline, rules engine, interface, companion, camera measurement, simulator, with tests |
+| [`app/`](app/) | The platform: open API for devices, personal baseline, rules engine, interface, companion, camera adapter, simulator, with tests |
 | [`ml/`](ml/) | Training, calibration and evaluation scripts on public datasets |
 | [`docs/`](docs/) | Project plan in [English](docs/plan.en.md) and [Spanish](docs/plan.es.md): idea, rules, sources, limitations. [Personal data handling](docs/privacidad.en.md) ([Spanish](docs/privacidad.es.md)). Data connection spec (Spanish) |
 | [`pitch/`](pitch/) | The 7 pitch slides (HTML, Spanish and English), with the live app inside |

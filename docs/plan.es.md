@@ -8,9 +8,11 @@
 
 ## 1. La idea
 
-**Un sistema de apoyo a la decisión de salud a bordo que avisa semanas antes de cruzar un límite
-estándar.** Compara al astronauta con su propia línea base tomada en tierra, detecta tendencias y
-recomienda qué hacer según las normas de NASA y guías clínicas. Cada recomendación lleva su cita.
+**Una plataforma abierta de apoyo a la decisión de salud a bordo que avisa semanas antes de cruzar
+un límite estándar.** Cualquier sensor o equipo médico, de diseño propio o de terceros, entrega sus
+mediciones por una API abierta con un formato único (`puduhealth/v1`). La plataforma compara al
+astronauta con su propia línea base tomada en tierra, detecta tendencias y recomienda qué hacer
+según las normas de NASA y guías clínicas. Cada recomendación lleva su cita.
 
 > "Un límite fijo avisa cuando el problema ya existe. Nosotros avisamos cuando la persona empieza a
 > alejarse de sí misma."
@@ -44,6 +46,9 @@ semanas.
 
 **El aporte no es el sensor:**
 
+- una API abierta: cualquier sensor o equipo entra con el mismo formato, y el hardware se cambia o
+  se agrega sin tocar el motor (la cámara del celular es sólo un adaptador alternativo, construido
+  para el reto porque no teníamos hardware; ver la [wiki de la API](https://github.com/TecMedHub/puduhealth/wiki));
 - la línea base personal previa a la misión, que avisa antes que los límites fijos;
 - la capa de decisión a bordo, en manos de quien tiene que actuar;
 - la privacidad de las respuestas;
@@ -249,10 +254,14 @@ nuestro evento local.
 ### Prototipo
 
 ```
-celular (PPG, ánimo, KSS) ──► web estática HTML + JS (simulador, z/EWMA, motor de reglas, gráficas)
+fuentes: sensores propios o de terceros, registro diario, cámara (alternativa)
+   ──► API abierta puduhealth/v1 (app/js/entrada.js)
+   ──► motor: línea base z/EWMA + reglas citadas ──► app web estática HTML + JS
 ```
 
-- La frecuencia cardíaca usa el procesamiento de señal de `pulsometro/assets/ppg.js`.
+- La API (`window.puduHealth`, importación JSON/CSV) está documentada en la [wiki](https://github.com/TecMedHub/puduhealth/wiki) y en
+  [`conexion.md`](conexion.md).
+- El adaptador de la cámara usa el procesamiento de señal de `pulsometro/assets/ppg.js`.
 - Cualquier servidor web entrega los archivos (GitHub Pages en la demo, un computador de a bordo en
   una misión); todo el cálculo ocurre en el dispositivo y los datos no salen de él.
 - Modo sin conexión: `app/sw.js` guarda la app en la primera visita. Con red usa siempre la versión

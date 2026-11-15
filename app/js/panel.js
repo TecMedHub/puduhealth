@@ -219,9 +219,11 @@ function registrar(entrada) {
   return res;
 }
 
-// Para otras fuentes en el mismo navegador (un puente Bluetooth, otro sistema, una prueba):
-// window.astroHealth.registrar({ tipo: 'fc_reposo', valor: 61, fuente: 'banda-ble' })
-window.astroHealth = { formato: FORMATO, registrar, importar: (texto) => registrar(leerTexto(texto)) };
+// API de la plataforma para cualquier fuente (un sensor propio o de terceros, un puente Bluetooth,
+// otro sistema): window.puduHealth.registrar({ tipo: 'fc_reposo', valor: 61, fuente: 'banda-ble' })
+// Ver docs/conexion.md. `astroHealth` se mantiene como alias.
+window.puduHealth = { formato: FORMATO, registrar, importar: (texto) => registrar(leerTexto(texto)) };
+window.astroHealth = window.puduHealth;
 
 const registradoHoy = (persona, dia) =>
   (indice.get(persona)?.get('animo_valencia') ?? []).some((r) => r.dia === dia);

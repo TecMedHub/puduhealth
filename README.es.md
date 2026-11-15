@@ -31,15 +31,16 @@ En el celular, abre la app y elige *Instalar*: queda como cualquier otra app y f
 
 ## En 30 segundos
 
-**PuduHealth es una app de salud a bordo que compara a cada astronauta con su propia línea base y
-avisa semanas antes de cruzar un límite estándar.** Le dice a quien tiene que actuar qué hacer y
+**PuduHealth es una plataforma abierta de monitoreo de salud para misiones espaciales. Cualquier
+sensor médico, de diseño propio o de terceros, se conecta por una API abierta; el motor compara a
+cada astronauta con su propia línea base y avisa semanas antes de cruzar un límite estándar.** Le dice a quien tiene que actuar qué hacer y
 cuándo avisar al oficial médico de la tripulación, cita la fuente de cada recomendación, mantiene
 las respuestas privadas y cifradas en el dispositivo, y funciona sin enlace con la Tierra.
 
 | | |
 |---|---|
 | **Impacto** | Los límites fijos avisan tarde. En la misión simulada a Marte, las primeras alertas personales llegan **55 días antes** de cruzar el límite de VO2max de NASA, cuando todavía hay tiempo para corregir. El mismo enfoque sirve a las postas rurales de Chiloé, donde lo construimos |
-| **Creatividad** | Cada persona es su propia referencia. Las respuestas se quedan con el astronauta, un acompañante premia los hábitos sin juzgar las emociones y la cámara de un celular común es el primer sensor |
+| **Creatividad** | Una plataforma, no un sensor: cualquier equipo se conecta por una API abierta, así que el hardware cambia sin tocar el motor. Cada persona es su propia referencia, las respuestas se quedan con el astronauta y un acompañante premia los hábitos sin juzgar las emociones |
 | **Validez** | Reglas deterministas con umbrales citados. Detector de desviaciones calibrado con datos reales (14 personas, ~5 meses). Frecuencia cardíaca del algoritmo PPG de la app a 0,8 lpm del ECG de pecho. 64 pruebas automáticas |
 | **Pertinencia** | Reúne indicadores, evalúa cinco riesgos de NASA, muestra tendencias y recomienda acciones. El escenario se apoya en estándares de NASA, informes técnicos de OCHMO y la radiación medida por MSL RAD en Curiosity |
 | **Presentación** | Una app de celular instalable, en español e inglés. Cada indicador se explica solo, y una misión de ejemplo muestra el sistema completo en un minuto |
@@ -108,6 +109,10 @@ servidor web puede entregarla, desde GitHub Pages hasta un computador a bordo.
 
 ## 2. Creatividad: qué tiene de nuevo
 
+- **Una plataforma, no un sensor.** Toda fuente (sensores propios, equipos de terceros, equipos de
+  la nave, el registro diario) entrega mediciones por una API abierta (`puduhealth/v1`), y el motor
+  las trata igual. El hardware se puede cambiar o agregar sin tocar la línea base, las reglas ni la
+  app. [Documentación de la API](https://github.com/TecMedHub/puduhealth/wiki).
 - **Cada persona es su propia referencia.** La mayoría de los sistemas de monitoreo compara a las
   personas con una población. La app aprende el rango de cada astronauta antes de la misión y vigila
   cuándo se aleja de él. En *Mi registro* cualquiera arma el suyo: los primeros 7 días calibran la
@@ -122,11 +127,10 @@ servidor web puede entregarla, desde GitHub Pages hasta un computador a bordo.
 - **Un dato que falta no es un cero.** Si algo no se ha medido, la tarjeta dice cómo conseguirlo
   (registro diario, cámara, equipo de a bordo) en vez de mostrar un número engañoso. Las reglas
   semanales esperan a tener una semana completa de historia.
-- **El celular es el primer sensor.** Una medición de 60 segundos con la cámara y la linterna entrega
-  la frecuencia cardíaca en reposo y su variabilidad, y el acelerómetro verifica que la persona
-  estuviera quieta.
-- **Una sola puerta abierta para cualquier dato.** Toda fuente (cámara, archivo, otro sistema, una
-  futura banda de pecho) envía mediciones en un mismo formato, y el motor las trata igual.
+- **La cámara del celular, un adaptador alternativo.** Para el reto no teníamos hardware, así que
+  construimos un adaptador: una medición de 60 segundos con la cámara y la linterna entrega la
+  frecuencia cardíaca en reposo y la VFC, y el acelerómetro verifica que la persona estuviera quieta.
+  Es una fuente más, no el producto.
 - **Radiación real, reproducida.** La tripulación de ejemplo vive día a día lo que midió el
   instrumento RAD de Curiosity camino a Marte y en la superficie, incluidas las tormentas solares que
   registró.
@@ -176,10 +180,11 @@ Scripts y resultados completos: [`ml/README.md`](ml/README.md).
 - **Funciona en cualquier parte.** Archivos estáticos sin backend. Se instala como app de celular
   (manifiesto web y service worker) y se puede usar por completo sin conexión después de la primera
   visita.
-- **Formato abierto.** `{ tipo, valor, persona?, dia?, fuente?, calidad? }`. Las unidades se
-  verifican, así que una temperatura en °F se rechaza en vez de entrar mal. Hay tres entradas: la
-  cámara del celular, un archivo JSON / JSON Lines / CSV (*Ajustes → Mis datos → Importar*) y
-  `window.astroHealth.registrar(...)` desde la misma página. Especificación: [`docs/conexion.md`](docs/conexion.md).
+- **API abierta.** Un solo formato de medición, `{ tipo, valor, persona?, dia?, fuente?, calidad? }`,
+  con unidades verificadas (una temperatura en °F se rechaza en vez de entrar mal). Construido hoy:
+  `window.puduHealth.registrar(...)` en la página, importación JSON / JSON Lines / CSV (*Ajustes →
+  Mis datos → Importar*, [archivo de ejemplo](docs/ejemplo-mediciones.csv)) y el adaptador de la
+  cámara. Documentación: [wiki de la API](https://github.com/TecMedHub/puduhealth/wiki) y [`docs/conexion.md`](docs/conexion.md).
 - **Cifrada en reposo.** AES-GCM de 256 bits con una llave del dispositivo no exportable, o con una
   llave derivada de un PIN opcional (PBKDF2-SHA-256, 600 000 iteraciones). Detalles y límites:
   [tratamiento de datos personales](docs/privacidad.es.md).
@@ -191,8 +196,8 @@ Scripts y resultados completos: [`ml/README.md`](ml/README.md).
 
 | Real | Simulado |
 |---|---|
-| *Mi registro*: tus propios registros diarios, sueño, ejercicio y mediciones con la cámara, guardados sólo en tu dispositivo | *Misión de ejemplo*: una tripulación de cuatro personas (`app/js/simulador.js`, reproducible a partir de una semilla) en una misión completa de 860 días a Marte, o el viaje de ida de 210 días que muestra el video (`?escenario=transito`) |
-| Frecuencia cardíaca medida con la cámara del celular | Eventos de enfermedad, falta de sueño y conflicto en la tripulación de ejemplo |
+| *Mi registro*: tus propias mediciones de cualquier fuente (API, archivo, adaptador de la cámara) y registros diarios, guardados sólo en tu dispositivo | *Misión de ejemplo*: una tripulación de cuatro personas (`app/js/simulador.js`, reproducible a partir de una semilla) en una misión completa de 860 días a Marte, o el viaje de ida de 210 días que muestra el video (`?escenario=transito`) |
+| La API abierta, la importación de archivos y el adaptador de la cámara | Eventos de enfermedad, falta de sueño y conflicto en la tripulación de ejemplo |
 | Modelo de estrés y detector de desviaciones, entrenado y calibrado con datos públicos | Dosis de radiación, a partir de las tasas de MSL RAD en tránsito y en la superficie |
 
 **Es un prototipo de hackatón. No es un dispositivo médico y no está validado clínicamente.** Las
@@ -206,7 +211,7 @@ limitaciones están en el [plan del proyecto](docs/plan.es.md), sección 13.
 
 | El astronauta… | Cómo |
 |---|---|
-| reúne indicadores | Un registro diario de 10 segundos (ánimo, somnolencia, sueño, ejercicio, síntomas, temperatura) y una medición de frecuencia cardíaca de 60 segundos con la cámara del celular |
+| reúne indicadores | De cualquier sensor o equipo médico por la API abierta (de diseño propio o de terceros), más un registro diario de 10 segundos. La cámara del celular sirve como adaptador alternativo |
 | evalúa | Un semáforo de cinco riesgos (cardiovascular, hueso y músculo, conductual, inmune, radiación) y tendencias dibujadas contra el rango personal |
 | actúa | Cada alerta entrega la acción y su fuente. Una pantalla clínica sobria aparece cuando hay que contactar al oficial médico |
 | entiende | Tocar cualquier indicador explica qué es, cómo se mide en el espacio, por qué importa allá, los peligros del vuelo espacial de NASA relacionados, cuándo pedir ayuda y qué hacer |
@@ -243,6 +248,8 @@ descarga y procesa. Lista completa con enlaces: [plan del proyecto](docs/plan.es
 
 ## 5. La app
 
+- **API abierta para equipos.** Sensores y equipos envían mediciones en el formato `puduhealth/v1`;
+  la app las muestra con la misma línea base y las mismas reglas, venga de donde venga ([wiki de la API](https://github.com/TecMedHub/puduhealth/wiki)).
 - **Celular primero, instalable.** Cuatro secciones en una barra inferior: **Pudú** (acompañante,
   registro, medición), **Hoy** (estado general, cinco riesgos, alertas), **Datos** (indicadores con
   su tendencia de 30 días) y **Tendencias** (gráficos que se leen con el dedo, en 30 días, 90 días o
@@ -280,7 +287,7 @@ y 25) y límites conocidos: [tratamiento de datos personales](docs/privacidad.es
 | Carpeta | Contenido |
 |---|---|
 | [`index.html`](index.html) | Sitio del proyecto: accesos a la app y al pitch, y los videos |
-| [`app/`](app/) | La app web: línea base personal, motor de reglas, interfaz, acompañante, medición con cámara, simulador, con pruebas |
+| [`app/`](app/) | La plataforma: API abierta para equipos, línea base personal, motor de reglas, interfaz, acompañante, adaptador de la cámara, simulador, con pruebas |
 | [`ml/`](ml/) | Scripts de entrenamiento, calibración y evaluación con conjuntos de datos públicos |
 | [`docs/`](docs/) | Plan del proyecto en [español](docs/plan.es.md) e [inglés](docs/plan.en.md): idea, reglas, fuentes, limitaciones. [Tratamiento de datos personales](docs/privacidad.es.md) ([inglés](docs/privacidad.en.md)). Especificación de conexión de datos |
 | [`pitch/`](pitch/) | Las 7 diapositivas del pitch (HTML, español e inglés), con la app funcionando adentro |

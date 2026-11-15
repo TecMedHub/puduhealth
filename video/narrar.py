@@ -35,7 +35,7 @@ def ffmpeg(*args: str) -> None:
     subprocess.run(["ffmpeg", "-y", "-hide_banner", "-loglevel", "error", *args], check=True)
 
 
-async def sintetizar(texto: str, voz: str, velocidad: str, destino: Path, intentos: int = 4) -> None:
+async def sintetizar(texto: str, voz: str, velocidad: str, destino: Path, intentos: int = 6) -> None:
     import edge_tts
 
     # El servicio de voz a veces no devuelve audio: se reintenta con una pausa creciente.
@@ -46,7 +46,7 @@ async def sintetizar(texto: str, voz: str, velocidad: str, destino: Path, intent
         except edge_tts.exceptions.NoAudioReceived:
             if n == intentos - 1:
                 raise
-            await asyncio.sleep(1.5 * (n + 1))
+            await asyncio.sleep(2.5 * (n + 1))
 
 
 def carpeta(idioma: str) -> Path:

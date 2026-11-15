@@ -1,8 +1,10 @@
-# Conectar una fuente de datos
+# API de PuduHealth: conectar sensores y equipos médicos
 
-La app no depende de un sensor. Cualquier fuente (un wearable, un equipo de la nave, el celular,
-otro sistema) entrega **mediciones** con un formato único y la app las trata igual: la línea base
-personal, las reglas y el semáforo no saben de dónde vienen. El código está en
+PuduHealth es una plataforma: no depende de un sensor. Cualquier fuente (un sensor o equipo médico
+de diseño propio o de terceros, un equipo de la nave, otro sistema, el registro diario de la
+persona) entrega **mediciones** por una API abierta con un formato único (`puduhealth/v1`), y la
+plataforma las trata igual: la línea base personal, las reglas y el semáforo no saben de dónde
+vienen. Cambiar o agregar hardware no toca el motor. El código está en
 [`app/js/entrada.js`](../app/js/entrada.js).
 
 ```
@@ -49,18 +51,19 @@ detienen a las demás.
 | `temperatura` | °C | inmune |
 | `dosis_radiacion` | mSv | radiación |
 
-## Tres formas de entregarla
+## Formas de entregarla
 
-**1. Desde el mismo navegador.** Otro programa en la página (un puente Bluetooth, una prueba, otro
-sistema) llama a:
+**1. La API en la página.** Un adaptador o sistema que corre en la misma página (un puente
+Bluetooth, el software de un equipo, una prueba) llama a:
 
 ```js
-window.astroHealth.registrar({ tipo: 'fc_reposo', valor: 61, fuente: 'banda-ble' });
-window.astroHealth.registrar([{ tipo: 'sueno', valor: 6.5 }, { tipo: 'kss', valor: 4 }]);
+window.puduHealth.registrar({ tipo: 'fc_reposo', valor: 61, fuente: 'banda-ble' });
+window.puduHealth.registrar([{ tipo: 'sueno', valor: 6.5 }, { tipo: 'kss', valor: 4 }]);
 // → { registros: [...], errores: [] }
 ```
 
-**2. Con un archivo.** *Simulación → Importar mediciones* acepta:
+**2. Con un archivo**, para equipos que exportan sus datos. *Ajustes → Mis datos → Importar* acepta
+(ejemplo listo para probar: [`ejemplo-mediciones.csv`](ejemplo-mediciones.csv)):
 
 - JSON: una medición, una lista, o `{ "formato": "puduhealth/v1", "mediciones": [...] }`;
 - JSON Lines: una medición por línea;
@@ -72,7 +75,8 @@ fc_reposo,58,10,reloj
 sueno,6.5,10,reloj
 ```
 
-**3. La cámara del celular**, el adaptador que ya funciona: una medición válida de 60 s entra como
+**3. La cámara del celular**, un adaptador alternativo para cuando no hay sensor: lo construimos
+para el reto, porque no teníamos hardware. Una medición válida de 60 s entra como
 `fc_reposo` y `vfc_rmssd` del día, con `fuente: celular-ppg` y su calidad. La señal de prueba no
 se guarda. El procesamiento es `pulsometro/assets/ppg.js` (error mediano de 0,8 lpm contra ECG en
 reposo).

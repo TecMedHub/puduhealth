@@ -21,8 +21,9 @@ puede hacer la persona con ellos.
 
 | Parte | Datos | Dónde quedan |
 |---|---|---|
-| App, *Mi registro* | Ánimo, somnolencia, horas de sueño, minutos de ejercicio, síntomas, temperatura y el resultado de las mediciones con la cámara (frecuencia cardíaca, VFC). Fecha de inicio del registro | Sólo en el dispositivo, cifrados |
-| App, medición con cámara | Durante los 60 s se procesan los cuadros de la cámara en memoria para obtener el color promedio de la yema del dedo. Los cuadros se descartan en el momento | Se guarda sólo el resultado. "Descargar grabación" entrega la señal de color a la persona, y sólo si lo pide |
+| App, *Mi registro* | Ánimo, somnolencia, horas de sueño, minutos de ejercicio, síntomas, temperatura, y las mediciones recibidas por la API (sensores, equipos, archivo importado, adaptador de la cámara). Fecha de inicio del registro | Sólo en el dispositivo, cifrados |
+| App, API de la plataforma | Mediciones que envían sensores o equipos (`window.puduHealth`) o que se importan de un archivo, en el formato `puduhealth/v1` | Sólo en el dispositivo, cifradas, igual que los registros |
+| App, adaptador de la cámara | Durante los 60 s se procesan los cuadros de la cámara en memoria para obtener el color promedio de la yema del dedo. Los cuadros se descartan en el momento | Se guarda sólo el resultado. "Descargar grabación" entrega la señal de color a la persona, y sólo si lo pide |
 | App, *misión de ejemplo* | Datos simulados de una tripulación ficticia | No se guardan |
 | Pulsómetro (herramienta de estudio del equipo) | Señal de color de la yema del dedo, frecuencia cardíaca, movimiento, esfuerzo percibido opcional y horas de cada prueba, asociados a un código de participante (`P-XXXX`), nunca a un nombre | Servidor del equipo, carpeta no accesible por la web. Ver sección 7 |
 | Conjuntos de datos públicos (WESAD, PMData, Welltory) | Datos de investigación ya desidentificados por sus autores | No se guardan en el repositorio: los scripts los descargan de su fuente |

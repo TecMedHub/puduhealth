@@ -157,8 +157,8 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
     <div>
       <p class="marca">PuduHealth</p>
       <p class="lema">
-        <span lang="es">Tu salud comparada <span class="acento">contigo mismo</span>, a bordo y sin conexión.</span>
-        <span lang="en">Your health compared <span class="acento">with yourself</span>, on board and offline.</span>
+        <span lang="es">Una plataforma abierta que conecta cualquier sensor médico y compara a cada astronauta <span class="acento">consigo mismo</span>.</span>
+        <span lang="en">An open platform that connects any medical sensor and compares each astronaut <span class="acento">with themselves</span>.</span>
       </p>
       <div class="datos-equipo">
         <p><strong>TecMedHub</strong> · Quemchi, Chiloé, Chile</p>
@@ -167,8 +167,8 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
       </div>
     </div>
     <aside class="notas">
-      <p lang="es">Somos TecMedHub, desde Quemchi, en Chiloé. Les presentamos PuduHealth: una app de salud que compara a cada astronauta consigo mismo, funciona a bordo y no necesita conexión con la Tierra. El de la imagen es el Astropudú, nuestro acompañante: el pudú es el ciervo más pequeño del mundo y vive aquí, en el sur de Chile.</p>
-      <p lang="en">We are TecMedHub, from Quemchi, in Chiloé. This is PuduHealth: a health app that compares each astronaut with themselves, runs on board and needs no link to Earth. That is Astropudú, our companion: the pudú is the world's smallest deer, and it lives here in southern Chile.</p>
+      <p lang="es">Somos TecMedHub, desde Quemchi, en Chiloé. Les presentamos PuduHealth: una plataforma abierta de monitoreo de salud. Cualquier sensor médico, nuestro o de otro fabricante, se conecta por una API, y la plataforma compara a cada astronauta consigo mismo, a bordo y sin conexión con la Tierra. El de la imagen es el Astropudú, nuestro acompañante: el pudú es el ciervo más pequeño del mundo y vive aquí, en el sur de Chile.</p>
+      <p lang="en">We are TecMedHub, from Quemchi, in Chiloé. This is PuduHealth: an open health-monitoring platform. Any medical sensor, ours or another maker's, connects through one API, and the platform compares each astronaut with themselves, on board and with no link to Earth. That is Astropudú, our companion: the pudú is the world's smallest deer, and it lives here in southern Chile.</p>
     </aside>
   </section>
 
@@ -203,18 +203,18 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
     </aside>
   </section>
 
-  <!-- 3 · Solución (creatividad) -->
-  <section class="diapo" data-segundos="35" data-titulo-es="La solución" data-titulo-en="The solution">
-    <p class="etiqueta"><span lang="es">Creatividad · la solución</span><span lang="en">Creativity · the solution</span></p>
-    <h2><span lang="es">Cada persona es su propia referencia</span><span lang="en">Each person is their own reference</span></h2>
+  <!-- 3 · La plataforma (creatividad) -->
+  <section class="diapo" data-segundos="35" data-titulo-es="La plataforma" data-titulo-en="The platform">
+    <p class="etiqueta"><span lang="es">Creatividad · la plataforma</span><span lang="en">Creativity · the platform</span></p>
+    <h2><span lang="es">Cualquier sensor, una API, tu propia referencia</span><span lang="en">Any sensor, one API, your own reference</span></h2>
     <div class="ciclo">
-      <div class="paso"><b><span lang="es">MEDIR</span><span lang="en">MEASURE</span></b><span><span lang="es">Registro de 10 s y FC con la cámara</span><span lang="en">10-second check-in and heart rate with the camera</span></span></div>
+      <div class="paso"><b><span lang="es">FUENTES</span><span lang="en">SOURCES</span></b><span><span lang="es">Sensores propios o de terceros y el registro diario. La cámara, como alternativa</span><span lang="en">Our own or third-party sensors and the daily check-in. The camera, as a fallback</span></span></div>
       <span class="flecha">›</span>
-      <div class="paso"><b><span lang="es">ESTIMAR</span><span lang="en">ESTIMATE</span></b><span><span lang="es">Línea base personal, puntuación z y tendencia</span><span lang="en">Personal baseline, z-score and trend</span></span></div>
+      <div class="paso" style="border-color: rgba(255,138,61,.6)"><b><span lang="es">API ABIERTA</span><span lang="en">OPEN API</span></b><span><span lang="es"><code>puduhealth/v1</code>: un formato, unidades verificadas</span><span lang="en"><code>puduhealth/v1</code>: one format, units checked</span></span></div>
       <span class="flecha">›</span>
-      <div class="paso"><b><span lang="es">DECIDIR</span><span lang="en">DECIDE</span></b><span><span lang="es">14 reglas con su fuente citada</span><span lang="en">14 rules, each with its source</span></span></div>
+      <div class="paso"><b><span lang="es">MOTOR</span><span lang="en">ENGINE</span></b><span><span lang="es">Línea base personal y 14 reglas citadas</span><span lang="en">Personal baseline and 14 cited rules</span></span></div>
       <span class="flecha">›</span>
-      <div class="paso"><b><span lang="es">ACTUAR</span><span lang="en">ACT</span></b><span><span lang="es">Qué hacer y cuándo avisar al oficial médico</span><span lang="en">What to do and when to call the medical officer</span></span></div>
+      <div class="paso"><b>APP</b><span><span lang="es">Qué hacer y cuándo avisar al oficial médico</span><span lang="en">What to do and when to call the medical officer</span></span></div>
     </div>
     <div class="solucion">
       <div class="cifra">
@@ -223,15 +223,15 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
         <p><span lang="es">que el límite de VO2max de NASA, en la misión simulada: todavía hay tiempo para corregir.</span><span lang="en">than NASA's VO2max limit, in the simulated mission: there is still time to correct course.</span></p>
       </div>
       <ul class="lista">
+        <li><span lang="es">El hardware cambia; el motor no.</span><span lang="en">Hardware changes; the engine does not.</span><span class="tenue"><span lang="es">Hoy entran por la API en la página, por archivo y por la cámara. Diseñado: Bluetooth estándar para bandas, relojes y termómetros, y nuestro wearable ESP32.</span><span lang="en">Today they enter through the in-page API, by file and by camera. Designed: standard Bluetooth for straps, watches and thermometers, and our ESP32 wearable.</span></span></li>
         <li><span lang="es">Compara contigo, no con un promedio.</span><span lang="en">Compares you with you, not with an average.</span><span class="tenue"><span lang="es">Los primeros 7 días calibran tu línea base.</span><span lang="en">The first 7 days calibrate your baseline.</span></span></li>
-        <li><span lang="es">La privacidad como medida de salud.</span><span lang="en">Privacy as a health measure.</span><span class="tenue"><span lang="es">Si las respuestas no salen del teléfono, es más fácil ser honesto.</span><span lang="en">If answers never leave the phone, honesty is easier.</span></span></li>
-        <li><span lang="es">Un dato que falta no es un cero.</span><span lang="en">A missing value is not a zero.</span><span class="tenue"><span lang="es">La app dice cómo conseguirlo en vez de inventarlo.</span><span lang="en">The app says how to get it instead of making it up.</span></span></li>
-        <li><span lang="es">Astropudú premia hábitos, nunca juzga emociones.</span><span lang="en">Astropudú rewards habits, never judges feelings.</span></li>
+        <li><span lang="es">La privacidad como medida de salud.</span><span lang="en">Privacy as a health measure.</span><span class="tenue"><span lang="es">Los datos no salen del teléfono y van cifrados.</span><span lang="en">Data never leaves the phone and is encrypted.</span></span></li>
+        <li><span lang="es">Un dato que falta no es un cero.</span><span lang="en">A missing value is not a zero.</span></li>
       </ul>
     </div>
     <aside class="notas">
-      <p lang="es">Nuestra idea: cada persona es su propia referencia. La app mide, estima tu rango personal, decide con reglas citadas y te dice qué hacer. En la misión simulada, la comandante recibe sus primeros avisos 55 días antes de cruzar el límite de VO2max de NASA. Y es distinta en tres cosas: la privacidad es parte del tratamiento, un dato que falta no se inventa, y el Astropudú premia hábitos sin juzgar emociones.</p>
-      <p lang="en">Our idea: each person is their own reference. The app measures, estimates your personal range, decides with cited rules and tells you what to do. In the simulated mission, the commander gets her first warnings 55 days before crossing NASA's VO2max limit. It differs in three ways: privacy is part of the care, a missing value is never made up, and Astropudú rewards habits without judging feelings.</p>
+      <p lang="es">PuduHealth es una plataforma, no un sensor. Cualquier fuente entrega sus mediciones por una API abierta con un solo formato: una banda o un reloj con Bluetooth estándar, un termómetro, el wearable que diseñamos o un equipo de la nave. Como no teníamos hardware, construimos un adaptador con la cámara del celular, pero es solo una fuente más. El motor compara a cada persona con su propia línea base y decide con reglas citadas: en la misión simulada, la comandante recibe sus primeros avisos 55 días antes del límite de VO2max de NASA.</p>
+      <p lang="en">PuduHealth is a platform, not a sensor. Any source delivers its measurements through one open API with a single format: a chest strap or watch with standard Bluetooth, a thermometer, the wearable we designed, or onboard equipment. We had no hardware, so we built an adapter with the phone camera, but it is just one more source. The engine compares each person with their own baseline and decides with cited rules: in the simulated mission, the commander gets her first warnings 55 days before NASA's VO2max limit.</p>
     </aside>
   </section>
 
@@ -246,7 +246,7 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
         <li><span><span lang="es">Hoy: semáforo de 5 riesgos y alerta con su fuente</span><span lang="en">Today: 5-risk traffic light and an alert with its source</span></span></li>
         <li><span><span lang="es">Datos: tocar un indicador y ver qué significa</span><span lang="en">Data: tap an indicator to see what it means</span></span></li>
         <li><span><span lang="es">Tendencias: el rango personal y la deriva</span><span lang="en">Trends: the personal range and the drift</span><span class="tenue"><span lang="es">DEMO → avanzar los días de la misión</span><span lang="en">DEMO → move through the mission days</span></span></span></li>
-        <li><span><span lang="es">Medir FC con la cámara del celular</span><span lang="en">Measure heart rate with the phone camera</span></span></li>
+        <li><span><span lang="es">API: importar las mediciones de un sensor</span><span lang="en">API: import a sensor's measurements</span><span class="tenue"><span lang="es">Ajustes → Mis datos → Importar · ejemplo-mediciones.csv</span><span lang="en">Settings → My data → Import · ejemplo-mediciones.csv</span></span></span></li>
       </ol>
       <div class="botones">
         <a class="boton" id="abrir-app" href="../app/index.html?demo=1&amp;intro=0" target="_blank" rel="noopener"><span lang="es">Abrir la app</span><span lang="en">Open the app</span> ↗</a>
@@ -254,8 +254,8 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
       </div>
     </div>
     <aside class="notas">
-      <p lang="es">Esta es la app real, la misma que se instala en el celular. (Tocar dentro del teléfono; para volver a las diapositivas, hacer clic fuera.) Uno: registro diario, diez segundos. Dos: Hoy, el semáforo de cinco riesgos de NASA y una alerta con su fuente. Tres: tocar un indicador explica qué es y cuándo pedir ayuda. Cuatro: en DEMO avanzo los días y se ve cómo la persona se aleja de su propio rango. Cinco, si alcanza el tiempo: medir la frecuencia cardíaca con la cámara.</p>
-      <p lang="en">This is the real app, the same one you install on a phone. (Tap inside the phone; click outside to return to the slides.) One: the daily check-in, ten seconds. Two: Today, the traffic light for five NASA risks and an alert with its source. Three: tapping an indicator explains what it is and when to ask for help. Four: in DEMO I move through the days and you see the person drift from their own range. Five, if time allows: measuring heart rate with the camera.</p>
+      <p lang="es">Esta es la app real, la misma que se instala en el celular. (Tocar dentro del teléfono; para volver a las diapositivas, hacer clic fuera.) Uno: registro diario, diez segundos. Dos: Hoy, el semáforo de cinco riesgos de NASA y una alerta con su fuente. Tres: tocar un indicador explica qué es y cuándo pedir ayuda. Cuatro: en DEMO avanzo los días y se ve cómo la persona se aleja de su propio rango. Cinco: la API; importo las mediciones de una banda y un termómetro (docs/ejemplo-mediciones.csv) y entran igual que cualquier otra fuente.</p>
+      <p lang="en">This is the real app, the same one you install on a phone. (Tap inside the phone; click outside to return to the slides.) One: the daily check-in, ten seconds. Two: Today, the traffic light for five NASA risks and an alert with its source. Three: tapping an indicator explains what it is and when to ask for help. Four: in DEMO I move through the days and you see the person drift from their own range. Five: the API; I import a chest strap's and a thermometer's measurements (docs/ejemplo-mediciones.csv) and they enter like any other source.</p>
     </aside>
   </section>
 
@@ -269,7 +269,7 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
         <tbody>
           <tr><td><span lang="es">Falsas alarmas del detector</span><span lang="en">Detector false alarms</span><br><span class="tenue">PMData · 14 <span lang="es">personas, ~5 meses</span><span lang="en">people, ~5 months</span></span></td><td class="valor"><span lang="es">2,5 % de días</span><span lang="en">2.5 % of days</span></td></tr>
           <tr><td><span lang="es">Alza sostenida de +5 lpm</span><span lang="en">Sustained +5 bpm rise</span><br><span class="tenue"><span lang="es">mediana</span><span lang="en">median</span></span></td><td class="valor"><span lang="es">3 días</span><span lang="en">3 days</span></td></tr>
-          <tr><td><span lang="es">FC del algoritmo PPG vs ECG en reposo</span><span lang="en">PPG heart rate vs ECG at rest</span><br><span class="tenue">WESAD</span></td><td class="valor"><span lang="es">0,8 lpm</span><span lang="en">0.8 bpm</span></td></tr>
+          <tr><td><span lang="es">Alza de la FC en infecciones reales</span><span lang="en">Heart-rate rise in real infections</span><br><span class="tenue">Welltory · COVID-19</span></td><td class="valor"><span lang="es">+2 lpm</span><span lang="en">+2 bpm</span></td></tr>
           <tr><td><span lang="es">Modelo de estrés agudo, dejando una persona fuera</span><span lang="en">Acute stress model, leave-one-person-out</span><br><span class="tenue">WESAD · 15 <span lang="es">personas</span><span lang="en">people</span></span></td><td class="valor">AUC <span lang="es">0,93</span><span lang="en">0.93</span></td></tr>
           <tr><td><span lang="es">Reglas inmunes</span><span lang="en">Immune rules</span><br><span class="tenue"><span lang="es">30 misiones simuladas</span><span lang="en">30 simulated missions</span></span></td><td class="valor">100 % · 1 <span lang="es">día</span><span lang="en">day</span></td></tr>
           <tr><td><span lang="es">Pruebas automáticas del código</span><span lang="en">Automated code tests</span></td><td class="valor">64</td></tr>
@@ -294,8 +294,8 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
       </div>
     </div>
     <aside class="notas">
-      <p lang="es">No es una idea en el aire. Calibramos el detector con datos reales de 14 personas durante cinco meses: alerta en el 2,5 % de los días y detecta un alza sostenida de cinco latidos en tres días. La frecuencia cardíaca con la cámara se equivoca 0,8 latidos contra un electrocardiograma. Las reglas salen de NASA-STD-3001 y de los informes de OCHMO, y la radiación de la misión es la que midió el instrumento RAD de Curiosity.</p>
-      <p lang="en">This is not an idea in the air. We calibrated the detector on real data from 14 people over five months: it alerts on 2.5 % of days and catches a sustained rise of five beats in three days. Heart rate from the camera algorithm is off by 0.8 beats against an ECG. The rules come from NASA-STD-3001 and OCHMO briefs, and the mission's radiation is what Curiosity's RAD instrument measured.</p>
+      <p lang="es">No es una idea en el aire. Calibramos el detector con datos reales de 14 personas durante cinco meses: alerta en el 2,5 % de los días y detecta un alza sostenida de cinco latidos en tres días. En infecciones reales, la frecuencia cardíaca sube dos latidos: por eso una alerta de infección exige dos señales. Las reglas salen de NASA-STD-3001 y de los informes de OCHMO, y la radiación de la misión es la que midió el instrumento RAD de Curiosity.</p>
+      <p lang="en">This is not an idea in the air. We calibrated the detector on real data from 14 people over five months: it alerts on 2.5 % of days and catches a sustained rise of five beats in three days. In real infections heart rate rises by two beats: that is why an infection alert needs two signals. The rules come from NASA-STD-3001 and OCHMO briefs, and the mission's radiation is what Curiosity's RAD instrument measured.</p>
     </aside>
   </section>
 
@@ -346,13 +346,13 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
       <img src="../app/img/icono-192.png" alt="">
       <div>
         <p class="url" id="url-app"></p>
-        <p class="tenue" style="font-size:16px"><span lang="es">Código abierto · instalable en cualquier celular · funciona sin conexión</span><span lang="en">Open source · installs on any phone · works offline</span></p>
+        <p class="tenue" style="font-size:16px"><span lang="es">API abierta · código abierto · instalable · funciona sin conexión</span><span lang="en">Open API · open source · installable · works offline</span></p>
         <p class="aviso-legal"><span lang="es">Prototipo de hackatón: no es un dispositivo médico ni está validado clínicamente.</span><span lang="en">Hackathon prototype: not a medical device and not clinically validated.</span></p>
       </div>
     </div>
     <aside class="notas">
-      <p lang="es">Lo construimos en Quemchi, donde las postas de las islas las atiende un técnico paramédico y el médico llega por mar. La pregunta es la misma que camino a Marte: ¿esto es normal para esta persona, qué hago y cuándo aviso? El mismo motor, con otras reglas, podría apoyar a una posta rural; es una dirección, todavía no lo probamos. La app ya está publicada, se instala en cualquier celular y es código abierto. Gracias.</p>
-      <p lang="en">We built this in Quemchi, where island health posts are run by a paramedic technician and the doctor arrives by sea. The question is the same as on the way to Mars: is this normal for this person, what do I do, and when do I call? The same engine, with other rules, could support a rural post; that is a direction we have not tested yet. The app is live, installs on any phone, and is open source. Thank you.</p>
+      <p lang="es">Lo construimos en Quemchi, donde las postas de las islas las atiende un técnico paramédico y el médico llega por mar. La pregunta es la misma que camino a Marte: ¿esto es normal para esta persona, qué hago y cuándo aviso? El mismo motor, con otras reglas, podría apoyar a una posta rural; es una dirección, todavía no lo probamos. La plataforma ya está publicada, con su API abierta y su código abierto. Gracias.</p>
+      <p lang="en">We built this in Quemchi, where island health posts are run by a paramedic technician and the doctor arrives by sea. The question is the same as on the way to Mars: is this normal for this person, what do I do, and when do I call? The same engine, with other rules, could support a rural post; that is a direction we have not tested yet. The platform is live, with its open API and open source code. Thank you.</p>
     </aside>
   </section>
 

@@ -19,7 +19,7 @@ línea base y decide con reglas citadas. El diseño completo está en [`docs/pla
 | `js/cifrado.js` | Cifrado en el dispositivo: AES-GCM de 256 bits, llave del dispositivo no exportable o PIN opcional (PBKDF2). Ver [`docs/privacidad.es.md`](../docs/privacidad.es.md) |
 | `js/personal.js` | Mi registro: días de calibración, escenario personal y datos guardados en el dispositivo |
 | `js/ui.js` | Piezas de interfaz: hoja inferior, avisos breves y vibración |
-| `js/entrada.js` | Entrada universal: cualquier fuente entrega mediciones en un formato único (API en el navegador, archivo JSON/CSV, cámara). Ver [`docs/conexion.md`](../docs/conexion.md) |
+| `js/entrada.js` | API abierta de la plataforma (`window.puduHealth`): cualquier sensor o equipo entrega mediciones en un formato único (`puduhealth/v1`), por la API en la página, por archivo JSON/CSV o por el adaptador de la cámara. Ver [`docs/conexion.md`](../docs/conexion.md) y la [wiki de la API](https://github.com/TecMedHub/puduhealth/wiki) |
 | `sw.js` | Modo sin conexión: guarda los archivos de la app en el dispositivo en la primera visita; una versión nueva se activa al aceptar el aviso |
 | `manifest.webmanifest` | App instalable: nombre, íconos (dibujados desde el sprite del acompañante) y atajos |
 | `js/acompanante.js` | Acompañante en pixel art y su estado (depende de hábitos, no del contenido emocional) |
