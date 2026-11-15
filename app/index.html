@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>PuduHealth · TecMedHub</title>
+  <meta name="description" content="Salud de la tripulación comparada con la línea base de cada persona, con reglas citadas. Funciona sin conexión; nada sale del dispositivo.">
+  <meta name="theme-color" content="#12112a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="PuduHealth">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="img/favicon-64.png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/estilo.css">
+  <script>
+    // Tema antes de pintar (evita un destello con otros colores): ?tema= o el último elegido.
+    (function () {
+      var temas = ['astropudu', 'chiloe', 'marte'];
+      var t = new URLSearchParams(location.search).get('tema');
+      if (temas.indexOf(t) < 0) { try { t = localStorage.getItem('puduhealth.tema'); } catch (e) { t = null; } }
+      document.documentElement.dataset.tema = temas.indexOf(t) >= 0 ? t : 'astropudu';
+      // Modo: Mi registro (datos propios) o la misión de ejemplo (?demo=1 la fuerza).
+      var p = new URLSearchParams(location.search), m = null;
+      try { m = localStorage.getItem('puduhealth.modo'); } catch (e) { m = null; }
+      if (p.get('demo') === '1' || p.has('escenario')) m = 'demo';
+      document.documentElement.dataset.modo = m === 'personal' ? 'personal' : 'demo';
+    })();
+  </script>
+</head>
+<body>
+  <div class="app">
+  <header class="barra">
+    <button id="btn-perfil" class="perfil" type="button" data-abre-demo>
+      <img class="perfil-avatar" src="img/favicon-64.png" alt="" width="36" height="36">
+      <span class="perfil-texto">
+        <span class="perfil-nombre"><span id="perfil-punto" class="punto verde"></span><span id="perfil-id">P01</span></span>
+        <span id="perfil-rol" class="perfil-rol"></span>
+      </span>
+    </button>
+    <span class="marca"><span class="latido">♥</span> <span data-t="titulo">PuduHealth</span></span>
+    <button id="btn-dia" class="chip-dia" type="button" data-abre-demo>
+      <span id="dia-corto" class="dia-corto"></span>
+      <span id="fase-corta" class="fase-corta"></span>
+    </button>
+    <button id="btn-demo" class="insignia solo-demo" type="button" data-abre-demo data-t="demo">DEMO</button>
+    <button id="btn-ajustes" class="boton-icono ajustes solo-personal" type="button" data-abre-demo data-t-aria="ajustes" aria-label="Ajustes">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+  </header>
+
+  <div id="hoja-fondo" class="hoja-fondo" hidden></div>
+  <section id="demo" class="demo hoja" aria-labelledby="demo-titulo">
+    <div class="tirador" aria-hidden="true"></div>
+    <div class="demo-cabeza">
+      <h2 id="demo-titulo">Ajustes</h2>
+      <button id="demo-cerrar" class="boton-icono" type="button" data-t-aria="cerrar" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="demo-cuerpo">
+      <div class="demo-bloque bloque-modo">
+        <h3 data-t="modoTitulo">Usar con</h3>
+        <div class="segmentado ancho" role="group" data-t-aria="modoTitulo">
+          <button type="button" data-modo="personal" data-t="modos.personal">Mi registro</button>
+          <button type="button" data-modo="demo" data-t="modos.demo">Misión de ejemplo</button>
+        </div>
+        <p class="nota demo-nota solo-demo" data-t="demoNota"></p>
+      </div>
+      <div class="demo-bloque bloque-trip solo-demo">
+        <h3 data-t="tripulacion">Tripulación</h3>
+        <div id="tripulacion" class="tripulacion" role="tablist"></div>
+      </div>
+      <div class="demo-bloque control-dia solo-demo">
+        <div class="dia-textos">
+          <span id="dia-texto" class="dia-texto"></span>
+          <span id="dia-fase" class="dia-fase"></span>
+        </div>
+        <div class="dia-fila">
+          <button id="dia-menos" class="boton-icono" type="button" data-t-aria="diaAnterior" aria-label="Día anterior">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+          </button>
+          <input id="dia" type="range" min="0" max="209" step="1" aria-labelledby="dia-texto">
+          <button id="dia-mas" class="boton-icono" type="button" data-t-aria="diaSiguiente" aria-label="Día siguiente">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+      <details class="demo-bloque simulacion solo-demo">
+        <summary data-t="simulacion">Simulación</summary>
+        <form id="form-semilla">
+          <label><span data-t="escenario">Escenario</span> <select id="escenario">
+            <option value="marte" data-t="escenarios.marte">Misión completa a Marte (860 días)</option>
+            <option value="transito" data-t="escenarios.transito">Viaje de ida a Marte (210 días)</option>
+          </select></label>
+          <label><span data-t="semilla">Semilla</span> <input id="semilla" type="text" size="14" autocomplete="off"></label>
+          <button class="boton-chico" type="submit" data-t="aplicar">Aplicar</button>
+        </form>
+      </details>
+      <div class="demo-bloque bloque-datos">
+        <h3 data-t="datosTitulo">Mis datos</h3>
+        <p class="nota solo-personal" data-t="datosLocal"></p>
+        <div class="datos-acciones">
+          <label class="boton-chico secundario importar"><span data-t="importar">Importar mediciones (JSON o CSV)</span>
+            <input id="importar" type="file" accept=".json,.jsonl,.csv,application/json,text/csv" hidden></label>
+          <button id="btn-exportar" class="boton-chico secundario solo-personal" type="button" data-t="exportar">Exportar mis datos</button>
+          <button id="btn-borrar" class="boton-chico secundario peligro solo-personal" type="button" data-t="borrarDatos">Borrar mis datos</button>
+        </div>
+        <p class="nota solo-personal" data-t="exportarNota"></p>
+        <p id="importar-estado" class="nota" hidden></p>
+      </div>
+      <div class="demo-bloque bloque-seguridad solo-personal">
+        <h3 data-t="seguridadTitulo">Privacidad y seguridad</h3>
+        <p id="cifrado-estado" class="cifrado-estado"></p>
+        <div class="datos-acciones">
+          <button id="btn-pin" class="boton-chico secundario" type="button"></button>
+          <button id="btn-quitar-pin" class="boton-chico secundario" type="button" hidden data-t="quitarPin">Quitar PIN</button>
+        </div>
+      </div>
+      <div class="demo-bloque demo-ajustes">
+        <div class="demo-fila">
+          <span data-t="idioma">Idioma</span>
+          <div class="segmentado" role="group" data-t-aria="idioma">
+            <button type="button" data-lang="es">Español</button>
+            <button type="button" data-lang="en">English</button>
+          </div>
+        </div>
+        <div>
+          <h3 data-t="tema">Tema</h3>
+          <div class="temas" role="group" data-t-aria="tema">
+            <button type="button" class="tema" data-tema="astropudu">
+              <span class="muestra" aria-hidden="true"><i style="background:#12112a"></i><i style="background:#f3ebde"></i><i style="background:#ff8a3d"></i><i style="background:#b9a6f0"></i></span>
+              <span data-t="temas.astropudu">Astropudú</span>
+            </button>
+            <button type="button" class="tema" data-tema="chiloe">
+              <span class="muestra" aria-hidden="true"><i style="background:#0c1412"></i><i style="background:#eef1e6"></i><i style="background:#e39452"></i><i style="background:#93cdb5"></i></span>
+              <span data-t="temas.chiloe">Chiloé</span>
+            </button>
+            <button type="button" class="tema" data-tema="marte">
+              <span class="muestra" aria-hidden="true"><i style="background:#15100e"></i><i style="background:#f5e8da"></i><i style="background:#e8703f"></i><i style="background:#63cbc2"></i></span>
+              <span data-t="temas.marte">Marte</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="demo-bloque demo-acciones">
+        <button id="btn-instalar" class="boton" type="button" hidden data-t="instalar">Instalar app</button>
+        <p id="instalar-ios" class="nota" hidden data-t="instalarIos"></p>
+        <button id="btn-privacidad" class="enlace" type="button" data-t="privacidadTitulo">Cómo tratamos tus datos</button>
+        <button id="btn-bienvenida" class="enlace" type="button" data-t="verBienvenida">Ver la introducción</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="vistas" id="vistas">
+    <section id="vista-pudu" class="vista acompanante" role="tabpanel" aria-labelledby="tab-pudu">
+      <canvas id="lienzo" class="lienzo" aria-hidden="true"></canvas>
+      <p class="nombre-acomp">Astropudú</p>
+      <p id="estado-acomp" class="estado-acomp"></p>
+      <p id="frase" class="frase"></p>
+      <div class="acciones-pudu">
+        <button id="btn-registrar" class="boton grande" type="button"></button>
+        <button id="btn-medir" class="boton secundario grande" type="button">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
+          <span data-t="medir">Medir FC (60 s)</span>
+        </button>
+      </div>
+      <button id="resumen-pudu" class="resumen-pudu" type="button">
+        <span class="resumen-titulo"><span data-t="resumenHoy">Resumen de hoy</span><span class="resumen-ver"><span data-t="verHoy">Ver detalle</span> ›</span></span>
+        <span id="mini-semaforo" class="mini-semaforo"></span>
+      </button>
+    </section>
+
+    <section id="vista-hoy" class="vista hoy" role="tabpanel" aria-labelledby="tab-hoy">
+      <div id="general" class="general"></div>
+      <h2 data-t="riesgosHoy">Riesgos de hoy</h2>
+      <div id="semaforo" class="semaforo"></div>
+      <h2 data-t="alertas">Alertas y recomendaciones</h2>
+      <div id="alertas" class="alertas" aria-live="polite"></div>
+    </section>
+
+    <section id="vista-datos" class="vista datos" role="tabpanel" aria-labelledby="tab-datos">
+      <h2 data-t="indicadores">Indicadores</h2>
+      <p class="nota" data-t="tocaIndicador"></p>
+      <div id="indicadores" class="indicadores"></div>
+      <p id="origen-nota" class="nota origen-nota"></p>
+    </section>
+
+    <section id="vista-tendencias" class="vista tendencias-vista" role="tabpanel" aria-labelledby="tab-tendencias">
+      <div class="tendencias-cabeza">
+        <h2 data-t="tendencias">Tendencias</h2>
+        <div id="rango" class="segmentado chico" role="group" data-t-aria="rangoTitulo">
+          <button type="button" data-rango="30" data-t="rango.d30">30 d</button>
+          <button type="button" data-rango="90" data-t="rango.d90">90 d</button>
+          <button type="button" data-rango="0" data-t="rango.todo">Misión</button>
+        </div>
+      </div>
+      <p class="nota" data-t="rangoPersonal"></p>
+      <div id="tendencias" class="tendencias"></div>
+    </section>
+  </main>
+
+  <nav class="pestanas" role="tablist" data-t-aria="navegacion">
+    <button id="tab-pudu" type="button" role="tab" data-vista="vista-pudu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="10" r="6"/><path d="M8 5L6 2M16 5l2-3M9 21v-5h6v5M6 21h12"/><circle cx="10" cy="10" r=".6"/><circle cx="14" cy="10" r=".6"/></svg>
+      <span data-t="tabs.pudu">Pudú</span>
+    </button>
+    <button id="tab-hoy" type="button" role="tab" data-vista="vista-hoy">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11z"/><path d="M7 12h3l1.5-3 2 5 1.5-2H17"/></svg>
+      <span data-t="tabs.hoy">Hoy</span><span id="tab-hoy-punto" class="tab-punto" hidden></span>
+    </button>
+    <button id="tab-datos" type="button" role="tab" data-vista="vista-datos">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+      <span data-t="tabs.datos">Datos</span>
+    </button>
+    <button id="tab-tendencias" type="button" role="tab" data-vista="vista-tendencias">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h16M4 15l4-5 4 3 7-8"/></svg>
+      <span data-t="tabs.tendencias">Tendencias</span>
+    </button>
+  </nav>
+  </div>
+
+  <div id="avisos" class="avisos" role="status" aria-live="polite"></div>
+
+  <div id="clinica" class="clinica" hidden>
+    <div class="clinica-caja" role="alertdialog" aria-labelledby="clinica-titulo">
+      <h2 id="clinica-titulo" data-t="clinicaTitulo">Un paso a seguir</h2>
+      <p id="clinica-texto"></p>
+      <p id="clinica-mensaje" class="nota" hidden data-t="clinicaContactado"></p>
+      <div class="acciones">
+        <button id="clinica-contactar" class="boton" type="button" data-t="clinicaBoton"></button>
+        <button id="clinica-ver" class="boton secundario" type="button" data-t="clinicaVer"></button>
+      </div>
+    </div>
+  </div>
+
+  <dialog id="registro" class="registro hoja-dialogo">
+    <form method="dialog" id="form-registro">
+      <div class="tirador" aria-hidden="true"></div>
+      <div class="hoja-scroll">
+        <h2 data-t="comoEstas">¿Cómo te sientes?</h2>
+        <div id="rejilla-animo" class="rejilla-animo"></div>
+        <h3 data-t="kss">¿Qué tan somnoliento estás?</h3>
+        <div id="escala-kss" class="escala-kss"></div>
+        <div class="kss-extremos"><span id="kss-min"></span><span id="kss-max"></span></div>
+        <h3><span data-t="suenoHoy">¿Cuántas horas dormiste anoche?</span> <small data-t="opcional">opcional</small></h3>
+        <div id="escala-sueno" class="opciones" data-campo="sueno"></div>
+        <h3><span data-t="ejercicioHoy">Ejercicio de hoy</span> <small data-t="opcional">opcional</small></h3>
+        <div class="ejercicio-fila"><span data-t="aerobicoCorto">Aeróbico</span><div id="escala-aerobico" class="opciones" data-campo="aerobico"></div></div>
+        <div class="ejercicio-fila"><span data-t="resistenciaCorto">Resistencia</span><div id="escala-resistencia" class="opciones" data-campo="resistencia"></div></div>
+        <h3 data-t="sintomasHoy">¿Algún síntoma hoy?</h3>
+        <div id="sintomas" class="sintomas"></div>
+        <label class="temperatura">
+          <span data-t="temperaturaHoy">Temperatura (opcional)</span>
+          <span><input id="temperatura" type="text" inputmode="decimal" autocomplete="off" maxlength="5" placeholder="36,6"> °C</span>
+        </label>
+        <p id="temperatura-error" class="nota error" hidden data-t="temperaturaFuera"></p>
+      </div>
+      <div class="acciones pie-hoja">
+        <button class="boton secundario" value="cancelar" data-t="cancelar">Cancelar</button>
+        <button id="registro-guardar" class="boton" value="guardar" disabled data-t="guardar">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="info" class="registro info hoja-dialogo" aria-labelledby="info-titulo">
+    <form method="dialog">
+      <div class="tirador" aria-hidden="true"></div>
+      <div class="hoja-scroll">
+        <h2 id="info-titulo"></h2>
+        <div id="info-cuerpo"></div>
+      </div>
+      <div class="acciones pie-hoja">
+        <button class="boton secundario" value="cerrar" data-t="medCerrar">Cerrar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="medicion" class="medicion hoja-dialogo completa">
+    <div class="hoja-scroll">
+      <h2 data-t="medTitulo">Frecuencia cardíaca en reposo</h2>
+      <video id="med-video" playsinline muted hidden></video>
+      <div class="med-vivo">
+        <span class="med-bpm"><strong id="med-bpm">--</strong> <span>lpm</span></span>
+        <span class="med-tiempo"><strong id="med-tiempo">60</strong> s</span>
+      </div>
+      <canvas id="med-onda" class="med-onda" width="600" height="140" aria-hidden="true"></canvas>
+      <div class="med-progreso"><div id="med-barra"></div></div>
+      <p id="med-estado" class="med-estado"></p>
+      <div id="med-resultado" class="med-resultado" hidden></div>
+      <button id="med-borrar-base" class="enlace" type="button" data-t="medBorrarBase">Borrar línea base de este dispositivo</button>
+    </div>
+    <div class="acciones pie-hoja">
+      <button id="med-iniciar" class="boton" type="button" data-t="medIniciar">Iniciar</button>
+      <button id="med-prueba" class="boton secundario" type="button" data-t="medPrueba">Señal de prueba</button>
+      <button id="med-agregar-base" class="boton secundario" type="button" hidden data-t="medAgregarBase">Agregar a mi línea base</button>
+      <button id="med-descargar" class="boton secundario" type="button" hidden data-t="medDescargar">Descargar grabación</button>
+      <button id="med-cerrar" class="boton secundario" type="button" data-t="medCerrar">Cerrar</button>
+    </div>
+  </dialog>
+
+  <div id="candado" class="candado" hidden>
+    <form id="form-candado" class="candado-caja" autocomplete="off">
+      <img class="candado-pudu" src="img/icono-192.png" alt="" width="96" height="96">
+      <h2 data-t="candadoTitulo">Tus datos están protegidos</h2>
+      <p class="nota" data-t="candadoTexto"></p>
+      <input id="candado-pin" class="campo-pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off" data-t-aria="pin" aria-label="PIN">
+      <p id="candado-error" class="nota error" hidden></p>
+      <button id="candado-abrir" class="boton grande" type="submit" data-t="abrir">Abrir</button>
+      <button id="candado-ejemplo" class="enlace" type="button" data-t="verEjemplo">Ver la misión de ejemplo</button>
+      <button id="candado-olvide" class="enlace peligro" type="button" data-t="olvidePin">Olvidé mi PIN</button>
+    </form>
+  </div>
+
+  <dialog id="dialogo-pin" class="registro hoja-dialogo" aria-labelledby="pin-titulo">
+    <form method="dialog" id="form-pin" autocomplete="off">
+      <div class="tirador" aria-hidden="true"></div>
+      <div class="hoja-scroll">
+        <h2 id="pin-titulo" data-t="pinTitulo">PIN para tus datos</h2>
+        <p class="nota" data-t="pinTexto"></p>
+        <label class="campo-etiqueta"><span data-t="pinNuevo">PIN (4 a 8 dígitos)</span>
+          <input id="pin-1" class="campo-pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="new-password"></label>
+        <label class="campo-etiqueta"><span data-t="pinRepetir">Repite el PIN</span>
+          <input id="pin-2" class="campo-pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="new-password"></label>
+        <p id="pin-error" class="nota error" hidden></p>
+      </div>
+      <div class="acciones pie-hoja">
+        <button id="pin-cancelar" class="boton secundario" type="button" data-t="cancelar">Cancelar</button>
+        <button id="pin-guardar" class="boton" value="guardar" data-t="guardar">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="privacidad" class="registro info hoja-dialogo" aria-labelledby="priv-titulo">
+    <form method="dialog">
+      <div class="tirador" aria-hidden="true"></div>
+      <div class="hoja-scroll">
+        <h2 id="priv-titulo" data-t="privacidadTitulo">Cómo tratamos tus datos</h2>
+        <div id="priv-cuerpo"></div>
+      </div>
+      <div class="acciones pie-hoja">
+        <button class="boton secundario" value="cerrar" data-t="medCerrar">Cerrar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="bienvenida" class="bienvenida" aria-labelledby="bien-titulo">
+    <canvas id="bien-lienzo" class="lienzo chico" aria-hidden="true"></canvas>
+    <div id="bien-pasos" class="bien-pasos"></div>
+    <div id="bien-puntos" class="bien-puntos" aria-hidden="true"></div>
+    <div class="acciones">
+      <button id="bien-saltar" class="boton secundario" type="button" data-t="saltar">Saltar</button>
+      <button id="bien-siguiente" class="boton" type="button" data-t="siguiente">Siguiente</button>
+      <button id="bien-mio" class="boton" type="button" hidden data-t="empezarMio">Empezar mi registro</button>
+      <button id="bien-ejemplo" class="boton secundario" type="button" hidden data-t="verEjemplo">Ver la misión de ejemplo</button>
+    </div>
+  </dialog>
+  <script src="../pulsometro/assets/ppg.js"></script>
+  <script src="../pulsometro/assets/movimiento.js"></script>
+  <script type="module" src="js/panel.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+# Archivos de trabajo de la grabación del video: sólo se publican los MP4 finales
+video/salida/*
+!video/salida/puduhealth-*.mp4
+# Datos de terceros descargados por los scripts de ml/ (no se redistribuyen)
+ml/datos/
+ml/cache/
+ml/.venv/
+__pycache__/
+node_modules/

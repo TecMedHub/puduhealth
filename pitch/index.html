@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PuduHealth · Pitch</title>
+<meta name="theme-color" content="#12112a">
+<link rel="icon" type="image/png" href="../app/img/favicon-64.png">
+<style>
+@font-face { font-family: 'Inter'; src: url('../app/fuentes/inter-latin.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+:root {
+  --fondo: #12112a; --panel: #1b1a3c; --panel2: #222048; --borde: #34316a;
+  --texto: #f3ebde; --tenue: #aaa3c8; --acento: #ff8a3d; --secundario: #b9a6f0;
+  --verde: #3ddc97; --ambar: #ffc04d; --rojo: #ff5c6c;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: #0b0a1c; color: var(--texto); font-family: 'Inter', system-ui, sans-serif; overflow: hidden; }
+html[data-lang='es'] [lang='en'], html[data-lang='en'] [lang='es'] { display: none !important; }
+
+/* escenario 16:9 fijo, escalado a la ventana */
+.escenario { position: absolute; left: 50%; top: 50%; width: 1280px; height: 720px; transform-origin: center; }
+.diapo {
+  position: absolute; inset: 0; padding: 48px 72px 64px; display: none; flex-direction: column; justify-content: center;
+  background: radial-gradient(circle at 85% 15%, rgba(185,166,240,0.12), transparent 45%), var(--fondo);
+  border-radius: 6px; overflow: hidden;
+}
+.diapo.activa { display: flex; animation: entrar 380ms cubic-bezier(.2,.8,.2,1); }
+@keyframes entrar { from { opacity: 0; transform: translateY(10px); } }
+.estrellas::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background-image: radial-gradient(1px 1px at 12% 22%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 72% 12%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 40% 80%, #cfc4ff 50%, transparent 51%), radial-gradient(1px 1px at 90% 70%, #fff 50%, transparent 51%),
+    radial-gradient(1px 1px at 25% 55%, #cfc4ff 50%, transparent 51%), radial-gradient(1.5px 1.5px at 60% 40%, #fff 50%, transparent 51%);
+}
+.etiqueta { font-size: 15px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--acento); margin: 0 0 10px; }
+h1 { font-size: 52px; line-height: 1.08; margin: 0 0 18px; letter-spacing: -.02em; }
+h2 { font-size: 46px; line-height: 1.12; margin: 0 0 30px; letter-spacing: -.015em; }
+p { margin: 0; }
+.tenue { color: var(--tenue); }
+.acento { color: var(--acento); }
+.pie-diapo { position: absolute; left: 72px; right: 72px; bottom: 24px; display: flex; justify-content: space-between; font-size: 13px; color: var(--tenue); }
+
+/* 1 portada */
+.portada { flex-direction: row; align-items: center; gap: 56px; }
+.portada img { width: 360px; height: 360px; border-radius: 28px; image-rendering: pixelated; box-shadow: 0 30px 80px rgba(0,0,0,.45), 0 0 0 1px var(--borde); }
+.marca { font-size: 84px; font-weight: 800; letter-spacing: -.03em; margin: 0 0 14px; }
+.lema { font-size: 30px; line-height: 1.3; margin-bottom: 34px; max-width: 18em; }
+.datos-equipo { display: grid; gap: 6px; font-size: 18px; color: var(--tenue); }
+.datos-equipo strong { color: var(--texto); }
+
+/* tarjetas */
+.tres { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.cuatro { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.tarjeta { background: var(--panel); border: 1px solid var(--borde); border-radius: 22px; padding: 26px; display: grid; align-content: start; gap: 12px; }
+.tarjeta .num { font-size: 15px; font-weight: 800; color: var(--acento); letter-spacing: .1em; }
+.tarjeta h3 { font-size: 27px; margin: 0; line-height: 1.2; }
+.tarjeta p { font-size: 20px; line-height: 1.45; color: var(--tenue); }
+.tarjeta .fuente { font-size: 15px; color: var(--secundario); margin-top: 4px; }
+.cita { margin-top: 26px; font-size: 22px; color: var(--tenue); border-left: 4px solid var(--acento); padding: 4px 0 4px 18px; }
+
+/* 3 solución */
+.ciclo { display: flex; align-items: stretch; gap: 10px; margin-bottom: 30px; }
+.paso { flex: 1; background: var(--panel); border: 1px solid var(--borde); border-radius: 18px; padding: 18px 18px; }
+.paso b { display: block; font-size: 15px; letter-spacing: .12em; color: var(--acento); margin-bottom: 6px; }
+.paso span { font-size: 18px; color: var(--tenue); line-height: 1.35; }
+.flecha { align-self: center; color: var(--secundario); font-size: 26px; }
+.solucion { display: grid; grid-template-columns: 330px 1fr; gap: 34px; align-items: center; }
+.cifra { background: linear-gradient(135deg, rgba(255,138,61,.18), var(--panel)); border: 1px solid rgba(255,138,61,.45); border-radius: 26px; padding: 30px; text-align: center; }
+.cifra .grande { font-size: 96px; font-weight: 800; line-height: 1; color: var(--acento); letter-spacing: -.03em; }
+.cifra .unidad { font-size: 26px; font-weight: 700; margin: 6px 0 10px; }
+.cifra p { font-size: 16px; color: var(--tenue); line-height: 1.4; }
+.lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
+.lista li { font-size: 23px; line-height: 1.38; padding-left: 34px; position: relative; }
+.lista li::before { content: ''; position: absolute; left: 4px; top: 9px; width: 14px; height: 14px; border-radius: 4px; background: var(--secundario); transform: rotate(45deg); }
+.lista li span.tenue { display: block; font-size: 18px; }
+
+/* 4 demo */
+.demo { flex-direction: row; gap: 56px; align-items: center; }
+.telefono { flex: none; width: 300px; height: 612px; border-radius: 44px; background: #05040e; padding: 12px; box-shadow: 0 0 0 2px #3a375f, 0 30px 80px rgba(0,0,0,.5); position: relative; }
+.telefono .ventana { width: 100%; height: 100%; border-radius: 34px; overflow: hidden; position: relative; background: var(--fondo); }
+.telefono iframe { position: absolute; left: 0; top: 0; width: 375px; height: 785px; border: 0; transform: scale(.7467); transform-origin: 0 0; }
+.recorrido { list-style: none; counter-reset: paso; padding: 0; margin: 0 0 26px; display: grid; gap: 14px; }
+.recorrido li { counter-increment: paso; font-size: 23px; line-height: 1.35; display: grid; grid-template-columns: 44px 1fr; align-items: start; }
+.recorrido li::before { content: counter(paso); width: 32px; height: 32px; border-radius: 50%; background: var(--panel2); border: 1px solid var(--borde); color: var(--acento); font-weight: 800; font-size: 16px; display: grid; place-items: center; }
+.recorrido li span.tenue { display: block; font-size: 16px; }
+.boton { display: inline-flex; align-items: center; gap: 8px; background: var(--acento); color: #2a1204; font-weight: 800; font-size: 18px; border: 0; border-radius: 999px; padding: 14px 24px; text-decoration: none; cursor: pointer; }
+.boton.sec { background: var(--panel2); color: var(--texto); border: 1px solid var(--borde); }
+.botones { display: flex; gap: 12px; }
+
+/* 5 validez */
+.validez { display: grid; grid-template-columns: 1.35fr 1fr; gap: 30px; }
+table { border-collapse: collapse; width: 100%; font-size: 19px; }
+th { text-align: left; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--tenue); font-weight: 700; padding: 0 12px 10px 0; }
+td { padding: 11px 12px 11px 0; border-top: 1px solid var(--borde); vertical-align: top; line-height: 1.3; }
+td.valor { font-weight: 800; color: var(--acento); white-space: nowrap; font-size: 22px; }
+td .tenue { font-size: 15px; }
+.fuentes { display: flex; flex-wrap: wrap; gap: 10px; align-content: start; }
+.chip { background: var(--panel2); border: 1px solid var(--borde); border-radius: 999px; padding: 9px 15px; font-size: 16px; font-weight: 600; }
+.chip.nasa { border-color: rgba(255,138,61,.55); }
+.caja-sub { font-size: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--tenue); font-weight: 700; margin: 0 0 12px; }
+
+/* 6 privacidad */
+.icono { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: rgba(61,220,151,.12); color: var(--verde); }
+.icono svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.franja { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.franja .tarjeta { padding: 20px 24px; }
+.franja h3 { font-size: 22px; }
+.franja p { font-size: 18px; }
+
+/* 7 cierre */
+.comparar { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--borde); border-radius: 22px; overflow: hidden; margin-bottom: 24px; }
+.comparar div { padding: 16px 24px; font-size: 21px; border-top: 1px solid var(--borde); background: var(--panel); }
+.comparar div:nth-child(-n+2) { border-top: 0; font-weight: 800; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; color: var(--acento); background: var(--panel2); }
+.comparar div:nth-child(odd) { border-right: 1px solid var(--borde); }
+.pregunta { font-size: 34px; font-weight: 700; line-height: 1.3; margin-bottom: 22px; }
+.cierre-fila { display: flex; align-items: center; gap: 20px; }
+.cierre-fila img { width: 92px; height: 92px; border-radius: 20px; image-rendering: pixelated; }
+.url { font-size: 22px; font-weight: 700; color: var(--acento); word-break: break-all; }
+.aviso-legal { font-size: 14px; color: var(--tenue); margin-top: 6px; }
+
+/* controles */
+.barra-avance { position: fixed; left: 0; bottom: 0; height: 4px; background: var(--acento); transition: width 300ms; z-index: 5; }
+.controles { position: fixed; right: 14px; bottom: 12px; display: flex; gap: 8px; align-items: center; z-index: 6; opacity: .25; transition: opacity 200ms; }
+.controles:hover, .controles:focus-within { opacity: 1; }
+.controles button { background: var(--panel); color: var(--texto); border: 1px solid var(--borde); border-radius: 10px; padding: 8px 12px; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.contador { font-size: 14px; color: var(--tenue); font-variant-numeric: tabular-nums; min-width: 44px; text-align: center; }
+.notas { display: none; }
+.panel-notas {
+  position: fixed; left: 12px; right: 12px; bottom: 12px; max-height: 38vh; overflow: auto; z-index: 7;
+  background: rgba(18,17,42,.97); border: 1px solid var(--borde); border-radius: 14px; padding: 16px 20px; font-size: 18px; line-height: 1.5;
+}
+.panel-notas header { display: flex; justify-content: space-between; color: var(--tenue); font-size: 14px; margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+.ayuda-teclas { color: var(--tenue); font-size: 13px; margin-top: 10px; }
+
+/* vista de presentador */
+body.presentador { overflow: auto; padding: 28px; }
+body.presentador .escenario, body.presentador .controles, body.presentador .barra-avance { display: none; }
+.vista-presentador { display: none; max-width: 1100px; margin: 0 auto; }
+body.presentador .vista-presentador { display: grid; gap: 18px; }
+.vp-reloj { display: flex; gap: 28px; align-items: baseline; font-variant-numeric: tabular-nums; }
+.vp-reloj .total { font-size: 64px; font-weight: 800; }
+.vp-reloj .meta { font-size: 22px; color: var(--tenue); }
+.vp-reloj .meta.pasado { color: var(--rojo); }
+.vp-titulo { font-size: 30px; font-weight: 800; }
+.vp-notas { font-size: 24px; line-height: 1.5; background: var(--panel); border: 1px solid var(--borde); border-radius: 16px; padding: 22px 26px; }
+.vp-siguiente { color: var(--tenue); font-size: 18px; }
+</style>
+</head>
+<body>
+
+<main class="escenario" id="escenario">
+
+  <!-- 1 · Portada -->
+  <section class="diapo portada estrellas" data-segundos="20" data-titulo-es="Portada" data-titulo-en="Title">
+    <img src="../docs/img/astropudu.png" alt="Astropudú">
+    <div>
+      <p class="marca">PuduHealth</p>
+      <p class="lema">
+        <span lang="es">Tu salud comparada <span class="acento">contigo mismo</span>, a bordo y sin conexión.</span>
+        <span lang="en">Your health compared <span class="acento">with yourself</span>, on board and offline.</span>
+      </p>
+      <div class="datos-equipo">
+        <p><strong>TecMedHub</strong> · Quemchi, Chiloé, Chile</p>
+        <p>NASA Space Apps Challenge 2026</p>
+        <p><span lang="es">Reto:</span><span lang="en">Challenge:</span> <em>Create Health Monitoring Software for Astronauts on Space Missions</em></p>
+      </div>
+    </div>
+    <aside class="notas">
+      <p lang="es">Somos TecMedHub, desde Quemchi, en Chiloé. Les presentamos PuduHealth: una app de salud que compara a cada astronauta consigo mismo, funciona a bordo y no necesita conexión con la Tierra. El de la imagen es el Astropudú, nuestro acompañante: el pudú es el ciervo más pequeño del mundo y vive aquí, en el sur de Chile.</p>
+      <p lang="en">We are TecMedHub, from Quemchi, in Chiloé. This is PuduHealth: a health app that compares each astronaut with themselves, runs on board and needs no link to Earth. That is Astropudú, our companion: the pudú is the world's smallest deer, and it lives here in southern Chile.</p>
+    </aside>
+  </section>
+
+  <!-- 2 · Problema (impacto) -->
+  <section class="diapo" data-segundos="45" data-titulo-es="El problema" data-titulo-en="The problem">
+    <p class="etiqueta"><span lang="es">Impacto · el problema</span><span lang="en">Impact · the problem</span></p>
+    <h2><span lang="es">Camino a Marte, nadie sigue tu salud día a día</span><span lang="en">On the way to Mars, nobody follows your health day by day</span></h2>
+    <div class="tres">
+      <div class="tarjeta">
+        <span class="num">01</span>
+        <h3><span lang="es">Los límites fijos avisan tarde</span><span lang="en">Fixed limits warn late</span></h3>
+        <p><span lang="es">"VO2max bajo el 80 % del valor previo" se dispara cuando la pérdida ya ocurrió. Y un límite poblacional no conoce a la persona.</span><span lang="en">"VO2max below 80 % of the pre-flight value" fires once the loss has happened. And a population limit does not know the person.</span></p>
+        <p class="fuente">NASA-STD-3001</p>
+      </div>
+      <div class="tarjeta">
+        <span class="num">02</span>
+        <h3><span lang="es">Los síntomas se callan</span><span lang="en">Symptoms go unreported</span></h3>
+        <p><span lang="es">Los astronautas tienden a no informar síntomas a los médicos de vuelo, por miedo a perder futuras misiones.</span><span lang="en">Astronauts tend not to report symptoms to flight surgeons, fearing they may lose future flights.</span></p>
+        <p class="fuente">Institute of Medicine 2001 · NASA OCHMO-TB-014</p>
+      </div>
+      <div class="tarjeta">
+        <span class="num">03</span>
+        <h3><span lang="es">El enlace se corta</span><span lang="en">The link goes down</span></h3>
+        <p><span lang="es">Cada dos años el Sol bloquea la comunicación con Marte unas dos semanas. El software que depende de la Tierra deja de ayudar justo entonces.</span><span lang="en">Every two years the Sun blocks communication with Mars for about two weeks. Software that depends on Earth stops helping exactly then.</span></p>
+        <p class="fuente"><span lang="es">Conjunción solar</span><span lang="en">Solar conjunction</span></p>
+      </div>
+    </div>
+    <p class="cita"><span lang="es">NASA pide justamente esto: apoyo a la decisión clínica a bordo, con tendencias y alertas tempranas (EIMO).</span><span lang="en">NASA asks for exactly this: onboard clinical decision support, with trends and early alerts (EIMO).</span></p>
+    <aside class="notas">
+      <p lang="es">En una misión a Marte nadie en la Tierra puede seguir la salud de cada astronauta día a día. Tres problemas. Uno: los límites fijos avisan tarde; el de VO2max salta cuando el astronauta ya perdió la capacidad. Dos: los astronautas callan síntomas por miedo a no volar de nuevo; lo dicen el Institute of Medicine y la propia NASA. Tres: cada dos años el Sol corta la comunicación unas dos semanas. NASA pide apoyo clínico a bordo; eso construimos.</p>
+      <p lang="en">On a mission to Mars nobody on Earth can follow each astronaut's health day by day. Three problems. One: fixed limits warn late; the VO2max limit fires when the capacity is already lost. Two: astronauts keep symptoms quiet for fear of not flying again; the Institute of Medicine and NASA itself say so. Three: every two years the Sun cuts communication for about two weeks. NASA asks for onboard clinical support; that is what we built.</p>
+    </aside>
+  </section>
+
+  <!-- 3 · Solución (creatividad) -->
+  <section class="diapo" data-segundos="35" data-titulo-es="La solución" data-titulo-en="The solution">
+    <p class="etiqueta"><span lang="es">Creatividad · la solución</span><span lang="en">Creativity · the solution</span></p>
+    <h2><span lang="es">Cada persona es su propia referencia</span><span lang="en">Each person is their own reference</span></h2>
+    <div class="ciclo">
+      <div class="paso"><b><span lang="es">MEDIR</span><span lang="en">MEASURE</span></b><span><span lang="es">Registro de 10 s y FC con la cámara</span><span lang="en">10-second check-in and heart rate with the camera</span></span></div>
+      <span class="flecha">›</span>
+      <div class="paso"><b><span lang="es">ESTIMAR</span><span lang="en">ESTIMATE</span></b><span><span lang="es">Línea base personal, puntuación z y tendencia</span><span lang="en">Personal baseline, z-score and trend</span></span></div>
+      <span class="flecha">›</span>
+      <div class="paso"><b><span lang="es">DECIDIR</span><span lang="en">DECIDE</span></b><span><span lang="es">14 reglas con su fuente citada</span><span lang="en">14 rules, each with its source</span></span></div>
+      <span class="flecha">›</span>
+      <div class="paso"><b><span lang="es">ACTUAR</span><span lang="en">ACT</span></b><span><span lang="es">Qué hacer y cuándo avisar al oficial médico</span><span lang="en">What to do and when to call the medical officer</span></span></div>
+    </div>
+    <div class="solucion">
+      <div class="cifra">
+        <div class="grande">55</div>
+        <div class="unidad"><span lang="es">días antes</span><span lang="en">days earlier</span></div>
+        <p><span lang="es">que el límite de VO2max de NASA, en la misión simulada: todavía hay tiempo para corregir.</span><span lang="en">than NASA's VO2max limit, in the simulated mission: there is still time to correct course.</span></p>
+      </div>
+      <ul class="lista">
+        <li><span lang="es">Compara contigo, no con un promedio.</span><span lang="en">Compares you with you, not with an average.</span><span class="tenue"><span lang="es">Los primeros 7 días calibran tu línea base.</span><span lang="en">The first 7 days calibrate your baseline.</span></span></li>
+        <li><span lang="es">La privacidad como medida de salud.</span><span lang="en">Privacy as a health measure.</span><span class="tenue"><span lang="es">Si las respuestas no salen del teléfono, es más fácil ser honesto.</span><span lang="en">If answers never leave the phone, honesty is easier.</span></span></li>
+        <li><span lang="es">Un dato que falta no es un cero.</span><span lang="en">A missing value is not a zero.</span><span class="tenue"><span lang="es">La app dice cómo conseguirlo en vez de inventarlo.</span><span lang="en">The app says how to get it instead of making it up.</span></span></li>
+        <li><span lang="es">Astropudú premia hábitos, nunca juzga emociones.</span><span lang="en">Astropudú rewards habits, never judges feelings.</span></li>
+      </ul>
+    </div>
+    <aside class="notas">
+      <p lang="es">Nuestra idea: cada persona es su propia referencia. La app mide, estima tu rango personal, decide con reglas citadas y te dice qué hacer. En la misión simulada, la comandante recibe sus primeros avisos 55 días antes de cruzar el límite de VO2max de NASA. Y es distinta en tres cosas: la privacidad es parte del tratamiento, un dato que falta no se inventa, y el Astropudú premia hábitos sin juzgar emociones.</p>
+      <p lang="en">Our idea: each person is their own reference. The app measures, estimates your personal range, decides with cited rules and tells you what to do. In the simulated mission, the commander gets her first warnings 55 days before crossing NASA's VO2max limit. It differs in three ways: privacy is part of the care, a missing value is never made up, and Astropudú rewards habits without judging feelings.</p>
+    </aside>
+  </section>
+
+  <!-- 4 · Demo en vivo -->
+  <section class="diapo demo" data-segundos="80" data-titulo-es="Demo en vivo" data-titulo-en="Live demo">
+    <div class="telefono"><div class="ventana"><iframe id="app-demo" title="PuduHealth" loading="lazy" data-src="../app/index.html?demo=1&amp;intro=0"></iframe></div></div>
+    <div>
+      <p class="etiqueta"><span lang="es">Demo en vivo</span><span lang="en">Live demo</span></p>
+      <h2><span lang="es">La app real, funcionando</span><span lang="en">The real app, running</span></h2>
+      <ol class="recorrido">
+        <li><span><span lang="es">Pudú: registro diario en 10 segundos</span><span lang="en">Pudú: 10-second daily check-in</span></span></li>
+        <li><span><span lang="es">Hoy: semáforo de 5 riesgos y alerta con su fuente</span><span lang="en">Today: 5-risk traffic light and an alert with its source</span></span></li>
+        <li><span><span lang="es">Datos: tocar un indicador y ver qué significa</span><span lang="en">Data: tap an indicator to see what it means</span></span></li>
+        <li><span><span lang="es">Tendencias: el rango personal y la deriva</span><span lang="en">Trends: the personal range and the drift</span><span class="tenue"><span lang="es">DEMO → avanzar los días de la misión</span><span lang="en">DEMO → move through the mission days</span></span></span></li>
+        <li><span><span lang="es">Medir FC con la cámara del celular</span><span lang="en">Measure heart rate with the phone camera</span></span></li>
+      </ol>
+      <div class="botones">
+        <a class="boton" id="abrir-app" href="../app/index.html?demo=1&amp;intro=0" target="_blank" rel="noopener"><span lang="es">Abrir la app</span><span lang="en">Open the app</span> ↗</a>
+        <button class="boton sec" id="recargar-app" type="button"><span lang="es">Reiniciar demo</span><span lang="en">Reset demo</span></button>
+      </div>
+    </div>
+    <aside class="notas">
+      <p lang="es">Esta es la app real, la misma que se instala en el celular. (Tocar dentro del teléfono; para volver a las diapositivas, hacer clic fuera.) Uno: registro diario, diez segundos. Dos: Hoy, el semáforo de cinco riesgos de NASA y una alerta con su fuente. Tres: tocar un indicador explica qué es y cuándo pedir ayuda. Cuatro: en DEMO avanzo los días y se ve cómo la persona se aleja de su propio rango. Cinco, si alcanza el tiempo: medir la frecuencia cardíaca con la cámara.</p>
+      <p lang="en">This is the real app, the same one you install on a phone. (Tap inside the phone; click outside to return to the slides.) One: the daily check-in, ten seconds. Two: Today, the traffic light for five NASA risks and an alert with its source. Three: tapping an indicator explains what it is and when to ask for help. Four: in DEMO I move through the days and you see the person drift from their own range. Five, if time allows: measuring heart rate with the camera.</p>
+    </aside>
+  </section>
+
+  <!-- 5 · Validez y pertinencia -->
+  <section class="diapo" data-segundos="40" data-titulo-es="Ciencia y datos" data-titulo-en="Science and data">
+    <p class="etiqueta"><span lang="es">Validez y pertinencia</span><span lang="en">Validity and relevance</span></p>
+    <h2><span lang="es">Probado con datos reales, basado en NASA</span><span lang="en">Tested on real data, built on NASA</span></h2>
+    <div class="validez">
+      <table>
+        <thead><tr><th><span lang="es">Qué</span><span lang="en">What</span></th><th><span lang="es">Resultado</span><span lang="en">Result</span></th></tr></thead>
+        <tbody>
+          <tr><td><span lang="es">Falsas alarmas del detector</span><span lang="en">Detector false alarms</span><br><span class="tenue">PMData · 14 <span lang="es">personas, ~5 meses</span><span lang="en">people, ~5 months</span></span></td><td class="valor"><span lang="es">2,5 % de días</span><span lang="en">2.5 % of days</span></td></tr>
+          <tr><td><span lang="es">Alza sostenida de +5 lpm</span><span lang="en">Sustained +5 bpm rise</span><br><span class="tenue"><span lang="es">mediana</span><span lang="en">median</span></span></td><td class="valor"><span lang="es">3 días</span><span lang="en">3 days</span></td></tr>
+          <tr><td><span lang="es">FC del algoritmo PPG vs ECG en reposo</span><span lang="en">PPG heart rate vs ECG at rest</span><br><span class="tenue">WESAD</span></td><td class="valor"><span lang="es">0,8 lpm</span><span lang="en">0.8 bpm</span></td></tr>
+          <tr><td><span lang="es">Modelo de estrés agudo, dejando una persona fuera</span><span lang="en">Acute stress model, leave-one-person-out</span><br><span class="tenue">WESAD · 15 <span lang="es">personas</span><span lang="en">people</span></span></td><td class="valor">AUC <span lang="es">0,93</span><span lang="en">0.93</span></td></tr>
+          <tr><td><span lang="es">Reglas inmunes</span><span lang="en">Immune rules</span><br><span class="tenue"><span lang="es">30 misiones simuladas</span><span lang="en">30 simulated missions</span></span></td><td class="valor">100 % · 1 <span lang="es">día</span><span lang="en">day</span></td></tr>
+          <tr><td><span lang="es">Pruebas automáticas del código</span><span lang="en">Automated code tests</span></td><td class="valor">64</td></tr>
+        </tbody>
+      </table>
+      <div>
+        <p class="caja-sub"><span lang="es">Datos y estándares de NASA</span><span lang="en">NASA data and standards</span></p>
+        <div class="fuentes">
+          <span class="chip nasa">NASA-STD-3001</span>
+          <span class="chip nasa">OCHMO TB-020 · TB-030 · TB-031</span>
+          <span class="chip nasa">MSL RAD · Curiosity</span>
+          <span class="chip nasa">Mars DRA 5.0</span>
+          <span class="chip nasa">Human Research Program</span>
+          <span class="chip nasa">EIMO</span>
+          <span class="chip nasa">OCHMO-TB-014</span>
+        </div>
+        <p class="caja-sub" style="margin-top:22px"><span lang="es">Otras fuentes</span><span lang="en">Other sources</span></p>
+        <div class="fuentes">
+          <span class="chip">WESAD</span><span class="chip">PMData</span><span class="chip">Welltory</span><span class="chip">AASM/SRS</span><span class="chip">PHQ-9</span><span class="chip">OMS / WHO</span>
+        </div>
+        <p class="tenue" style="margin-top:22px;font-size:16px;line-height:1.4"><span lang="es">La tripulación de ejemplo vive día a día la radiación que midió Curiosity camino a Marte y en su superficie.</span><span lang="en">The example crew lives, day by day, the radiation Curiosity measured on its way to Mars and on its surface.</span></p>
+      </div>
+    </div>
+    <aside class="notas">
+      <p lang="es">No es una idea en el aire. Calibramos el detector con datos reales de 14 personas durante cinco meses: alerta en el 2,5 % de los días y detecta un alza sostenida de cinco latidos en tres días. La frecuencia cardíaca con la cámara se equivoca 0,8 latidos contra un electrocardiograma. Las reglas salen de NASA-STD-3001 y de los informes de OCHMO, y la radiación de la misión es la que midió el instrumento RAD de Curiosity.</p>
+      <p lang="en">This is not an idea in the air. We calibrated the detector on real data from 14 people over five months: it alerts on 2.5 % of days and catches a sustained rise of five beats in three days. Heart rate from the camera algorithm is off by 0.8 beats against an ECG. The rules come from NASA-STD-3001 and OCHMO briefs, and the mission's radiation is what Curiosity's RAD instrument measured.</p>
+    </aside>
+  </section>
+
+  <!-- 6 · Privacidad y datos -->
+  <section class="diapo" data-segundos="30" data-titulo-es="Privacidad" data-titulo-en="Privacy">
+    <p class="etiqueta"><span lang="es">Datos personales</span><span lang="en">Personal data</span></p>
+    <h2><span lang="es">Tus datos de salud no salen de tu teléfono</span><span lang="en">Your health data never leaves your phone</span></h2>
+    <div class="cuatro">
+      <div class="tarjeta"><span class="icono"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+        <h3><span lang="es">Cifrado AES‑256</span><span lang="en">AES‑256 encryption</span></h3>
+        <p><span lang="es">Con una llave del dispositivo que no se puede copiar.</span><span lang="en">With a device key that cannot be copied.</span></p></div>
+      <div class="tarjeta"><span class="icono"><svg viewBox="0 0 24 24"><circle cx="7" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="17" cy="12" r="1.3"/><rect x="3" y="7" width="18" height="10" rx="3"/></svg></span>
+        <h3><span lang="es">PIN opcional</span><span lang="en">Optional PIN</span></h3>
+        <p><span lang="es">Sin él no se abren, ni con el teléfono desbloqueado.</span><span lang="en">Without it, nothing opens, even on an unlocked phone.</span></p></div>
+      <div class="tarjeta"><span class="icono"><svg viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M8.5 5.3A9 9 0 0 1 21 12a9 9 0 0 1-2 3.6M5.3 8.5A9 9 0 0 0 12 21a9 9 0 0 0 3.6-.8"/></svg></span>
+        <h3><span lang="es">Sin servidor</span><span lang="en">No server</span></h3>
+        <p><span lang="es">Sin cuentas, nube, publicidad ni analítica.</span><span lang="en">No accounts, cloud, ads or analytics.</span></p></div>
+      <div class="tarjeta"><span class="icono"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 21h16"/></svg></span>
+        <h3><span lang="es">Tú decides</span><span lang="en">You decide</span></h3>
+        <p><span lang="es">Ver, exportar y borrar, cuando quieras.</span><span lang="en">See, export and delete, anytime.</span></p></div>
+    </div>
+    <div class="franja">
+      <div class="tarjeta"><h3><span lang="es">Nuestro estudio con voluntarios</span><span lang="en">Our study with volunteers</span></h3>
+        <p><span lang="es">Código de participante en vez del nombre, consentimiento informado, datos fuera del alcance web y borrado a pedido o a los 12 meses.</span><span lang="en">A participant code instead of a name, informed consent, data out of web reach, and deletion on request or after 12 months.</span></p></div>
+      <div class="tarjeta"><h3><span lang="es">Marco de referencia</span><span lang="en">Reference framework</span></h3>
+        <p><span lang="es">Chile: Ley 21.719, Ley 19.628 y Ley 20.584. Unión Europea: RGPD, artículos 9 y 25 (privacidad desde el diseño).</span><span lang="en">Chile: Laws 21.719, 19.628 and 20.584. European Union: GDPR, Articles 9 and 25 (privacy by design).</span></p></div>
+    </div>
+    <aside class="notas">
+      <p lang="es">Son datos de salud, así que los tratamos como tales. Todo queda en el teléfono, cifrado con AES de 256 bits y una llave que no se puede copiar; con PIN, nadie los abre sin él. No hay servidor, ni cuentas, ni analítica. La persona puede ver, exportar y borrar sus datos. Y en nuestro propio estudio con voluntarios usamos códigos en vez de nombres y consentimiento informado.</p>
+      <p lang="en">This is health data, so we treat it as such. Everything stays on the phone, encrypted with 256-bit AES and a key that cannot be copied; with a PIN, nobody opens it without it. No server, no accounts, no analytics. The person can see, export and delete their data. And in our own study with volunteers we used codes instead of names, with informed consent.</p>
+    </aside>
+  </section>
+
+  <!-- 7 · De Marte a Chiloé -->
+  <section class="diapo estrellas" data-segundos="40" data-titulo-es="De Marte a Chiloé" data-titulo-en="From Mars to Chiloé">
+    <p class="etiqueta"><span lang="es">Impacto en la Tierra</span><span lang="en">Impact on Earth</span></p>
+    <h2><span lang="es">De Marte a Chiloé, el mismo problema</span><span lang="en">From Mars to Chiloé, the same problem</span></h2>
+    <div class="comparar">
+      <div><span lang="es">Camino a Marte</span><span lang="en">On the way to Mars</span></div>
+      <div><span lang="es">En una isla de Quemchi</span><span lang="en">On an island of Quemchi</span></div>
+      <div><span lang="es">Un oficial médico, no un médico</span><span lang="en">A medical officer, not a physician</span></div>
+      <div><span lang="es">Un técnico paramédico en la posta rural</span><span lang="en">A paramedic technician at the rural post</span></div>
+      <div><span lang="es">Nadie en la Tierra sigue tu tendencia</span><span lang="en">Nobody on Earth follows your trend</span></div>
+      <div><span lang="es">El médico llega por mar, en rondas</span><span lang="en">The doctor arrives by sea, on rounds</span></div>
+    </div>
+    <p class="pregunta"><span lang="es">¿Esto es normal <span class="acento">para esta persona</span>, qué hago y cuándo aviso?</span><span lang="en">Is this normal <span class="acento">for this person</span>, what do I do, and when do I call?</span></p>
+    <div class="cierre-fila">
+      <img src="../app/img/icono-192.png" alt="">
+      <div>
+        <p class="url" id="url-app"></p>
+        <p class="tenue" style="font-size:16px"><span lang="es">Código abierto · instalable en cualquier celular · funciona sin conexión</span><span lang="en">Open source · installs on any phone · works offline</span></p>
+        <p class="aviso-legal"><span lang="es">Prototipo de hackatón: no es un dispositivo médico ni está validado clínicamente.</span><span lang="en">Hackathon prototype: not a medical device and not clinically validated.</span></p>
+      </div>
+    </div>
+    <aside class="notas">
+      <p lang="es">Lo construimos en Quemchi, donde las postas de las islas las atiende un técnico paramédico y el médico llega por mar. La pregunta es la misma que camino a Marte: ¿esto es normal para esta persona, qué hago y cuándo aviso? El mismo motor, con otras reglas, podría apoyar a una posta rural; es una dirección, todavía no lo probamos. La app ya está publicada, se instala en cualquier celular y es código abierto. Gracias.</p>
+      <p lang="en">We built this in Quemchi, where island health posts are run by a paramedic technician and the doctor arrives by sea. The question is the same as on the way to Mars: is this normal for this person, what do I do, and when do I call? The same engine, with other rules, could support a rural post; that is a direction we have not tested yet. The app is live, installs on any phone, and is open source. Thank you.</p>
+    </aside>
+  </section>
+
+</main>
+
+<div class="barra-avance" id="avance"></div>
+<div class="controles">
+  <button type="button" id="ant" aria-label="Anterior">‹</button>
+  <span class="contador" id="contador"></span>
+  <button type="button" id="sig" aria-label="Siguiente">›</button>
+  <button type="button" id="btn-idioma">EN</button>
+  <button type="button" id="btn-notas" title="N">Notas</button>
+  <button type="button" id="btn-presentador" title="P">Presentador</button>
+  <button type="button" id="btn-pantalla" title="F">⛶</button>
+</div>
+<div class="panel-notas" id="panel-notas" hidden>
+  <header><span id="notas-titulo"></span><span id="notas-reloj"></span></header>
+  <div id="notas-texto"></div>
+  <p class="ayuda-teclas"><span lang="es">← → o espacio: avanzar · N: notas · P: vista de presentador · L: idioma · F: pantalla completa · 1–7: ir a la diapositiva</span><span lang="en">← → or space: move · N: notes · P: presenter view · L: language · F: fullscreen · 1–7: go to slide</span></p>
+</div>
+
+<section class="vista-presentador" aria-live="polite">
+  <div class="vp-reloj"><span class="total" id="vp-total">0:00</span><span class="meta" id="vp-meta"></span></div>
+  <div class="vp-titulo" id="vp-titulo"></div>
+  <div class="vp-notas" id="vp-notas"></div>
+  <p class="vp-siguiente" id="vp-siguiente"></p>
+  <div class="botones"><button class="boton sec" id="vp-ant" type="button">‹</button><button class="boton" id="vp-sig" type="button">›</button></div>
+</section>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const diapos = [...document.querySelectorAll('.diapo')];
+  const params = new URLSearchParams(location.search);
+  const esPresentador = params.has('presentador');
+  const canal = 'BroadcastChannel' in window ? new BroadcastChannel('puduhealth-pitch') : null;
+  const estado = { i: 0, lang: params.get('lang') === 'en' ? 'en' : 'es', inicio: null };
+  const TOTAL_META = diapos.reduce((a, d) => a + Number(d.dataset.segundos), 0);
+
+  const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+  const titulo = (d) => d.dataset[estado.lang === 'es' ? 'tituloEs' : 'tituloEn'];
+  const notas = (d) => d.querySelector(`.notas [lang="${estado.lang}"]`)?.textContent.trim() ?? '';
+  const metaHasta = (i) => diapos.slice(0, i + 1).reduce((a, d) => a + Number(d.dataset.segundos), 0);
+
+  function escalar() {
+    const e = $('#escenario');
+    const k = Math.min(innerWidth / 1280, innerHeight / 720);
+    e.style.transform = `translate(-50%, -50%) scale(${k})`;
+  }
+
+  function mostrar(i, { emitir = true } = {}) {
+    estado.i = Math.max(0, Math.min(diapos.length - 1, i));
+    if (estado.inicio === null && estado.i > 0) estado.inicio = Date.now();
+    diapos.forEach((d, j) => d.classList.toggle('activa', j === estado.i));
+    const d = diapos[estado.i];
+    // La app de la demo se carga al llegar a su diapositiva (no antes, para no gastar la intro).
+    const marco = d.querySelector('iframe[data-src]');
+    if (marco && !marco.src) marco.src = marco.dataset.src;
+    $('#contador').textContent = `${estado.i + 1}/${diapos.length}`;
+    $('#avance').style.width = `${(100 * (estado.i + 1)) / diapos.length}%`;
+    history.replaceState(null, '', `#${estado.i + 1}`);
+    pintarNotas();
+    if (emitir) canal?.postMessage({ tipo: 'estado', i: estado.i, lang: estado.lang, inicio: estado.inicio });
+  }
+
+  function fijarIdioma(lang, { emitir = true } = {}) {
+    estado.lang = lang;
+    document.documentElement.dataset.lang = lang;
+    document.documentElement.lang = lang;
+    $('#btn-idioma').textContent = lang === 'es' ? 'EN' : 'ES';
+    $('#btn-notas').textContent = lang === 'es' ? 'Notas' : 'Notes';
+    $('#btn-presentador').textContent = lang === 'es' ? 'Presentador' : 'Presenter';
+    const marco = $('#app-demo');
+    const base = `../app/index.html?demo=1&intro=0${lang === 'en' ? '&lang=en' : ''}`;
+    marco.dataset.src = base;
+    if (marco.src) marco.src = base;
+    $('#abrir-app').href = base;
+    pintarNotas();
+    if (emitir) canal?.postMessage({ tipo: 'estado', i: estado.i, lang, inicio: estado.inicio });
+  }
+
+  function pintarNotas() {
+    const d = diapos[estado.i];
+    const seg = Number(d.dataset.segundos);
+    $('#notas-titulo').textContent = `${estado.i + 1}. ${titulo(d)} · ${seg} s`;
+    $('#notas-texto').textContent = notas(d);
+    $('#vp-titulo').textContent = `${estado.i + 1}/${diapos.length} · ${titulo(d)} (${seg} s)`;
+    $('#vp-notas').textContent = notas(d);
+    const sig = diapos[estado.i + 1];
+    $('#vp-siguiente').textContent = sig ? `${estado.lang === 'es' ? 'Siguiente' : 'Next'}: ${titulo(sig)}` : '';
+  }
+
+  function reloj() {
+    const t = estado.inicio ? (Date.now() - estado.inicio) / 1000 : 0;
+    const meta = metaHasta(estado.i);
+    const texto = `${mmss(t)} / ${mmss(TOTAL_META)} · ${estado.lang === 'es' ? 'meta al terminar esta' : 'target at end of this'}: ${mmss(meta)}`;
+    $('#notas-reloj').textContent = texto;
+    $('#vp-total').textContent = mmss(t);
+    $('#vp-meta').textContent = `${estado.lang === 'es' ? 'meta' : 'target'} ${mmss(meta)} · ${mmss(TOTAL_META)} total`;
+    $('#vp-meta').classList.toggle('pasado', t > meta);
+  }
+  setInterval(reloj, 500);
+
+  const pantallaCompleta = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.());
+
+  document.addEventListener('keydown', (ev) => {
+    if (ev.target.closest?.('input, textarea, select')) return;
+    const k = ev.key;
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(k)) { ev.preventDefault(); mostrar(estado.i + 1); }
+    else if (['ArrowLeft', 'PageUp', 'Backspace'].includes(k)) { ev.preventDefault(); mostrar(estado.i - 1); }
+    else if (k === 'Home') mostrar(0);
+    else if (k === 'End') mostrar(diapos.length - 1);
+    else if (/^[1-9]$/.test(k)) mostrar(Number(k) - 1);
+    else if (k === 'n' || k === 'N') $('#panel-notas').hidden = !$('#panel-notas').hidden;
+    else if (k === 'l' || k === 'L') fijarIdioma(estado.lang === 'es' ? 'en' : 'es');
+    else if (k === 'f' || k === 'F') pantallaCompleta();
+    else if (k === 'p' || k === 'P') abrirPresentador();
+  });
+  // Clic en el borde derecho o izquierdo de la diapositiva (fuera de enlaces, botones y la app).
+  $('#escenario').addEventListener('click', (ev) => {
+    if (ev.target.closest('a, button, iframe, .telefono')) return;
+    mostrar(estado.i + (ev.clientX > innerWidth / 2 ? 1 : -1));
+  });
+  let toque = null;
+  addEventListener('touchstart', (ev) => { toque = ev.touches[0].clientX; }, { passive: true });
+  addEventListener('touchend', (ev) => {
+    if (toque === null) return;
+    const dx = ev.changedTouches[0].clientX - toque;
+    if (Math.abs(dx) > 60) mostrar(estado.i + (dx < 0 ? 1 : -1));
+    toque = null;
+  });
+
+  function abrirPresentador() {
+    const u = new URL(location.href);
+    u.hash = '';
+    u.searchParams.set('presentador', '1');
+    u.searchParams.set('lang', estado.lang);
+    open(u.toString(), 'puduhealth-presentador', 'width=1100,height=760');
+  }
+
+  $('#sig').addEventListener('click', () => mostrar(estado.i + 1));
+  $('#ant').addEventListener('click', () => mostrar(estado.i - 1));
+  $('#btn-idioma').addEventListener('click', () => fijarIdioma(estado.lang === 'es' ? 'en' : 'es'));
+  $('#btn-notas').addEventListener('click', () => { $('#panel-notas').hidden = !$('#panel-notas').hidden; });
+  $('#btn-presentador').addEventListener('click', abrirPresentador);
+  $('#btn-pantalla').addEventListener('click', pantallaCompleta);
+  $('#recargar-app').addEventListener('click', () => { const m = $('#app-demo'); m.src = m.dataset.src; });
+  $('#vp-sig').addEventListener('click', () => canal?.postMessage({ tipo: 'ir', i: estado.i + 1 }));
+  $('#vp-ant').addEventListener('click', () => canal?.postMessage({ tipo: 'ir', i: estado.i - 1 }));
+
+  canal?.addEventListener('message', ({ data }) => {
+    if (data.tipo === 'estado') {
+      estado.inicio = data.inicio;
+      if (data.lang !== estado.lang) fijarIdioma(data.lang, { emitir: false });
+      if (esPresentador) { estado.i = data.i; pintarNotas(); } else mostrar(data.i, { emitir: false });
+    } else if (data.tipo === 'ir' && !esPresentador) mostrar(data.i);
+    else if (data.tipo === 'hola' && !esPresentador) canal.postMessage({ tipo: 'estado', i: estado.i, lang: estado.lang, inicio: estado.inicio });
+  });
+
+  $('#url-app').textContent = new URL('../app/', location.href).href.replace(/^https?:\/\//, '');
+
+  if (esPresentador) {
+    document.body.classList.add('presentador');
+    fijarIdioma(estado.lang, { emitir: false });
+    pintarNotas();
+    canal?.postMessage({ tipo: 'hola' });
+  } else {
+    escalar();
+    addEventListener('resize', escalar);
+    fijarIdioma(estado.lang, { emitir: false });
+    mostrar((Number(location.hash.slice(1)) || 1) - 1, { emitir: false });
+  }
+  reloj();
+})();
+</script>
+</body>
+</html>

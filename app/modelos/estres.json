@@ -1,0 +1,59 @@
+{
+  "nombre": "estres_fc",
+  "fecha": "2026-11-14",
+  "descripcion": "Probabilidad de estrés agudo a partir de una medición de 60 s en reposo, relativa a la línea base personal.",
+  "entradas": [
+    {
+      "nombre": "d_bpm",
+      "descripcion": "FC − FC de la línea base (lpm)"
+    }
+  ],
+  "media": [
+    11.148066
+  ],
+  "escala": [
+    19.58035
+  ],
+  "coeficientes": [
+    3.383569
+  ],
+  "intercepto": 0.492741,
+  "umbral": 0.5,
+  "calidad_minima": 40,
+  "validacion": {
+    "metodo": "entrenado con ECG; dejando fuera a una persona completa; evaluado en su ECG y en su PPG de muñeca",
+    "ecg": {
+      "auc_media": 0.933,
+      "auc_de": 0.145,
+      "exactitud_balanceada_media": 0.833,
+      "falsos_positivos_reposo_media": 0.082,
+      "personas": 15
+    },
+    "ppg": {
+      "auc_media": 0.574,
+      "auc_de": 0.415,
+      "exactitud_balanceada_media": 0.657,
+      "falsos_positivos_reposo_media": 0.078,
+      "personas": 15
+    },
+    "ppg_contra_ecg": {
+      "base": {
+        "ventanas": 426,
+        "error_fc_mediano_lpm": 0.81,
+        "error_rmssd_mediano_ms": 18.7
+      },
+      "diversion": {
+        "ventanas": 131,
+        "error_fc_mediano_lpm": 0.92,
+        "error_rmssd_mediano_ms": 17.3
+      },
+      "estres": {
+        "ventanas": 61,
+        "error_fc_mediano_lpm": 2.66,
+        "error_rmssd_mediano_ms": 53.8
+      }
+    }
+  },
+  "datos": "WESAD (Schmidt et al. 2018): ECG de pecho (RespiBAN) y BVP de muñeca (Empatica E4). Indicadores de PPG extraídos con pulsometro/assets/ppg.js.",
+  "licencia_datos": "WESAD se distribuye sólo para uso académico y no comercial."
+}

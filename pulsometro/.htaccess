@@ -1,0 +1,36 @@
+# Pulsómetro PPG — protección para Apache (en Nginx vea README.md)
+# Si el sitio da "500 Internal Server Error", su hosting no permite "Options":
+# borre sólo la línea siguiente.
+Options -Indexes
+DirectoryIndex index.php
+
+# Archivos que nunca se sirven: ocultos (.htaccess, .git…), configuración,
+# documentación, respaldos y temporales.
+<FilesMatch "(^\.|^_|^config.*\.php$|\.(md|bak|old|orig|save|swp|tmp|log|ini|sh|sql|zip|tar|gz|7z)$|~$)">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# La carpeta de datos nunca se sirve por la web (segunda capa: datos/.htaccess).
+<IfModule mod_alias.c>
+  RedirectMatch 404 (?i)/datos(/|$)
+</IfModule>
+
+# Cabeceras de seguridad también para CSS/JS (las páginas PHP ya las envían).
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "no-referrer"
+  Header always unset X-Powered-By
+  Header unset X-Powered-By
+  # JS y CSS: el navegador puede guardarlos pero debe preguntar al servidor si cambiaron
+  # (además las páginas los piden con ?v=<huella del contenido>, ver inc/plantilla.php).
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
