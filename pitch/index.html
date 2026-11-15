@@ -84,6 +84,12 @@ p { margin: 0; }
 .recorrido li { counter-increment: paso; font-size: 23px; line-height: 1.35; display: grid; grid-template-columns: 44px 1fr; align-items: start; }
 .recorrido li::before { content: counter(paso); width: 32px; height: 32px; border-radius: 50%; background: var(--panel2); border: 1px solid var(--borde); color: var(--acento); font-weight: 800; font-size: 16px; display: grid; place-items: center; }
 .recorrido li span.tenue { display: block; font-size: 16px; }
+.qr { background: #fff; border-radius: 18px; padding: 10px; display: grid; justify-items: center; gap: 6px; box-shadow: 0 16px 40px rgba(0,0,0,.4); }
+.qr img { display: block; }
+.qr span { color: #12112a; font-size: 13px; font-weight: 800; text-align: center; line-height: 1.2; }
+.qr-demo { position: absolute; bottom: 48px; right: 64px; width: 172px; }
+.qr-demo img { width: 152px; height: 152px; }
+.qr-cierre img { width: 132px; height: 132px; }
 .boton { display: inline-flex; align-items: center; gap: 8px; background: var(--acento); color: #2a1204; font-weight: 800; font-size: 18px; border: 0; border-radius: 999px; padding: 14px 24px; text-decoration: none; cursor: pointer; }
 .boton.sec { background: var(--panel2); color: var(--texto); border: 1px solid var(--borde); }
 .botones { display: flex; gap: 12px; }
@@ -241,6 +247,11 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
 
   <!-- 4 · Demo en vivo -->
   <section class="diapo demo" data-segundos="80" data-titulo-es="Demo en vivo" data-titulo-en="Live demo">
+    <div class="qr qr-demo">
+      <img lang="es" src="qr-app-es.svg" alt="QR: tecmedhub.github.io/puduhealth/app/">
+      <img lang="en" src="qr-app-en.svg" alt="QR: tecmedhub.github.io/puduhealth/app/?lang=en">
+      <span><span lang="es">Pruébala en tu celular</span><span lang="en">Try it on your phone</span></span>
+    </div>
     <div class="telefono"><div class="ventana"><iframe id="app-demo" title="PuduHealth" loading="lazy" data-src="../app/index.html?demo=1&amp;intro=0"></iframe></div></div>
     <div>
       <p class="etiqueta"><span lang="es">Demo en vivo</span><span lang="en">Live demo</span></p>
@@ -258,8 +269,8 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
       </div>
     </div>
     <aside class="notas">
-      <p lang="es">Esta es la app real, la misma que se instala en el celular. (Tocar dentro del teléfono; para volver a las diapositivas, hacer clic fuera.) Uno: registro diario, diez segundos. Dos: Hoy, el semáforo de cinco riesgos de NASA y una alerta con su fuente. Tres: tocar un indicador explica qué es y cuándo pedir ayuda; el estrés agudo lo calcula nuestro modelo entrenado, con la frecuencia cardíaca de cualquier sensor. Cuatro: en DEMO avanzo los días y se ve cómo la persona se aleja de su propio rango. Cinco: Conectar sensor muestra las fuentes de la API con su estado: Bluetooth diseñado, importación y API funcionando, la cámara como alternativa. Importo las mediciones de una banda y un termómetro (docs/ejemplo-mediciones.csv) y entran igual que cualquier otra fuente.</p>
-      <p lang="en">This is the real app, the same one you install on a phone. (Tap inside the phone; click outside to return to the slides.) One: the daily check-in, ten seconds. Two: Today, the traffic light for five NASA risks and an alert with its source. Three: tapping an indicator explains what it is and when to ask for help; acute stress comes from our trained model, with heart rate from any sensor. Four: in DEMO I move through the days and you see the person drift from their own range. Five: Connect a sensor lists the API's sources with their status: Bluetooth designed, import and API working, the camera as a fallback. I import a chest strap's and a thermometer's measurements (docs/ejemplo-mediciones.csv) and they enter like any other source.</p>
+      <p lang="es">Esta es la app real, la misma que se instala en el celular; pueden abrirla ahora con el código QR. (Tocar dentro del teléfono; para volver a las diapositivas, hacer clic fuera.) Uno: registro diario, diez segundos. Dos: Hoy, el semáforo de cinco riesgos de NASA y una alerta con su fuente. Tres: tocar un indicador explica qué es y cuándo pedir ayuda; el estrés agudo lo calcula nuestro modelo entrenado, con la frecuencia cardíaca de cualquier sensor. Cuatro: en DEMO avanzo los días y se ve cómo la persona se aleja de su propio rango. Cinco: Conectar sensor muestra las fuentes de la API con su estado: Bluetooth diseñado, importación y API funcionando, la cámara como alternativa. Importo las mediciones de una banda y un termómetro (docs/ejemplo-mediciones.csv) y entran igual que cualquier otra fuente.</p>
+      <p lang="en">This is the real app, the same one you install on a phone; you can open it now with the QR code. (Tap inside the phone; click outside to return to the slides.) One: the daily check-in, ten seconds. Two: Today, the traffic light for five NASA risks and an alert with its source. Three: tapping an indicator explains what it is and when to ask for help; acute stress comes from our trained model, with heart rate from any sensor. Four: in DEMO I move through the days and you see the person drift from their own range. Five: Connect a sensor lists the API's sources with their status: Bluetooth designed, import and API working, the camera as a fallback. I import a chest strap's and a thermometer's measurements (docs/ejemplo-mediciones.csv) and they enter like any other source.</p>
     </aside>
   </section>
 
@@ -351,7 +362,10 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
     </div>
     <p class="pregunta"><span lang="es">¿Esto es normal <span class="acento">para esta persona</span>, qué hago y cuándo aviso?</span><span lang="en">Is this normal <span class="acento">for this person</span>, what do I do, and when do I call?</span></p>
     <div class="cierre-fila">
-      <img src="../app/img/icono-192.png" alt="">
+      <div class="qr qr-cierre">
+        <img lang="es" src="qr-app-es.svg" alt="QR: tecmedhub.github.io/puduhealth/app/">
+        <img lang="en" src="qr-app-en.svg" alt="QR: tecmedhub.github.io/puduhealth/app/?lang=en">
+      </div>
       <div>
         <p class="url" id="url-app"></p>
         <p class="tenue" style="font-size:16px"><span lang="es">API abierta · código abierto · instalable · funciona sin conexión</span><span lang="en">Open API · open source · installable · works offline</span></p>
@@ -520,7 +534,7 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
     else if (data.tipo === 'hola' && !esPresentador) canal.postMessage({ tipo: 'estado', i: estado.i, lang: estado.lang, inicio: estado.inicio });
   });
 
-  $('#url-app').textContent = new URL('../app/', location.href).href.replace(/^https?:\/\//, '');
+  $('#url-app').textContent = 'tecmedhub.github.io/puduhealth/app';
 
   if (esPresentador) {
     document.body.classList.add('presentador');
