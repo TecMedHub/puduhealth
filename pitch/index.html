@@ -129,6 +129,18 @@ td .tenue { font-size: 15px; }
 .url { font-size: 22px; font-weight: 700; color: var(--acento); word-break: break-all; }
 .aviso-legal { font-size: 14px; color: var(--tenue); margin-top: 6px; }
 
+/* animaciones de entrada: cada elemento aparece en orden al llegar a la diapositiva */
+.diapo.activa .anim { animation: aparecer-el 560ms cubic-bezier(.2,.8,.2,1) both; animation-delay: calc(120ms + var(--i, 0) * 85ms); }
+@keyframes aparecer-el { from { opacity: 0; transform: translateY(16px); } }
+.diapo.activa .anim-escala { animation-name: aparecer-escala; }
+@keyframes aparecer-escala { from { opacity: 0; transform: scale(.92); } }
+.diapo.activa .portada-pudu { animation: aparecer-escala 700ms cubic-bezier(.2,.8,.2,1) both, flotar 4s ease-in-out 700ms infinite; }
+@keyframes flotar { 50% { transform: translateY(-10px); } }
+.diapo.activa .paso.anim, .diapo.activa .flecha.anim { animation-delay: calc(200ms + var(--i, 0) * 140ms); }
+@media (prefers-reduced-motion: reduce) {
+  .diapo.activa .anim, .diapo.activa .portada-pudu, .diapo.activa { animation: none !important; }
+}
+
 /* controles */
 .barra-avance { position: fixed; left: 0; bottom: 0; height: 4px; background: var(--acento); transition: width 300ms; z-index: 5; }
 .controles { position: fixed; right: 14px; bottom: 12px; display: flex; gap: 8px; align-items: center; z-index: 6; opacity: .25; transition: opacity 200ms; }
@@ -163,7 +175,7 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
 
   <!-- 1 · Portada -->
   <section class="diapo portada estrellas" data-segundos="20" data-titulo-es="Portada" data-titulo-en="Title">
-    <img src="../docs/img/astropudu.png" alt="Astropudú">
+    <img class="portada-pudu" src="../docs/img/astropudu.png" alt="Astropudú">
     <div>
       <p class="marca">PuduHealth</p>
       <p class="lema">
@@ -228,7 +240,7 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
     </div>
     <div class="solucion">
       <div class="cifra">
-        <div class="grande">55</div>
+        <div class="grande" data-contar="55">55</div>
         <div class="unidad"><span lang="es">días antes</span><span lang="en">days earlier</span></div>
         <p><span lang="es">que el límite de VO2max de NASA, en la misión simulada: todavía hay tiempo para corregir.</span><span lang="en">than NASA's VO2max limit, in the simulated mission: there is still time to correct course.</span></p>
       </div>
@@ -430,6 +442,7 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
     if (estado.inicio === null && estado.i > 0) estado.inicio = Date.now();
     diapos.forEach((d, j) => d.classList.toggle('activa', j === estado.i));
     const d = diapos[estado.i];
+    animar(d);
     // La app de la demo se carga al llegar a su diapositiva (no antes, para no gastar la intro).
     const marco = d.querySelector('iframe[data-src]');
     if (marco && !marco.src) marco.src = marco.dataset.src;
@@ -438,6 +451,34 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
     history.replaceState(null, '', `#${estado.i + 1}`);
     pintarNotas();
     if (emitir) canal?.postMessage({ tipo: 'estado', i: estado.i, lang: estado.lang, inicio: estado.inicio });
+  }
+
+  // Entrada escalonada: los elementos de la diapositiva reciben su orden (--i); la animación CSS se
+  // reinicia sola porque la diapositiva pasa de display:none a visible.
+  const ANIMABLES = '.etiqueta, h1, h2, .marca, .lema, .datos-equipo, .tarjeta, .paso, .flecha, .cifra, .lista li, '
+    + '.recorrido li, .botones, .telefono, tbody tr, .modelo, .caja-sub, .chip, .comparar > div, .pregunta, .cierre-fila, .cita, .qr-demo';
+  const sinMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function animar(d) {
+    let i = 0;
+    d.querySelectorAll(ANIMABLES).forEach((el) => {
+      if (el.closest('.notas')) return;
+      el.classList.add('anim');
+      if (el.matches('.tarjeta, .cifra, .modelo, .qr-demo, .telefono, .chip')) el.classList.add('anim-escala');
+      el.style.setProperty('--i', Math.min(i++, 16));
+    });
+    // El 55 cuenta desde cero.
+    d.querySelectorAll('[data-contar]').forEach((el) => {
+      const fin = Number(el.dataset.contar);
+      if (sinMovimiento) { el.textContent = fin; return; }
+      const t0 = performance.now() + 450;
+      const paso = (t) => {
+        const k = Math.max(0, Math.min(1, (t - t0) / 1100));
+        el.textContent = Math.round(fin * (1 - (1 - k) ** 3));
+        if (k < 1 && d.classList.contains('activa')) requestAnimationFrame(paso);
+      };
+      el.textContent = '0';
+      requestAnimationFrame(paso);
+    });
   }
 
   function fijarIdioma(lang, { emitir = true } = {}) {
