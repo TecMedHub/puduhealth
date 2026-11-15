@@ -110,7 +110,7 @@ medida con la cámara de un celular común, como lo hicieron en sus casas las pe
 abierto de Welltory. El resto es una dirección que aún no construimos ni probamos, porque las reglas
 actuales están escritas para astronautas.
 
-Contexto local: [ronda de especialistas por mar en Isla Tac, Quemchi](https://www.minsal.cl/exitoso-operativo-dental-y-de-especialistas-en-isla-tac/) (Ministerio de Salud de Chile, 2017). Las rondas por mar siguen: [el patrullero Cirujano Videla de la Armada y equipos del Servicio de Salud en las islas de Chiloé durante 2025](https://www.24horas.cl/regiones/zona-sur/los-lagos/patrullero-cirujano-videla-atenciones-medicas-chiloe) (24 Horas, 2025).
+Contexto local: [ronda de especialistas por mar en Isla Tac, Quemchi](https://www.minsal.cl/exitoso-operativo-dental-y-de-especialistas-en-isla-tac/) (Ministerio de Salud de Chile, 2017). Las rondas por mar siguen: [el patrullero Cirujano Videla de la Armada y equipos del Servicio de Salud en las islas de Chiloé durante 2025](https://www.24horas.cl/regiones/zona-sur/los-lagos/patrullero-cirujano-videla-atenciones-medicas-chiloe) (24 Horas, 2025). Camino a Marte no hay un Cirujano Videla interplanetario.
 
 **Huella.** La app es un conjunto de archivos estáticos (HTML, JavaScript y un modelo de 1,6 KB).
 No necesita servidores, nube ni cuentas. Funciona en un celular modesto, sin conexión, y cualquier
