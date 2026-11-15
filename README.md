@@ -106,7 +106,7 @@ health post with a different rule set. One piece already works there today: hear
 with an ordinary phone camera, as the people in the open Welltory dataset did at home. The rest is
 a direction we have not built or tested yet, because the current rules are written for astronauts.
 
-Local context: [specialist round by sea at Isla Tac, Quemchi](https://www.minsal.cl/exitoso-operativo-dental-y-de-especialistas-en-isla-tac/) (Chilean Ministry of Health, 2017).
+Local context: [specialist round by sea at Isla Tac, Quemchi](https://www.minsal.cl/exitoso-operativo-dental-y-de-especialistas-en-isla-tac/) (Chilean Ministry of Health, 2017). The rounds by sea continue: [the Navy patrol ship Cirujano Videla and health-service teams in the islands of Chiloé during 2025](https://www.24horas.cl/regiones/zona-sur/los-lagos/patrullero-cirujano-videla-atenciones-medicas-chiloe) (24 Horas, 2025).
 
 **Footprint.** The app is a set of static files (HTML, JavaScript and a 1.6 KB model). It needs
 no servers, no cloud and no accounts. It runs on a modest phone, offline, and any web server can
