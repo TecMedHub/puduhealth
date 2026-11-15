@@ -161,9 +161,9 @@
       <p id="frase" class="frase"></p>
       <div class="acciones-pudu">
         <button id="btn-registrar" class="boton grande" type="button"></button>
-        <button id="btn-medir" class="boton secundario grande" type="button">
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>
-          <span data-t="medir">Medir FC (60 s)</span>
+        <button id="btn-conectar" class="boton secundario grande" type="button">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7V3M15 7V3M7 7h10v4a5 5 0 0 1-10 0zM12 16v5"/></svg>
+          <span data-t="conectar">Conectar sensor</span>
         </button>
       </div>
       <button id="resumen-pudu" class="resumen-pudu" type="button">
@@ -338,6 +338,41 @@
       <div class="hoja-scroll">
         <h2 id="priv-titulo" data-t="privacidadTitulo">Cómo tratamos tus datos</h2>
         <div id="priv-cuerpo"></div>
+      </div>
+      <div class="acciones pie-hoja">
+        <button class="boton secundario" value="cerrar" data-t="medCerrar">Cerrar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="conectar" class="registro hoja-dialogo" aria-labelledby="con-titulo">
+    <form method="dialog">
+      <div class="tirador" aria-hidden="true"></div>
+      <div class="hoja-scroll">
+        <h2 id="con-titulo" data-t="conTitulo">Conectar un sensor</h2>
+        <p class="nota" data-t="conTexto"></p>
+        <div class="fuentes-lista">
+          <div class="fuente-op deshabilitada">
+            <span class="fuente-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10-5 5V2l5 5L7 17"/></svg></span>
+            <span class="fuente-txt"><strong data-t="conBle">Bluetooth</strong><small data-t="conBleSub"></small></span>
+            <span class="pildora sindatos" data-t="conDisenado">Diseñado</span>
+          </div>
+          <button type="button" class="fuente-op" id="con-archivo">
+            <span class="fuente-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></svg></span>
+            <span class="fuente-txt"><strong data-t="conArchivo">Importar de un equipo</strong><small data-t="conArchivoSub"></small></span>
+            <span class="pildora verde" data-t="conListo">Funciona</span>
+          </button>
+          <a class="fuente-op" id="con-api" href="https://github.com/TecMedHub/puduhealth/wiki" target="_blank" rel="noopener">
+            <span class="fuente-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg></span>
+            <span class="fuente-txt"><strong data-t="conApi">API para desarrolladores</strong><small><code>puduHealth.registrar(&#123; tipo, valor &#125;)</code></small></span>
+            <span class="pildora verde" data-t="conListo">Funciona</span>
+          </a>
+          <button type="button" class="fuente-op" id="con-camara">
+            <span class="fuente-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg></span>
+            <span class="fuente-txt"><strong data-t="conCamara">Cámara del celular</strong><small data-t="conCamaraSub"></small></span>
+            <span class="pildora ambar" data-t="conAlternativa">Alternativa</span>
+          </button>
+        </div>
       </div>
       <div class="acciones pie-hoja">
         <button class="boton secundario" value="cerrar" data-t="medCerrar">Cerrar</button>

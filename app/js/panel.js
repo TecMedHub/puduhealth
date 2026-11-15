@@ -569,12 +569,15 @@ function abrirRegistro() {
     caja.innerHTML = o.valores.map((v, i) =>
       `<button type="button" class="opcion" data-valor="${v}" aria-pressed="false" aria-label="${o.etiquetas[i]} ${o.unidad}">${o.etiquetas[i]}</button>`).join('');
   });
-  const celdas = [];
+  // Ánimo (columnas) × energía (filas): los ejes se escriben una vez y cada casilla es una cara.
+  const BOCA = ['M8 16.5q4-3.5 8 0', 'M8 15.5h8', 'M8 14.5q4 3.5 8 0'];
+  const cara = (v) => `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r=".9" class="ojo"/><circle cx="15" cy="10" r=".9" class="ojo"/><path d="${BOCA[v]}"/></svg>`;
+  const celdas = ['<span></span>', ...t.valencia.map((x) => `<span class="eje">${escapar(x)}</span>`)];
   for (let a = 2; a >= 0; a--) {
+    celdas.push(`<span class="eje fila">${escapar(t.activacion[a])}</span>`);
     for (let v = 0; v < 3; v++) {
-      celdas.push(`<button type="button" class="celda" data-v="${v}" data-a="${a}"
-        title="${escapar(t.valencia[v])} · ${escapar(t.activacion[a])}">
-        <span>${escapar(t.valencia[v])}</span><small>${escapar(t.activacion[a])}</small></button>`);
+      celdas.push(`<button type="button" class="celda v${v}" data-v="${v}" data-a="${a}"
+        aria-label="${escapar(t.valencia[v])} · ${escapar(t.activacion[a])}">${cara(v)}</button>`);
     }
   }
   $('#rejilla-animo').innerHTML = celdas.join('');
@@ -733,7 +736,10 @@ const medicion = iniciarMedicion({
     if (origen === 'camara' && registrar(desdeCamara(resultado)).registros.length) aviso(T().avisos.medido);
   },
 });
-$('#btn-medir').addEventListener('click', () => medicion.abrir());
+// Conectar sensor: las fuentes de la plataforma (API abierta), con su estado real.
+$('#btn-conectar').addEventListener('click', () => $('#conectar').showModal());
+$('#con-archivo').addEventListener('click', () => { $('#conectar').close(); $('#importar').click(); });
+$('#con-camara').addEventListener('click', () => { $('#conectar').close(); medicion.abrir(); });
 $('#btn-registrar').addEventListener('click', abrirRegistro);
 
 $('#rejilla-animo').addEventListener('click', (ev) => {
