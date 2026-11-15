@@ -46,8 +46,13 @@ Chile) y `en-US-AndrewNeural` (inglés). Los guiones están en `narracion.es.jso
 `narracion.en.json`; los subtítulos se sincronizan con cada frase hablada.
 
 **Música:** `musica/astropudu-tema.mp3`, tema original compuesto por Benjamín Catipillan-Ulloa
-(equipo TecMedHub) para el video. `--nivel-musica` ajusta su volumen (por omisión −25 LUFS; la voz
-va a −15 LUFS) y `--sin-musica` deja sólo la voz.
+(equipo TecMedHub) para el video.
+
+**Mezcla:** la voz pasa por una compresión suave y recibe la ganancia justa para acercarse a −17 LUFS,
+sin que el limitador final (−1,5 dBTP) tenga que recortar más de 2,5 dB: una voz con picos marcados
+queda algo más baja, pero limpia. La música va 11 dB bajo la voz y baja sola mientras se habla.
+`--nivel-musica` fija otro volumen y `--sin-musica` deja sólo la voz. Si los cuadros ya no están,
+`mezclar` rehace sólo el audio sobre el video terminado.
 
 | Archivo | Qué hace |
 |---|---|

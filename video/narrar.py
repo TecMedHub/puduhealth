@@ -84,21 +84,55 @@ def generar_voz(idioma: str) -> None:
     print(f"→ {voces / 'voz.wav'}")
 
 
+def medir(entrada: list[str], filtro: str) -> dict:
+    """Volumen integrado (LUFS) y pico verdadero (dBTP) de una señal, con loudnorm en modo medición."""
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", *entrada, "-af", f"{filtro}loudnorm=print_format=json",
+                        "-f", "null", "-"], capture_output=True, text=True, check=True)
+    datos = json.loads(r.stderr[r.stderr.rindex("{"):r.stderr.rindex("}") + 1])
+    return {"i": float(datos["input_i"]), "tp": float(datos["input_tp"])}
+
+
+# Voz: compresión suave y la ganancia justa para acercarse a VOZ_LUFS, sin normalización dinámica
+# (bombea entre frases y distorsiona). La ganancia nunca hace que el limitador final recorte más de
+# MAX_LIMITACION dB: una voz con picos marcados queda algo más baja, pero limpia.
+# Música: MUSICA_BAJO_VOZ dB bajo la voz, y baja sola cuando habla la voz. Limitador a -1,5 dBTP.
+VOZ_LUFS = -17.0
+TECHO_DBTP = -1.5
+MAX_LIMITACION = 2.5
+MUSICA_BAJO_VOZ = 11.0
+COMPRESOR = "highpass=f=70,acompressor=threshold=-22dB:ratio=2.5:attack=15:release=200:knee=6,"
+
+
 def mezclar(idioma: str, formato: str, musica: Path | None, desfase: float, nivel_musica: float) -> None:
     video = SALIDA / f"cuadros-{idioma}-{formato}.mp4"
     destino = SALIDA / f"puduhealth-{idioma}-{formato}.mp4"
-    entradas = ["-i", str(video), "-i", str(carpeta(idioma) / "voz.wav")]
-    voz = "[1:a]loudnorm=I=-15:TP=-2:LRA=11,aresample=48000[voz]"
+    if not video.exists():  # sólo se rehace el audio: se usa la imagen del video ya terminado
+        video = SALIDA / f"imagen-{idioma}-{formato}.mp4"
+        ffmpeg("-i", str(destino), "-map", "0:v", "-c:v", "copy", str(video))
+    voz_wav = str(carpeta(idioma) / "voz.wav")
+    v = medir(["-i", voz_wav], COMPRESOR)
+    ganancia_voz = min(VOZ_LUFS - v["i"], TECHO_DBTP + MAX_LIMITACION - v["tp"])
+    voz_final = v["i"] + ganancia_voz
+    entradas = ["-i", str(video), "-i", voz_wav]
+    voz = f"[1:a]{COMPRESOR}volume={ganancia_voz:.2f}dB,aresample=48000"
     if musica:
+        m = medir(["-ss", str(desfase), "-t", str(DURACION), "-i", str(musica)], "")
+        objetivo_musica = nivel_musica if nivel_musica is not None else voz_final - MUSICA_BAJO_VOZ
+        ganancia_musica = objetivo_musica - m["i"]
         entradas += ["-ss", str(desfase), "-t", str(DURACION), "-i", str(musica)]
-        fondo = (f"[2:a]loudnorm=I={nivel_musica}:TP=-2:LRA=11,afade=t=in:st=0:d=0.3,"
-                 f"afade=t=out:st={DURACION - 2.5}:d=2.5,aresample=48000[fondo]")
-        filtro = f"{voz};{fondo};[voz][fondo]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.7:level=false[a]"
+        filtro = (f"{voz},asplit=2[voz][guia];"
+                  f"[2:a]volume={ganancia_musica:.2f}dB,afade=t=in:st=0:d=0.3,"
+                  f"afade=t=out:st={DURACION - 2.5}:d=2.5,aresample=48000[mus];"
+                  "[mus][guia]sidechaincompress=threshold=0.03:ratio=3:attack=30:release=400[fondo];"
+                  "[voz][fondo]amix=inputs=2:normalize=0:duration=first,"
+                  "alimiter=limit=0.84:attack=5:release=80:level=false[a]")
     else:
-        filtro = voz.replace("[voz]", "[a]")
+        filtro = f"{voz},alimiter=limit=0.84:attack=5:release=80:level=false[a]"
     ffmpeg(*entradas, "-filter_complex", filtro, "-map", "0:v", "-map", "[a]", "-c:v", "copy",
            "-c:a", "aac", "-b:a", "192k", "-t", str(DURACION), "-movflags", "+faststart", str(destino))
-    print(f"→ {destino}")
+    if video.name.startswith("imagen-"):
+        video.unlink()
+    print(f"→ {destino}  (voz {voz_final:.1f} LUFS, ganancia {ganancia_voz:+.1f} dB)")
 
 
 if __name__ == "__main__":
@@ -112,7 +146,7 @@ if __name__ == "__main__":
     m.add_argument("--musica", type=Path, default=MUSICA if MUSICA.exists() else None, help="pista de fondo")
     m.add_argument("--sin-musica", action="store_true", help="sólo la voz")
     m.add_argument("--desde", type=float, default=0.35, help="segundo de la música donde empieza")
-    m.add_argument("--nivel-musica", type=float, default=-25.0, help="volumen de la música en LUFS")
+    m.add_argument("--nivel-musica", type=float, default=None, help="volumen de la música en LUFS (por omisión, 11 dB bajo la voz)")
     a = p.parse_args()
     if a.orden == "voz":
         generar_voz(a.idioma)
