@@ -33,13 +33,13 @@ On a phone, open the app and choose *Install*: it then works like any other app,
 
 **PuduHealth is an open health-monitoring platform for space missions. Any medical sensor, our own
 designs or third-party devices, connects through one open API; the engine compares each astronaut
-with their own baseline and warns weeks before a standard limit is crossed.** It tells the person who has to act what to do and
+with their own baseline and flags when they drift from it, before a standard limit is crossed.** It tells the person who has to act what to do and
 when to call the crew medical officer, cites the source of every recommendation, keeps the answers
 private and encrypted on the device, and works with no link to Earth.
 
 | | |
 |---|---|
-| **Impact** | Fixed limits warn late. In the simulated Mars mission, the first personal warnings come **55 days before** the NASA VO2max limit is crossed, while there is still time to correct course. The same approach fits rural health posts in Chiloé, where we built it |
+| **Impact** | Fixed limits warn late. On real Fitbit data from 14 people, the personal detector flags an added, sustained **+5 bpm rise in 3 days** (median) and alerts on only 2.5 % of ordinary days. The same approach fits rural health posts in Chiloé, where we built it |
 | **Creativity** | A platform, not a sensor: any device plugs in through one open API, so hardware changes without touching the engine. Each person is their own reference, answers stay with the astronaut, and a companion rewards habits without judging feelings |
 | **Validity** | Deterministic rules with cited thresholds. A **trained acute-stress model** (AUC 0.93, WESAD) that runs on the phone with heart rate from any sensor. Drift detector calibrated on real data (14 people, ~5 months). 64 automated tests |
 | **Relevance** | It gathers indicators, evaluates five NASA risks, shows trends and recommends actions. The scenario is built on NASA standards, OCHMO briefs and Curiosity's MSL RAD radiation measurements |
@@ -73,9 +73,11 @@ months away. Three things make this worse today:
 ### What changes with PuduHealth
 
 - **Earlier, personal warnings.** Each value is compared with the astronaut's own range. A
-  sustained drift is flagged as amber long before a standard's red line. In the example mission,
-  the commander's first ambers (short sleep, then resistance training falling behind) arrive 55
-  days before the VO2max limit.
+  sustained drift is flagged as amber before a standard's red line. Simulated example: we scripted a
+  decline for the commander (from day 135 she sleeps and trains less) and the simulator lowers her
+  VO2max as unloaded fitness would. Her first ambers arrive 55 days before the VO2max red. This
+  illustrates the mechanism, it is not a measurement; the real-data evidence is the detector test
+  below.
 - **The person who can act is told.** Exercise and sleep are up to the astronaut. The app shows
   them their own trend every day, what to do and why, instead of waiting for someone on Earth to
   notice it in downlinked data.
@@ -186,7 +188,7 @@ Training script: [`ml/entrenar_estres.py`](ml/entrenar_estres.py); method and re
 | Heart rate from the app's PPG algorithm | Median error of 0.8 bpm against chest ECG at rest | WESAD |
 | Acute stress model | AUC 0.93 leaving one person out | WESAD, 15 people |
 | Immune rules | 100 % of simulated illnesses detected, median delay 1 day, 0.05 % of healthy days with an alert | 30 simulated missions |
-| Heart-rate signal in real infections | Median rise of +2 bpm, used to tune the simulator | Welltory COVID-19 open data |
+| Heart-rate signal in real infections | Small but sustained: median +1.9 bpm (watch, 9 people) and +1.4 bpm (phone camera, 6), days 0–14 after symptoms. Small sample; used to tune the simulator | Welltory COVID-19 open data |
 | Code | 64 automated tests (engine, rules, input, simulator, offline cache, personal mode, encryption) | `cd app && npm test` |
 
 Scripts and full results: [`ml/README.md`](ml/README.md) (Spanish).

@@ -190,17 +190,17 @@
       + txt(D(50, 49.5), VERTICAL ? L('Estrés agudo<br>AUC 0,93', 'Acute stress<br>AUC 0.93') : L('Estrés agudo · AUC 0,93', 'Acute stress · AUC 0.93'), { tam: D(52, 26), extra: 'font-weight:800; line-height:1.15' })
       + txt(D(61, 58.5), L('ECG de 15 personas (WESAD) · corre en el teléfono con cualquier sensor', 'ECG from 15 people (WESAD) · runs on the phone with any sensor'), { tam: D(26, 14), color: '#cfc6f2' })
       + txt(D(74, 68), L(`Falsas alarmas del detector: ${b('21 % → 2,5 %')} (PMData)`, `Detector false alarms: ${b('21 % → 2.5 %')} (PMData)`), { tam: D(28, 15) })
-      + txt(D(83, 76), L(`Infecciones reales: la FC sube ${b('+2 lpm')} (Welltory)`, `Real infections: heart rate rises ${b('+2 bpm')} (Welltory)`), { tam: D(28, 15) });
+      + txt(D(83, 76), L(`Infecciones reales: la FC sube poco pero sostenida, ${b('+2 lpm')} (Welltory)`, `Real infections: a small, sustained heart-rate rise, ${b('+2 bpm')} (Welltory)`), { tam: D(28, 15) });
   }
 
   function escenaCierre(t) {
     dibujarEstrellas(t + 30);
     pintarPudu(poseDeEstado('contento', t * 1000), D(10, 12), D(1, 2));
     const lema = VERTICAL
-      ? L('API ABIERTA<br>CUALQUIER SENSOR<br>AVISA SEMANAS ANTES<br>PRIVADO · CIFRADO<br>CADA CONSEJO<br>CON SU FUENTE',
-        'OPEN API<br>ANY SENSOR<br>WEEKS BEFORE THE LIMIT<br>PRIVATE · ENCRYPTED<br>EVERY RECOMMENDATION<br>CITED')
-      : L('API ABIERTA · CUALQUIER SENSOR<br>AVISA SEMANAS ANTES<br>PRIVADO · CIFRADO · A BORDO<br>CADA CONSEJO CON SU FUENTE',
-        'OPEN API · ANY SENSOR<br>WEEKS BEFORE THE LIMIT<br>PRIVATE · ENCRYPTED · ON BOARD<br>EVERY RECOMMENDATION CITED');
+      ? L('API ABIERTA<br>CUALQUIER SENSOR<br>LÍNEA BASE PERSONAL<br>PRIVADO · CIFRADO<br>CADA CONSEJO<br>CON SU FUENTE',
+        'OPEN API<br>ANY SENSOR<br>PERSONAL BASELINE<br>PRIVATE · ENCRYPTED<br>EVERY RECOMMENDATION<br>CITED')
+      : L('API ABIERTA · CUALQUIER SENSOR<br>LÍNEA BASE PERSONAL<br>PRIVADO · CIFRADO · A BORDO<br>CADA CONSEJO CON SU FUENTE',
+        'OPEN API · ANY SENSOR<br>PERSONAL BASELINE<br>PRIVATE · ENCRYPTED · ON BOARD<br>EVERY RECOMMENDATION CITED');
     return txt(D(47, 53), lema, { tam: D(26, 13), pix: true, extra: `line-height:${D(1.9, 1.75)}; white-space:nowrap` })
       + txt(D(75, 70), L('NASA-STD-3001 · riesgos HRP · MSL RAD · OCHMO', 'NASA-STD-3001 · HRP risks · MSL RAD · OCHMO'), { tam: D(30, 15), color: '#cfc6f2' })
       + txt(D(88, 78), 'TECMEDHUB · NASA SPACE APPS 2026 · QUEMCHI, CHILE', { tam: D(18, 10), color: '#b9a6f0', pix: true });

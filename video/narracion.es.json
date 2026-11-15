@@ -6,7 +6,7 @@
     { "t": 6.1, "texto": "PuduHealth te compara contigo mismo.", "voz": "Pudu Health te compara contigo mismo.", "subtitulo": false },
     { "t": 9.1, "texto": "Cualquier sensor médico se conecta por una API abierta.", "voz": "Cualquier sensor médico se conecta por una A P I abierta." },
     { "t": 12.6, "texto": "Diez segundos al día con el Astropudú." },
-    { "t": 16.0, "texto": "En una misión simulada, su deriva aparece 55 días antes del límite de NASA.", "voz": "En una misión simulada, su deriva aparece cincuenta y cinco días antes del límite de la NASA." },
+    { "t": 16.0, "texto": "En una misión simulada, su deriva se nota antes de llegar al límite de NASA.", "voz": "En una misión simulada, su deriva se nota antes de llegar al límite de la NASA." },
     { "t": 21.9, "texto": "Si hay riesgo, te dice a quién avisar." },
     { "t": 23.9, "texto": "Cada alerta cita su fuente." },
     { "t": 25.7, "texto": "Un modelo entrenado con datos reales.", "subtitulo": false },

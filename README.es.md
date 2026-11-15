@@ -33,13 +33,13 @@ En el celular, abre la app y elige *Instalar*: queda como cualquier otra app y f
 
 **PuduHealth es una plataforma abierta de monitoreo de salud para misiones espaciales. Cualquier
 sensor médico, de diseño propio o de terceros, se conecta por una API abierta; el motor compara a
-cada astronauta con su propia línea base y avisa semanas antes de cruzar un límite estándar.** Le dice a quien tiene que actuar qué hacer y
+cada astronauta con su propia línea base y marca cuando se aleja de ella, antes de cruzar un límite estándar.** Le dice a quien tiene que actuar qué hacer y
 cuándo avisar al oficial médico de la tripulación, cita la fuente de cada recomendación, mantiene
 las respuestas privadas y cifradas en el dispositivo, y funciona sin enlace con la Tierra.
 
 | | |
 |---|---|
-| **Impacto** | Los límites fijos avisan tarde. En la misión simulada a Marte, las primeras alertas personales llegan **55 días antes** de cruzar el límite de VO2max de NASA, cuando todavía hay tiempo para corregir. El mismo enfoque sirve a las postas rurales de Chiloé, donde lo construimos |
+| **Impacto** | Los límites fijos avisan tarde. Con datos reales de Fitbit de 14 personas, el detector personal marca un **alza sostenida de +5 lpm en 3 días** (mediana, alza agregada a los datos) y alerta sólo en el 2,5 % de los días comunes. El mismo enfoque sirve a las postas rurales de Chiloé, donde lo construimos |
 | **Creatividad** | Una plataforma, no un sensor: cualquier equipo se conecta por una API abierta, así que el hardware cambia sin tocar el motor. Cada persona es su propia referencia, las respuestas se quedan con el astronauta y un acompañante premia los hábitos sin juzgar las emociones |
 | **Validez** | Reglas deterministas con umbrales citados. Un **modelo entrenado de estrés agudo** (AUC 0,93, WESAD) que corre en el teléfono con la frecuencia cardíaca de cualquier sensor. Detector de desviaciones calibrado con datos reales (14 personas, ~5 meses). 64 pruebas automáticas |
 | **Pertinencia** | Reúne indicadores, evalúa cinco riesgos de NASA, muestra tendencias y recomienda acciones. El escenario se apoya en estándares de NASA, informes técnicos de OCHMO y la radiación medida por MSL RAD en Curiosity |
@@ -75,9 +75,11 @@ ayuda está a meses de distancia. Hoy, tres cosas lo empeoran:
 ### Qué cambia con PuduHealth
 
 - **Alertas personales y más tempranas.** Cada valor se compara con el rango propio del astronauta.
-  Una desviación sostenida se marca en ámbar mucho antes de la línea roja de un estándar. En la
-  misión de ejemplo, los primeros ámbar de la comandante (sueño corto y luego ejercicio de
-  resistencia atrasado) llegan 55 días antes del límite de VO2max.
+  Una desviación sostenida se marca en ámbar antes de la línea roja de un estándar. Ejemplo
+  simulado: escribimos un deterioro para la comandante (desde el día 135 duerme y entrena menos) y
+  el simulador baja su VO2max como lo haría la falta de ejercicio. Sus primeros ámbar llegan 55 días
+  antes del rojo de VO2max. Ilustra el mecanismo, no es una medición; la evidencia con datos reales
+  es la prueba del detector más abajo.
 - **Se le avisa a quien puede actuar.** El ejercicio y el sueño dependen del astronauta. La app le
   muestra cada día su propia tendencia, qué hacer y por qué, en vez de esperar a que alguien en la
   Tierra lo note en los datos descargados.
@@ -192,7 +194,7 @@ Script de entrenamiento: [`ml/entrenar_estres.py`](ml/entrenar_estres.py); méto
 | Frecuencia cardíaca del algoritmo PPG de la app | Error mediano de 0,8 lpm contra ECG de pecho en reposo | WESAD |
 | Modelo de estrés agudo | AUC 0,93 dejando fuera a una persona | WESAD, 15 personas |
 | Reglas inmunes | 100 % de las enfermedades simuladas detectadas, retraso mediano de 1 día, 0,05 % de días sanos con alerta | 30 misiones simuladas |
-| Señal de frecuencia cardíaca en infecciones reales | Alza mediana de +2 lpm, usada para ajustar el simulador | Datos abiertos de COVID-19 de Welltory |
+| Señal de frecuencia cardíaca en infecciones reales | Pequeña pero sostenida: mediana de +1,9 lpm (reloj, 9 personas) y +1,4 lpm (cámara del celular, 6), días 0 a 14 desde los síntomas. Muestra chica; se usó para ajustar el simulador | Datos abiertos de COVID-19 de Welltory |
 | Código | 64 pruebas automáticas (motor, reglas, entrada, simulador, caché sin conexión, Mi registro, cifrado) | `cd app && npm test` |
 
 Scripts y resultados completos: [`ml/README.md`](ml/README.md).

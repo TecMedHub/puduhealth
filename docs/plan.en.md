@@ -8,8 +8,8 @@
 
 ## 1. The idea
 
-**An open onboard health decision-support platform that warns weeks before a standard limit is
-crossed.** Any sensor or medical device, of our own design or third-party, delivers its measurements
+**An open onboard health decision-support platform that flags a drift from the person's own
+baseline before a standard limit is crossed.** Any sensor or medical device, of our own design or third-party, delivers its measurements
 through an open API with a single format (`puduhealth/v1`). The platform compares the astronaut with
 their own baseline taken on Earth, detects trends and recommends what to do according to NASA
 standards and clinical guidelines. Every recommendation carries its citation.
@@ -20,9 +20,11 @@ standards and clinical guidelines. Every recommendation carries its citation.
 Why onboard and why personal:
 
 - **Fixed limits warn late.** A threshold such as VO2max below 80 % of the previous value is crossed
-  when the loss has already happened. In the simulated mission, the commander's first amber alerts
-  (short sleep, then insufficient resistance exercise) arrive 55 days before the VO2max red, while
-  there is still time to correct course.
+  when the loss has already happened. On real Fitbit data from 14 people (PMData), the personal
+  detector flags an added, sustained +5 bpm rise in 3 days (median), with alerts on 2.5 % of ordinary
+  days. Simulated example: we scripted a decline for the commander (from day 135 she sleeps and
+  trains less) and the simulator lowers her VO2max accordingly; her first ambers arrive 55 days
+  before the VO2max red. That illustrates the mechanism; it is not a measurement.
 - **The person who has to act sees the alert.** Exercise and sleep depend on the astronaut. The app
   shows them their trend every day, with the action and the source, instead of waiting for someone on
   Earth to notice it in the downlinked data.

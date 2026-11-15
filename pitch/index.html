@@ -240,9 +240,9 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
     </div>
     <div class="solucion">
       <div class="cifra">
-        <div class="grande" data-contar="55">55</div>
-        <div class="unidad"><span lang="es">días antes</span><span lang="en">days earlier</span></div>
-        <p><span lang="es">que el límite de VO2max de NASA, en la misión simulada: todavía hay tiempo para corregir.</span><span lang="en">than NASA's VO2max limit, in the simulated mission: there is still time to correct course.</span></p>
+        <div class="grande" data-contar="3">3</div>
+        <div class="unidad"><span lang="es">días</span><span lang="en">days</span></div>
+        <p><span lang="es">para marcar un alza sostenida de +5 lpm en datos reales de 14 personas, con alertas en sólo el 2,5 % de los días comunes.</span><span lang="en">to flag a sustained +5 bpm rise in real data from 14 people, with alerts on only 2.5 % of ordinary days.</span></p>
       </div>
       <ul class="lista">
         <li><span lang="es">El hardware cambia; el motor no.</span><span lang="en">Hardware changes; the engine does not.</span><span class="tenue"><span lang="es">Hoy entran por la API en la página, por archivo y por la cámara. Diseñado: Bluetooth estándar para bandas, relojes y termómetros, y nuestro wearable ESP32.</span><span lang="en">Today they enter through the in-page API, by file and by camera. Designed: standard Bluetooth for straps, watches and thermometers, and our ESP32 wearable.</span></span></li>
@@ -252,8 +252,8 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
       </ul>
     </div>
     <aside class="notas">
-      <p lang="es">PuduHealth es una plataforma, no un sensor. Cualquier fuente entrega sus mediciones por una API abierta con un solo formato: una banda o un reloj con Bluetooth estándar, un termómetro, el wearable que diseñamos o un equipo de la nave. Como no teníamos hardware, construimos un adaptador con la cámara del celular, pero es solo una fuente más. El motor compara a cada persona con su propia línea base y decide con reglas citadas: en la misión simulada, la comandante recibe sus primeros avisos 55 días antes del límite de VO2max de NASA.</p>
-      <p lang="en">PuduHealth is a platform, not a sensor. Any source delivers its measurements through one open API with a single format: a chest strap or watch with standard Bluetooth, a thermometer, the wearable we designed, or onboard equipment. We had no hardware, so we built an adapter with the phone camera, but it is just one more source. The engine compares each person with their own baseline and decides with cited rules: in the simulated mission, the commander gets her first warnings 55 days before NASA's VO2max limit.</p>
+      <p lang="es">PuduHealth es una plataforma, no un sensor. Cualquier fuente entrega sus mediciones por una API abierta con un solo formato: una banda o un reloj con Bluetooth estándar, un termómetro, el wearable que diseñamos o un equipo de la nave. Como no teníamos hardware, construimos un adaptador con la cámara del celular, pero es solo una fuente más. El motor compara a cada persona con su propia línea base y decide con reglas citadas. Con datos reales de Fitbit de 14 personas, marca un alza sostenida de +5 lpm en 3 días, con alertas en el 2,5 % de los días comunes. En la misión de ejemplo escribimos un deterioro (desde el día 135 la comandante duerme y entrena menos) y sus primeros avisos llegan 55 días antes del límite de VO2max: ilustra el mecanismo, no es una medición.</p>
+      <p lang="en">PuduHealth is a platform, not a sensor. Any source delivers its measurements through one open API with a single format: a chest strap or watch with standard Bluetooth, a thermometer, the wearable we designed, or onboard equipment. We had no hardware, so we built an adapter with the phone camera, but it is just one more source. The engine compares each person with their own baseline and decides with cited rules. On real Fitbit data from 14 people, it flags a sustained +5 bpm rise in 3 days, with alerts on 2.5 % of ordinary days. In the example mission we scripted a decline (from day 135 the commander sleeps and trains less) and her first warnings arrive 55 days before the VO2max limit: it illustrates the mechanism, it is not a measurement.</p>
     </aside>
   </section>
 
@@ -466,7 +466,7 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
       if (el.matches('.tarjeta, .cifra, .modelo, .qr-demo, .telefono, .chip')) el.classList.add('anim-escala');
       el.style.setProperty('--i', Math.min(i++, 16));
     });
-    // El 55 cuenta desde cero.
+    // La cifra grande cuenta desde cero.
     d.querySelectorAll('[data-contar]').forEach((el) => {
       const fin = Number(el.dataset.contar);
       if (sinMovimiento) { el.textContent = fin; return; }

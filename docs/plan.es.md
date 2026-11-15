@@ -8,8 +8,8 @@
 
 ## 1. La idea
 
-**Una plataforma abierta de apoyo a la decisión de salud a bordo que avisa semanas antes de cruzar
-un límite estándar.** Cualquier sensor o equipo médico, de diseño propio o de terceros, entrega sus
+**Una plataforma abierta de apoyo a la decisión de salud a bordo que marca cuando la persona se
+aleja de su propia línea base, antes de cruzar un límite estándar.** Cualquier sensor o equipo médico, de diseño propio o de terceros, entrega sus
 mediciones por una API abierta con un formato único (`puduhealth/v1`). La plataforma compara al
 astronauta con su propia línea base tomada en tierra, detecta tendencias y recomienda qué hacer
 según las normas de NASA y guías clínicas. Cada recomendación lleva su cita.
@@ -20,9 +20,11 @@ según las normas de NASA y guías clínicas. Cada recomendación lleva su cita.
 Por qué a bordo y por qué personal:
 
 - **Los límites fijos avisan tarde.** Un umbral como VO2max bajo el 80 % del valor previo se cruza
-  cuando la pérdida ya ocurrió. En la misión simulada, las primeras alertas ámbar de la comandante
-  (sueño corto y luego ejercicio de resistencia insuficiente) llegan 55 días antes del rojo de
-  VO2max, cuando aún hay tiempo para corregir.
+  cuando la pérdida ya ocurrió. Con datos reales de Fitbit de 14 personas (PMData), el detector
+  personal marca un alza sostenida de +5 lpm agregada a los datos en 3 días (mediana), con alertas en
+  el 2,5 % de los días comunes. Ejemplo simulado: escribimos un deterioro para la comandante (desde
+  el día 135 duerme y entrena menos) y el simulador baja su VO2max en consecuencia; sus primeros
+  ámbar llegan 55 días antes del rojo de VO2max. Ilustra el mecanismo; no es una medición.
 - **Quien tiene que actuar ve la alerta.** El ejercicio y el sueño dependen del astronauta. La app
   le muestra su tendencia cada día con la acción y la fuente, en vez de esperar que alguien en
   Tierra lo note en los datos descargados.
