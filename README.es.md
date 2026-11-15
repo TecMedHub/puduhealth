@@ -11,7 +11,7 @@
 
 **Pruébala:** [abre la app](https://tecmedhub.github.io/puduhealth/app/) en el celular e
 instálala, o ve directo a la [misión de ejemplo a Marte](https://tecmedhub.github.io/puduhealth/app/?demo=1).
-**Pitch:** [7 diapositivas](https://tecmedhub.github.io/puduhealth/pitch/) con la app funcionando adentro.
+**Pitch:** [7 diapositivas](https://tecmedhub.github.io/puduhealth/pitch/es/) con la app funcionando adentro.
 **Video (30 s):** español [16:9](video/salida/puduhealth-es-horizontal.mp4) · [9:16](video/salida/puduhealth-es-vertical.mp4) · inglés [16:9](video/salida/puduhealth-en-horizontal.mp4) · [9:16](video/salida/puduhealth-en-vertical.mp4)
 
 ---
@@ -283,13 +283,13 @@ cd app && npm test               # Node 20 o superior
 ```
 
 La cámara y el cifrado necesitan HTTPS (o `localhost`): `cd app && npm run https` la sirve en la
-red local. Diapositivas: <http://localhost:8080/pitch/>.
+red local. Diapositivas: <http://localhost:8080/pitch/es/>.
 
 ### Publicar en GitHub Pages
 
 Todo es estático, así que GitHub Pages lo sirve tal cual: en el repositorio, *Settings → Pages →
 Deploy from a branch → `main` / raíz*. La app queda en `https://<usuario>.github.io/<repo>/app/` y
-las diapositivas en `.../pitch/`, ambas por HTTPS.
+las diapositivas en `.../pitch/` (en inglés; en español, `.../pitch/es/`), ambas por HTTPS.
 
 ---
 

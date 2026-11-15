@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" data-lang="es">
+<html lang="en" data-lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -389,7 +389,7 @@ body.presentador .vista-presentador { display: grid; gap: 18px; }
   const params = new URLSearchParams(location.search);
   const esPresentador = params.has('presentador');
   const canal = 'BroadcastChannel' in window ? new BroadcastChannel('puduhealth-pitch') : null;
-  const estado = { i: 0, lang: params.get('lang') === 'en' ? 'en' : 'es', inicio: null };
+  const estado = { i: 0, lang: params.get('lang') === 'es' ? 'es' : 'en', inicio: null };
   const TOTAL_META = diapos.reduce((a, d) => a + Number(d.dataset.segundos), 0);
 
   const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
