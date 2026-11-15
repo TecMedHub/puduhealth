@@ -2,7 +2,7 @@
 // Con red se usa siempre la versión del servidor (y se actualiza la copia); sin red, la copia.
 // Nada sale del dispositivo: sólo se guardan los archivos de la app.
 
-const CACHE = 'puduhealth-v6';
+const CACHE = 'puduhealth-v7';
 
 const ARCHIVOS = [
   './',
@@ -61,7 +61,8 @@ self.addEventListener('fetch', (ev) => {
   const { request } = ev;
   if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
   ev.respondWith(
-    fetch(request)
+    // no-cache: siempre se pregunta al servidor si hay versión nueva (evita mezclar archivos viejos y nuevos).
+    fetch(request, { cache: 'no-cache' })
       .then((r) => {
         if (r.ok) {
           const copia = r.clone();

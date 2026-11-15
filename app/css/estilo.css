@@ -517,7 +517,8 @@ dialog { color: var(--texto); }
 }
 .pie-hoja .boton { flex: 1; }
 .hoja-dialogo.completa { height: 100dvh; max-height: 100dvh; border-radius: 0; border: 0; padding-top: var(--seg-arriba); }
-@keyframes subir { from { transform: translateY(40%); opacity: 0; } }
+/* Sólo desplazamiento: si un navegador no completa la animación, la hoja igual queda visible. */
+@keyframes subir { from { transform: translateY(24px); } }
 
 /* registro diario */
 .rejilla-animo { display: grid; grid-template-columns: auto repeat(3, 1fr); gap: 6px; align-items: center; }
