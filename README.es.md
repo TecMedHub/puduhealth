@@ -41,7 +41,7 @@ las respuestas privadas y cifradas en el dispositivo, y funciona sin enlace con 
 |---|---|
 | **Impacto** | Los límites fijos avisan tarde. En la misión simulada a Marte, las primeras alertas personales llegan **55 días antes** de cruzar el límite de VO2max de NASA, cuando todavía hay tiempo para corregir. El mismo enfoque sirve a las postas rurales de Chiloé, donde lo construimos |
 | **Creatividad** | Una plataforma, no un sensor: cualquier equipo se conecta por una API abierta, así que el hardware cambia sin tocar el motor. Cada persona es su propia referencia, las respuestas se quedan con el astronauta y un acompañante premia los hábitos sin juzgar las emociones |
-| **Validez** | Reglas deterministas con umbrales citados. Detector de desviaciones calibrado con datos reales (14 personas, ~5 meses). Frecuencia cardíaca del algoritmo PPG de la app a 0,8 lpm del ECG de pecho. 64 pruebas automáticas |
+| **Validez** | Reglas deterministas con umbrales citados. Un **modelo entrenado de estrés agudo** (AUC 0,93, WESAD) que corre en el teléfono con la frecuencia cardíaca de cualquier sensor. Detector de desviaciones calibrado con datos reales (14 personas, ~5 meses). 64 pruebas automáticas |
 | **Pertinencia** | Reúne indicadores, evalúa cinco riesgos de NASA, muestra tendencias y recomienda acciones. El escenario se apoya en estándares de NASA, informes técnicos de OCHMO y la radiación medida por MSL RAD en Curiosity |
 | **Presentación** | Una app de celular instalable, en español e inglés. Cada indicador se explica solo, y una misión de ejemplo muestra el sistema completo en un minuto |
 | **Datos personales** | Los datos de salud no salen del teléfono: cifrado AES-256, PIN opcional, sin servidor, cuentas ni analítica. Ver, exportar o borrar cuando quieras. [Cómo tratamos los datos](docs/privacidad.es.md) |
@@ -83,8 +83,8 @@ ayuda está a meses de distancia. Hoy, tres cosas lo empeoran:
   Tierra lo note en los datos descargados.
 - **Privada por diseño.** Las respuestas detalladas nunca salen del dispositivo y van cifradas con
   AES-256. En una misión, el oficial médico vería sólo el semáforo, con permiso del astronauta
-  (diseñado, aún no construido). Una pantalla clínica sobria indica cuándo llamarlo (fiebre,
-  tamizaje de depresión).
+  (diseñado, aún no construido). Una pantalla clínica clara, sin el acompañante, indica cuándo
+  llamarlo (fiebre, tamizaje de depresión).
 - **Autónoma.** Todo funciona a bordo, sin conexión, en el propio dispositivo del astronauta.
 
 ### De vuelta en la Tierra: Chiloé
@@ -169,6 +169,20 @@ MEDIR ──► ESTIMAR (línea base personal, puntuación z, tendencia EWMA) �
   se cruzó un umbral de un estándar o guía. Reglas y fuentes: [`app/js/reglas.js`](app/js/reglas.js)
   (español e inglés) y el [plan del proyecto](docs/plan.es.md).
 
+### El modelo entrenado: estrés agudo
+
+| | |
+|---|---|
+| **Qué estima** | La probabilidad de estrés agudo ahora, según cuánto sube la frecuencia cardíaca en reposo de hoy sobre la línea base de la persona |
+| **Modelo** | Regresión logística, una entrada (FC − línea base personal), 1,6 KB: [`app/modelos/estres.json`](app/modelos/estres.json) |
+| **Datos de entrenamiento** | WESAD (Schmidt et al. 2018): 15 personas, ECG de pecho, reposo frente a una prueba de estrés estandarizada |
+| **Validación** | Dejando fuera a una persona completa: **AUC 0,93 ± 0,15**, exactitud balanceada 0,83, falsos positivos en reposo 8 %. Con PPG de muñeca en vez de la FC del ECG, el AUC baja a 0,57 |
+| **En la app** | Corre en el teléfono sobre la FC en reposo de hoy **de cualquier fuente** que llegue por la API (banda de pecho, reloj, equipo de la nave, cámara), en *Datos → Estrés agudo (modelo)*, con su explicación |
+| **Por qué importa para la plataforma** | Rinde mejor con un sensor de calidad ECG, como una banda de pecho conectada por la API, que con la cámara como alternativa |
+| **Límites** | No distingue el estrés de otras causas de una FC alta (enfermedad, ejercicio, cafeína); informa, y las reglas deciden |
+
+Script de entrenamiento: [`ml/entrenar_estres.py`](ml/entrenar_estres.py); método y resultados: [`ml/README.md`](ml/README.md), sección 1.
+
 ### Evidencia
 
 | Qué | Resultado | Datos |
@@ -221,7 +235,7 @@ limitaciones están en el [plan del proyecto](docs/plan.es.md), sección 13.
 |---|---|
 | reúne indicadores | De cualquier sensor o equipo médico por la API abierta (de diseño propio o de terceros), más un registro diario de 10 segundos. La cámara del celular sirve como adaptador alternativo |
 | evalúa | Un semáforo de cinco riesgos (cardiovascular, hueso y músculo, conductual, inmune, radiación) y tendencias dibujadas contra el rango personal |
-| actúa | Cada alerta entrega la acción y su fuente. Una pantalla clínica sobria aparece cuando hay que contactar al oficial médico |
+| actúa | Cada alerta entrega la acción y su fuente. Una pantalla clínica clara, sin el acompañante, aparece cuando hay que contactar al oficial médico |
 | entiende | Tocar cualquier indicador explica qué es, cómo se mide en el espacio, por qué importa allá, los peligros del vuelo espacial de NASA relacionados, cuándo pedir ayuda y qué hacer |
 | se mantiene | El Astropudú, y un registro lo bastante corto como para hacerlo todos los días |
 

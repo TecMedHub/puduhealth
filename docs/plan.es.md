@@ -233,7 +233,7 @@ nuestro evento local.
    de los hábitos medidos.
 2. **No muere ni castiga.** Si no hay registro, duerme.
 3. **Duerme cuando el astronauta duerme:** el desfase circadiano se ve sin necesidad de gráficos.
-4. **Las alertas clínicas no las da el acompañante.** Aparece una pantalla sobria con el paso a seguir.
+4. **Las alertas clínicas no las da el acompañante.** Aparece una pantalla clínica clara, sin el acompañante, con el paso a seguir.
 5. **Siempre se puede deslizar para ver los datos reales.**
 6. **El registro toma 10 segundos o menos.**
 

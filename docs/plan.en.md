@@ -232,7 +232,7 @@ event takes place.
    checking in and on the measured habits.
 2. **It does not die or punish.** If there is no check-in, it sleeps.
 3. **It sleeps when the astronaut sleeps:** circadian misalignment shows without the need for charts.
-4. **Clinical alerts are not given by the companion.** A sober screen appears with the next step.
+4. **Clinical alerts are not given by the companion.** A clear clinical screen appears, without the companion, with the next step.
 5. **You can always swipe to see the real data.**
 6. **The check-in takes 10 seconds or less.**
 

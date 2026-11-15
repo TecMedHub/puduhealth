@@ -41,7 +41,7 @@ private and encrypted on the device, and works with no link to Earth.
 |---|---|
 | **Impact** | Fixed limits warn late. In the simulated Mars mission, the first personal warnings come **55 days before** the NASA VO2max limit is crossed, while there is still time to correct course. The same approach fits rural health posts in Chiloé, where we built it |
 | **Creativity** | A platform, not a sensor: any device plugs in through one open API, so hardware changes without touching the engine. Each person is their own reference, answers stay with the astronaut, and a companion rewards habits without judging feelings |
-| **Validity** | Deterministic rules with cited thresholds. Drift detector calibrated on real data (14 people, ~5 months). Heart rate from the app's PPG algorithm within 0.8 bpm of chest ECG. 64 automated tests |
+| **Validity** | Deterministic rules with cited thresholds. A **trained acute-stress model** (AUC 0.93, WESAD) that runs on the phone with heart rate from any sensor. Drift detector calibrated on real data (14 people, ~5 months). 64 automated tests |
 | **Relevance** | It gathers indicators, evaluates five NASA risks, shows trends and recommends actions. The scenario is built on NASA standards, OCHMO briefs and Curiosity's MSL RAD radiation measurements |
 | **Presentation** | An installable phone app in Spanish and English. Every indicator explains itself, and an example mission shows the whole system in one minute |
 | **Personal data** | Health data never leaves the phone: AES-256 encryption, an optional PIN, no server, accounts or analytics. See, export or delete at any time. [How we handle data](docs/privacidad.en.md) |
@@ -81,8 +81,8 @@ months away. Three things make this worse today:
   notice it in downlinked data.
 - **Private by design.** Detailed answers never leave the device, encrypted with AES-256. In a
   mission, the medical officer would see only the traffic light, with the astronaut's permission
-  (designed, not built yet). A sober clinical screen says when to call them (fever, depression
-  screening).
+  (designed, not built yet). A clear clinical screen, without the companion, says when to call
+  them (fever, depression screening).
 - **Autonomous.** Everything runs on board, offline, on the astronaut's own device.
 
 ### Back on Earth: Chiloé
@@ -163,6 +163,20 @@ MEASURE ──► ESTIMATE (personal baseline, z-score, EWMA trend) ──► DE
   a standard or guideline has been crossed. Rules and sources: [`app/js/reglas.js`](app/js/reglas.js)
   (Spanish and English) and the [project plan](docs/plan.en.md).
 
+### The trained model: acute stress
+
+| | |
+|---|---|
+| **What it estimates** | The probability of acute stress now, from how far today's resting heart rate rises above the person's own baseline |
+| **Model** | Logistic regression, one input (heart rate − personal baseline), 1.6 KB: [`app/modelos/estres.json`](app/modelos/estres.json) |
+| **Training data** | WESAD (Schmidt et al. 2018): 15 people, chest ECG, rest vs. a standardized stress test |
+| **Validation** | Leaving one whole person out: **AUC 0.93 ± 0.15**, balanced accuracy 0.83, false positives at rest 8 %. With wrist PPG instead of ECG heart rate the AUC drops to 0.57 |
+| **In the app** | Runs on the phone on today's resting heart rate **from any source** that reaches the API (chest strap, watch, onboard equipment, camera), shown in *Data → Acute stress (model)* with its explanation |
+| **Why it matters for the platform** | It works best with an ECG-grade sensor, such as a chest strap connected through the API, than with the camera fallback |
+| **Limits** | It does not tell stress apart from other causes of a high heart rate (illness, exercise, caffeine); it informs, the rules decide |
+
+Training script: [`ml/entrenar_estres.py`](ml/entrenar_estres.py); method and results: [`ml/README.md`](ml/README.md), section 1 (Spanish).
+
 ### Evidence
 
 | What | Result | Data |
@@ -213,7 +227,7 @@ validated.** Limitations are listed in the [project plan](docs/plan.en.md), sect
 |---|---|
 | gathers indicators | From any sensor or medical device through the open API (our own designs or third-party), plus a 10-second daily check-in. The phone camera works as a fallback adapter |
 | evaluates | A traffic light for five risks (cardiovascular, bone and muscle, behavioral, immune, radiation) and trends drawn against the personal range |
-| acts | Each alert gives the action and its source. A sober clinical screen appears when the medical officer should be contacted |
+| acts | Each alert gives the action and its source. A clear clinical screen, without the companion, appears when the medical officer should be contacted |
 | understands | Tapping any indicator explains what it is, how it is measured in space, why it matters there, the related NASA spaceflight hazards, when to ask for help and what to do |
 | keeps going | Astropudú, and a check-in short enough to do every day |
 
