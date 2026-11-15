@@ -33,6 +33,9 @@ export const TEXTOS = {
       phq9: 'PHQ-9 (último)',
       temperatura: 'Temperatura',
       sintomas: 'Síntomas (3 d)',
+      estres: 'Estrés agudo (modelo)',
+      vsBase: 'lpm vs base',
+      estresFalta: 'Necesita la FC en reposo de hoy, de cualquier sensor',
     },
     origen: {
       medido: '● medido',
@@ -312,6 +315,9 @@ export const TEXTOS = {
       phq9: 'PHQ-9 (latest)',
       temperatura: 'Temperature',
       sintomas: 'Symptoms (3 d)',
+      estres: 'Acute stress (model)',
+      vsBase: 'bpm vs baseline',
+      estresFalta: 'Needs today\'s resting heart rate, from any sensor',
     },
     origen: {
       medido: '● measured',

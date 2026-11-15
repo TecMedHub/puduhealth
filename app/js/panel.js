@@ -8,7 +8,7 @@ import { evaluarReglas, semaforo, NIVELES } from './motor.js';
 import { graficoTendencia, graficoMini, puntoCercano, aVista, mediaMovil } from './graficos.js';
 import { crearAcompanante, estadoAcompanante } from './acompanante.js';
 import { TEXTOS } from './i18n.js';
-import { cargarModelo } from './modelos.js';
+import { cargarModelo, estimarEstres } from './modelos.js';
 import { iniciarMedicion, usarAlmacenBase } from './medicion.js';
 import { modoBoveda, abrirBoveda, fijarPin } from './cifrado.js';
 import { EXPLICACIONES } from './explicaciones.js';
@@ -378,6 +378,16 @@ function renderIndicadores(e) {
       v.temperatura.desviada || e.temperatura_hoy >= 38, 'temperatura', 'medido'],
     [I.sintomas, num(e.sintomas_3d), sintomasRecientes(e.dia), e.dias_sintomas_seguidos >= 2 || e.sintomas_piel_3d > 0, 'sintomas', 'reportado'],
   ];
+  // Estrés agudo: el modelo entrenado (modelos/estres.json) sobre la FC en reposo de hoy, de cualquier
+  // fuente (banda, reloj, equipo, cámara), contra la línea base personal.
+  const fcHoy = (indice.get(ui.persona)?.get('fc_reposo') ?? []).find((r) => r.dia === ui.dia);
+  const baseFc = v.fc_reposo.base?.media;
+  const estres = modeloEstres && fcHoy && baseFc
+    ? estimarEstres(modeloEstres, { bpm: fcHoy.valor, calidad: fcHoy.calidad ?? undefined }, { bpm: baseFc })
+    : null;
+  items.splice(3, 0, [I.estres, estres ? `${num(100 * estres.probabilidad)} <small>%</small>` : '—',
+    estres ? `${num(fcHoy.valor)} ${I.vsBase} ${num(baseFc)} lpm · ${fcHoy.fuente}` : I.estresFalta,
+    Boolean(estres?.estres), 'estres', 'estimado']);
   // En Mi registro, lo que todavía no tiene datos lo dice (y cómo conseguirlo) en vez de mostrar un 0.
   if (ui.modo === 'personal') {
     const falta = {
@@ -726,7 +736,7 @@ $('#importar').addEventListener('change', async (ev) => {
 $('#lienzo').addEventListener('click', () => acompanante.mostrar('ejercitandose'));
 
 let modeloEstres = null;
-cargarModelo('modelos/estres.json').then((m) => { modeloEstres = m; }).catch(() => {});
+cargarModelo('modelos/estres.json').then((m) => { modeloEstres = m; if (sim) render(); }).catch(() => {});
 const medicion = iniciarMedicion({
   textos: T,
   modelo: () => modeloEstres,

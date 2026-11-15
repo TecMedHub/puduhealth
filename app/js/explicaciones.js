@@ -3,6 +3,27 @@
 // guía del reto. No reemplazan la evaluación del oficial médico.
 
 export const EXPLICACIONES = {
+  estres: {
+    peligros: ['aislamiento', 'ambiente'],
+    es: {
+      titulo: 'Estrés agudo (modelo entrenado)',
+      que: 'La probabilidad de que tu cuerpo esté en estrés agudo ahora, estimada por un modelo a partir de cuánto sube tu frecuencia cardíaca en reposo sobre tu propia línea base.',
+      como: 'Con la frecuencia cardíaca en reposo de hoy, venga de donde venga: una banda de pecho, un reloj, un equipo de la nave o, como alternativa, la cámara del celular. Rinde mejor con un sensor de calidad ECG, como una banda de pecho.',
+      porque: 'El estrés sostenido afecta el sueño, el ánimo y la respuesta inmune, y en una misión larga la carga de trabajo y el encierro lo hacen frecuente. Verlo a tiempo permite ajustar descanso y tareas.',
+      cuando: 'Si aparece varios días seguidos o junto con mal sueño o ánimo bajo, coméntalo con el oficial médico. Una sola medición alta puede deberse a ejercicio reciente, cafeína o una enfermedad: no es un diagnóstico.',
+      accion: 'Medir de nuevo sentado y en calma, revisar sueño y carga de trabajo, y tomar pausas. El modelo no distingue el estrés de otras causas de una FC alta.',
+      fuentes: 'Modelo propio: regresión logística entrenada con el ECG de WESAD (Schmidt et al. 2018, 15 personas); dejando fuera a una persona, AUC 0,93 con FC de ECG y 0,57 con PPG de muñeca',
+    },
+    en: {
+      titulo: 'Acute stress (trained model)',
+      que: 'The probability that your body is under acute stress right now, estimated by a model from how far your resting heart rate rises above your own baseline.',
+      como: 'With today\'s resting heart rate, whatever its source: a chest strap, a watch, onboard equipment or, as a fallback, the phone camera. It works best with an ECG-grade sensor such as a chest strap.',
+      porque: 'Sustained stress affects sleep, mood and the immune response, and on a long mission workload and confinement make it common. Seeing it in time allows adjusting rest and tasks.',
+      cuando: 'If it shows up several days in a row, or together with poor sleep or low mood, mention it to the crew medical officer. A single high reading can come from recent exercise, caffeine or illness: it is not a diagnosis.',
+      accion: 'Measure again seated and calm, review sleep and workload, and take breaks. The model does not tell stress apart from other causes of a high heart rate.',
+      fuentes: 'Our model: logistic regression trained on WESAD ECG (Schmidt et al. 2018, 15 people); leaving one person out, AUC 0.93 with ECG heart rate and 0.57 with wrist PPG',
+    },
+  },
   temperatura: {
     peligros: ['ambiente', 'distancia'],
     es: {
