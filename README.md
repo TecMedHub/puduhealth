@@ -90,12 +90,13 @@ months away. Three things make this worse today:
 ### Back on Earth: Chiloé
 
 We built this in Quemchi, in the Chiloé archipelago, the venue of our local Space Apps event, where the same problem exists on Earth.
-On the islands of the commune, rural health posts are run by paramedic technicians. Doctors and
-specialists arrive by sea on scheduled rounds, and bad weather can delay a boat.
+In Chile, a rural health post is run day to day by a resident nursing technician (TENS), and doctors
+and other professionals come on rounds ([Revista Médica de Chile, 2025](https://www.revistamedicadechile.cl/index.php/rmedica/article/download/11124/38109/140209); Technical
+Standard 211, 2021). In the islands of Chiloé those rounds travel by sea, and bad weather can delay a boat.
 
-| On the way to Mars | On an island of Quemchi |
+| On the way to Mars | At a rural health post in Chile |
 |---|---|
-| A crew medical officer, not a physician | A paramedic technician at the rural health post |
+| A crew medical officer, not a physician | A nursing technician (TENS) at the post |
 | A fixed limit flags a problem once it already exists | A patient with hypertension or diabetes can drift for weeks between rounds |
 | Nobody on Earth watches each astronaut's daily trend | The doctor sees the patient on the next round |
 | Evacuation is not an option | A boat, when the weather allows |

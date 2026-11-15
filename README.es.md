@@ -92,12 +92,13 @@ ayuda está a meses de distancia. Hoy, tres cosas lo empeoran:
 ### De vuelta en la Tierra: Chiloé
 
 Lo construimos en Quemchi, en el archipiélago de Chiloé, sede local de Space Apps, donde el mismo problema existe en la Tierra.
-En las islas de la comuna, las postas rurales las atienden técnicos paramédicos. Los médicos y
-especialistas llegan por mar en rondas programadas, y el mal tiempo puede atrasar una lancha.
+En Chile, la atención diaria de una posta de salud rural la da un técnico en enfermería (TENS)
+residente, y los médicos y otros profesionales llegan en rondas ([Revista Médica de Chile, 2025](https://www.revistamedicadechile.cl/index.php/rmedica/article/download/11124/38109/140209);
+Norma Técnica 211, 2021). En las islas de Chiloé esas rondas van por mar, y el mal tiempo puede atrasar una lancha.
 
-| Camino a Marte | En una isla de Quemchi |
+| Camino a Marte | En una posta rural de Chile |
 |---|---|
-| Un oficial médico de la tripulación, no un médico | Un técnico paramédico en la posta rural |
+| Un oficial médico de la tripulación, no un médico | Un técnico en enfermería (TENS) en la posta |
 | Un límite fijo marca el problema cuando ya existe | Un paciente con hipertensión o diabetes puede alejarse de su rango por semanas entre rondas |
 | Nadie en la Tierra sigue la tendencia diaria de cada astronauta | El médico ve al paciente en la próxima ronda |
 | Evacuar no es una opción | Una lancha, cuando el tiempo lo permite |
