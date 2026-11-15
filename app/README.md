@@ -77,9 +77,9 @@ barra del navegador, y funciona sin conexión.
   pecho), **Chiloé** (`chiloe`: bosque de noche, musgo y cobre del pelaje) y **Marte** (`marte`: roca,
   óxido y turquesa). Cada tema define una docena de colores en `css/estilo.css`; verde, ámbar y rojo
   significan lo mismo en todos (en rango, atención, actuar) y la pantalla de atención clínica se mantiene
-  sobria en cualquier tema.
+  clara y neutra (blanca) en cualquier tema.
 - Al primer uso, una **introducción** de tres pasos (se puede saltar y volver a ver desde el modo demo).
-- Con PHQ-9 ≥ 10 el acompañante se hace a un lado y aparece una pantalla sobria con el paso a seguir.
+- Con PHQ-9 ≥ 10 el acompañante se hace a un lado y aparece una pantalla clínica clara con el paso a seguir: contactar al oficial médico.
 - El **registro diario** pide ánimo y somnolencia (obligatorios); horas de sueño, minutos de ejercicio
   aeróbico y de resistencia, síntomas por tipo y temperatura son opcionales. Volver a registrar el mismo día reemplaza lo anterior; sin síntomas marcados, el día
   queda sin síntomas.
