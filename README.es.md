@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://tecmedhub.github.io/puduhealth/app/"><b>▶&nbsp;Abrir la app</b></a> &nbsp;·&nbsp;
-  <a href="https://tecmedhub.github.io/puduhealth/pitch/es/"><b>🎤&nbsp;Pitch (7 diapositivas)</b></a> &nbsp;·&nbsp;
+  <a href="https://tecmedhub.github.io/puduhealth/pitch/es/"><b>🎤&nbsp;Ver la presentación (7 diapositivas)</b></a> &nbsp;·&nbsp;
   <a href="https://tecmedhub.github.io/puduhealth/app/?demo=1"><b>🚀&nbsp;Misión de ejemplo a Marte</b></a> &nbsp;·&nbsp;
   <a href="https://tecmedhub.github.io/puduhealth/?lang=es"><b>🌐&nbsp;Sitio del proyecto</b></a>
 </p>
@@ -20,7 +20,7 @@
   <a href="https://tecmedhub.github.io/puduhealth/app/?demo=1"><img src="docs/img/vista-app.png" alt="PuduHealth en un celular: acompañante, riesgos de hoy, indicadores y tendencias" width="100%"></a>
 </p>
 
-| Video de 30 segundos (desde la app real) | Pitch con la app funcionando adentro |
+| Video de 30 segundos (desde la app real) | Presentación con la app funcionando adentro |
 |---|---|
 | <a href="https://tecmedhub.github.io/puduhealth/?lang=es"><img src="docs/img/demo.gif" alt="Vista previa del video" width="100%"></a> | <a href="https://tecmedhub.github.io/puduhealth/pitch/es/"><img src="docs/img/vista-pitch.png" alt="Diapositiva del pitch con la app en vivo" width="100%"></a> |
 | Español [16:9](video/salida/puduhealth-es-horizontal.mp4) · [9:16](video/salida/puduhealth-es-vertical.mp4) · inglés [16:9](video/salida/puduhealth-en-horizontal.mp4) · [9:16](video/salida/puduhealth-en-vertical.mp4) | Español: [pitch/es/](https://tecmedhub.github.io/puduhealth/pitch/es/) · inglés: [pitch/](https://tecmedhub.github.io/puduhealth/pitch/) |
