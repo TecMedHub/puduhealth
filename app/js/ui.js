@@ -78,3 +78,30 @@ export function aviso(texto, { accion = null, alAccionar = null, ms = 3200 } = {
   if (!accion) setTimeout(quitar, ms);
   return quitar;
 }
+
+// Diálogos (registro, explicaciones, conectar sensor…): se abren como paneles fijos normales con un
+// velo propio, igual que la hoja del modo demo. El modo modal del navegador (showModal) dejaba la
+// hoja fuera de la pantalla en Safari del iPhone.
+const abiertos = [];
+const velo = () => document.getElementById('velo-dialogo');
+
+export function abrirDialogo(d) {
+  if (d.open) return;
+  d.show();
+  abiertos.push(d);
+  velo().hidden = false;
+  d.querySelector('.hoja-scroll, form')?.scrollTo?.(0, 0);
+  d.querySelector('input:not([hidden]), button, [href]')?.focus({ preventScroll: true });
+}
+
+document.addEventListener('close', (ev) => {
+  const i = abiertos.indexOf(ev.target);
+  if (i >= 0) abiertos.splice(i, 1);
+  if (!abiertos.length && velo()) velo().hidden = true;
+}, true);
+document.addEventListener('click', (ev) => {
+  if (ev.target === velo()) abiertos.at(-1)?.close();
+});
+document.addEventListener('keydown', (ev) => {
+  if (ev.key === 'Escape' && abiertos.length) abiertos.at(-1).close();
+});

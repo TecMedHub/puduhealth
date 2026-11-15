@@ -7,6 +7,7 @@
 
 import { abrirCamara, cerrarCamara, fijarExposicion, capturarCuadros, senalPrueba } from './captura.js';
 import { estimarEstres } from './modelos.js';
+import { abrirDialogo } from './ui.js';
 
 const DURACION = 60;
 const VENTANA_VIVO = 10;
@@ -291,7 +292,7 @@ export function iniciarMedicion({ textos, modelo, alTerminar = () => {} }) {
     abrir() {
       reiniciarVista();
       $('#med-iniciar').textContent = T().medIniciar;
-      dlg.showModal();
+      abrirDialogo(dlg);
     },
   };
 }

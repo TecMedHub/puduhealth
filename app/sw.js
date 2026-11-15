@@ -2,7 +2,7 @@
 // Con red se usa siempre la versión del servidor (y se actualiza la copia); sin red, la copia.
 // Nada sale del dispositivo: sólo se guardan los archivos de la app.
 
-const CACHE = 'puduhealth-v7';
+const CACHE = 'puduhealth-v8';
 
 const ARCHIVOS = [
   './',

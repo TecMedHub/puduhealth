@@ -500,9 +500,13 @@ small { color: var(--tenue); font-size: 0.7em; font-weight: 500; }
 
 /* ---------- diálogos: hojas inferiores en celular ---------- */
 dialog { color: var(--texto); }
+/* Velo y diálogos como paneles fijos (ver abrirDialogo en ui.js), anclados al borde inferior. */
+.velo-dialogo { position: fixed; inset: 0; z-index: 44; background: var(--velo); animation: aparecer var(--medio); }
+dialog[open] { position: fixed; z-index: 45; }
 .hoja-dialogo {
   background: var(--panel); border: 1px solid var(--borde); border-bottom: 0; padding: 0;
-  margin: auto 0 0; width: 100%; max-width: 100%; max-height: 92dvh;
+  top: auto; right: 0; bottom: 0; left: 0; margin: 0; width: 100%; max-width: 100%;
+  height: auto; max-height: 92vh; max-height: 92dvh;
   border-radius: var(--radio-l) var(--radio-l) 0 0; box-shadow: var(--sombra);
 }
 .hoja-dialogo[open], .hoja-dialogo[open] > form { display: flex; flex-direction: column; min-height: 0; }
@@ -516,7 +520,7 @@ dialog { color: var(--texto); }
   border-top: 1px solid var(--borde-suave); background: var(--panel);
 }
 .pie-hoja .boton { flex: 1; }
-.hoja-dialogo.completa { height: 100dvh; max-height: 100dvh; border-radius: 0; border: 0; padding-top: var(--seg-arriba); }
+.hoja-dialogo.completa { top: 0; height: 100vh; height: 100dvh; max-height: none; border-radius: 0; border: 0; padding-top: var(--seg-arriba); }
 /* Sólo desplazamiento: si un navegador no completa la animación, la hoja igual queda visible. */
 @keyframes subir { from { transform: translateY(24px); } }
 
@@ -584,6 +588,7 @@ dialog { color: var(--texto); }
 
 /* bienvenida */
 .bienvenida {
+  top: 0; right: 0; bottom: 0; left: 0; margin: auto; height: fit-content; max-height: 92vh; overflow-y: auto;
   background: var(--panel); border: 1px solid var(--borde); border-radius: var(--radio-l);
   padding: var(--e5) var(--e5) calc(var(--e5) + var(--seg-abajo)); width: min(420px, calc(100vw - 24px)); text-align: center;
   box-shadow: var(--sombra);
@@ -637,13 +642,13 @@ dialog { color: var(--texto); }
   .avisos { bottom: var(--e5); }
 
   .hoja-dialogo {
-    margin: auto; width: min(480px, calc(100vw - 32px)); max-height: 86vh;
+    top: 0; bottom: 0; margin: auto; width: min(480px, calc(100vw - 32px)); height: fit-content; max-height: 86vh;
     border-radius: var(--radio-l); border-bottom: 1px solid var(--borde);
   }
   .hoja-dialogo .tirador { display: none; }
   .hoja-dialogo .hoja-scroll { padding-top: var(--e4); }
   .pie-hoja { border-radius: 0 0 var(--radio-l) var(--radio-l); }
-  .hoja-dialogo.completa { width: min(560px, calc(100vw - 32px)); height: auto; max-height: 92vh; border-radius: var(--radio-l); border: 1px solid var(--borde); padding-top: 0; }
+  .hoja-dialogo.completa { width: min(560px, calc(100vw - 32px)); height: fit-content; max-height: 92vh; border-radius: var(--radio-l); border: 1px solid var(--borde); padding-top: 0; }
   .sintomas { grid-template-columns: 1fr 1fr; }
 }
 

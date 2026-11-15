@@ -13,7 +13,7 @@ import { iniciarMedicion, usarAlmacenBase } from './medicion.js';
 import { modoBoveda, abrirBoveda, fijarPin } from './cifrado.js';
 import { EXPLICACIONES } from './explicaciones.js';
 import { aRegistros, leerTexto, desdeCamara, FORMATO } from './entrada.js';
-import { crearHoja, aviso, vibrar, pantallaAncha } from './ui.js';
+import { crearHoja, aviso, vibrar, pantallaAncha, abrirDialogo } from './ui.js';
 import {
   PERSONA, escenarioPersonal, calibracion, cargarPersonal, guardarPersonal, borrarPersonal,
   exportarPersonal, guardarModo, hoyISO, guardarBaseFc,
@@ -549,7 +549,7 @@ function abrirInfo(clave) {
     seccion(t.info.accion, x.accion),
     `<p class="fuente-info">${escapar(t.fuente)}: ${escapar(x.fuentes)}</p>`,
   ].join('');
-  $('#info').showModal();
+  abrirDialogo($('#info'));
 }
 
 $('#indicadores').addEventListener('click', (ev) => {
@@ -600,7 +600,7 @@ function abrirRegistro() {
   $('#temperatura').value = '';
   $('#temperatura-error').hidden = true;
   actualizarGuardar();
-  $('#registro').showModal();
+  abrirDialogo($('#registro'));
 }
 
 function actualizarGuardar() {
@@ -747,7 +747,7 @@ const medicion = iniciarMedicion({
   },
 });
 // Conectar sensor: las fuentes de la plataforma (API abierta), con su estado real.
-$('#btn-conectar').addEventListener('click', () => $('#conectar').showModal());
+$('#btn-conectar').addEventListener('click', () => abrirDialogo($('#conectar')));
 $('#con-archivo').addEventListener('click', () => { $('#conectar').close(); $('#importar').click(); });
 $('#con-camara').addEventListener('click', () => { $('#conectar').close(); medicion.abrir(); });
 $('#btn-registrar').addEventListener('click', abrirRegistro);
@@ -890,7 +890,7 @@ $('#btn-pin').addEventListener('click', () => {
   $('#pin-1').value = '';
   $('#pin-2').value = '';
   $('#pin-error').hidden = true;
-  $('#dialogo-pin').showModal();
+  abrirDialogo($('#dialogo-pin'));
 });
 $('#pin-cancelar').addEventListener('click', () => $('#dialogo-pin').close());
 $('#form-pin').addEventListener('submit', async (ev) => {
@@ -917,7 +917,7 @@ $('#btn-privacidad').addEventListener('click', () => {
   $('#priv-cuerpo').innerHTML = `<ul class="priv-lista">${T().privacidad
     .map((x) => `<li><strong>${escapar(x.t)}</strong><p>${escapar(x.p)}</p></li>`).join('')}</ul>`;
   hojaDemo.cerrar();
-  $('#privacidad').showModal();
+  abrirDialogo($('#privacidad'));
 });
 
 // ---------- instalar como app ----------
@@ -967,7 +967,7 @@ function abrirBienvenida() {
   $('#bien-puntos').innerHTML = pasos.map(() => '<span></span>').join('');
   pudBienvenida = crearAcompanante($('#bien-lienzo'), { hoja: HOJA_SPRITES });
   pudBienvenida.fijarEstado('contento');
-  $('#bienvenida').showModal();
+  abrirDialogo($('#bienvenida'));
   $('#bien-pasos').scrollLeft = 0;
   actualizarBienvenida();
 }
