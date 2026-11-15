@@ -306,6 +306,23 @@ y 25) y límites conocidos: [tratamiento de datos personales](docs/privacidad.es
 
 ---
 
+## Uso de IA
+
+Como exige el reglamento de Space Apps, estas son las partes donde se usaron herramientas de IA:
+
+- **Código y documentación:** escritos con un asistente de programación con IA (Claude, de Anthropic), y
+  revisados y probados por el equipo (`cd app && npm test`). Las traducciones de los documentos también
+  tuvieron asistencia de IA.
+- **Investigación y análisis:** la IA ayudó a buscar y verificar fuentes. Cada cifra sale de los documentos
+  citados o de los scripts de [`ml/`](ml/), corridos sobre los conjuntos de datos públicos.
+- **Narración del video:** voces sintéticas de IA (Microsoft neural TTS: `en-US-AndrewNeural`,
+  `es-CL-CatalinaNeural`, vía `edge-tts`). Cada video lo indica en pantalla y en sus metadatos.
+- **Ilustración del Astropudú** (logo, íconos de la app, tarjeta para redes): generada con IA a partir de un
+  diseño del equipo, y marcada "AI-generated art" en cada imagen. El acompañante en pixel art dentro de la
+  app está dibujado por código.
+- **Sin IA:** la música (Benjamín Catipillan-Ulloa), las reglas y sus umbrales (de los estándares citados) y
+  las mediciones. No se usan logos ni marcas de NASA.
+
 ## Repositorio
 
 | Carpeta | Contenido |

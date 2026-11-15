@@ -103,10 +103,36 @@ MUSICA_BAJO_VOZ = 11.0
 COMPRESOR = "highpass=f=70,acompressor=threshold=-22dB:ratio=2.5:attack=15:release=200:knee=6,"
 
 
+# Declaración de IA exigida por Space Apps: rótulo visible y metadatos en cada video.
+FUENTE_ROTULO = "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf"
+ROTULO = {"es": "Narración: voz IA", "en": "Narration: AI voice"}
+DECLARACION = {
+    "es": ("Narración con voz sintética de IA (Microsoft neural TTS, es-CL-CatalinaNeural, vía edge-tts). "
+           "Imágenes grabadas de la app real; ilustración del Astropudú generada con IA a partir de un diseño del equipo. "
+           "Música original de Benjamín Catipillan-Ulloa. Sin logos de NASA."),
+    "en": ("Narration with a synthetic AI voice (Microsoft neural TTS, en-US-AndrewNeural, via edge-tts). "
+           "Images recorded from the real app; Astropudú illustration AI-generated from the team's own design. "
+           "Original music by Benjamín Catipillan-Ulloa. No NASA logos."),
+}
+
+
+def filtro_rotulo(idioma: str, formato: str) -> str:
+    texto = ROTULO[idioma].replace(":", r"\:")
+    pos = "x=(w-tw)/2:y=22" if formato == "vertical" else "x=24:y=h-th-24"
+    return (f"drawtext=fontfile={FUENTE_ROTULO}:text='{texto}':fontsize=26:fontcolor=white@0.92:"
+            f"box=1:boxcolor=0x0a081e@0.72:boxborderw=10:{pos}")
+
+
+def metadatos(idioma: str) -> list[str]:
+    return ["-metadata", f"comment={DECLARACION[idioma]}", "-metadata", f"description={DECLARACION[idioma]}",
+            "-metadata", "title=PuduHealth · NASA Space Apps Challenge 2026 · TecMedHub"]
+
+
 def mezclar(idioma: str, formato: str, musica: Path | None, desfase: float, nivel_musica: float) -> None:
     video = SALIDA / f"cuadros-{idioma}-{formato}.mp4"
     destino = SALIDA / f"puduhealth-{idioma}-{formato}.mp4"
-    if not video.exists():  # sólo se rehace el audio: se usa la imagen del video ya terminado
+    rotular = video.exists()  # los cuadros recién grabados llevan el rótulo; un video terminado ya lo tiene
+    if not rotular:  # sólo se rehace el audio: se usa la imagen del video ya terminado
         video = SALIDA / f"imagen-{idioma}-{formato}.mp4"
         ffmpeg("-i", str(destino), "-map", "0:v", "-c:v", "copy", str(video))
     voz_wav = str(carpeta(idioma) / "voz.wav")
@@ -128,8 +154,13 @@ def mezclar(idioma: str, formato: str, musica: Path | None, desfase: float, nive
                   "alimiter=limit=0.84:attack=5:release=80:level=false[a]")
     else:
         filtro = f"{voz},alimiter=limit=0.84:attack=5:release=80:level=false[a]"
-    ffmpeg(*entradas, "-filter_complex", filtro, "-map", "0:v", "-map", "[a]", "-c:v", "copy",
-           "-c:a", "aac", "-b:a", "192k", "-t", str(DURACION), "-movflags", "+faststart", str(destino))
+    if rotular:
+        filtro = f"[0:v]{filtro_rotulo(idioma, formato)}[v];{filtro}"
+        video_args = ["-map", "[v]", "-c:v", "libx264", "-preset", "slow", "-crf", "18", "-pix_fmt", "yuv420p"]
+    else:
+        video_args = ["-map", "0:v", "-c:v", "copy"]
+    ffmpeg(*entradas, "-filter_complex", filtro, *video_args, "-map", "[a]",
+           "-c:a", "aac", "-b:a", "192k", "-t", str(DURACION), *metadatos(idioma), "-movflags", "+faststart", str(destino))
     if video.name.startswith("imagen-"):
         video.unlink()
     print(f"→ {destino}  (voz {voz_final:.1f} LUFS, ganancia {ganancia_voz:+.1f} dB)")

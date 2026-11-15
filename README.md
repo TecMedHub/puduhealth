@@ -298,6 +298,21 @@ known limits: [personal data handling](docs/privacidad.en.md).
 
 ---
 
+## Use of AI
+
+As the Space Apps rules require, these are the parts where AI tools were used:
+
+- **Code and documentation:** written with an AI coding assistant (Claude, by Anthropic), then reviewed and
+  tested by the team (`cd app && npm test`). Translations of the docs were also AI-assisted.
+- **Research and analysis:** AI helped search and check sources. Every figure comes from the cited documents
+  or from the scripts in [`ml/`](ml/), run on the public datasets.
+- **Video narration:** synthetic AI voices (Microsoft neural TTS: `en-US-AndrewNeural`, `es-CL-CatalinaNeural`,
+  via `edge-tts`). Each video says so on screen and in its metadata.
+- **Astropudú illustration** (logo, app icons, social card): AI-generated from the team's own design, and
+  marked "AI-generated art" on every image. The pixel-art companion inside the app is drawn by code.
+- **Not AI:** the soundtrack (Benjamín Catipillan-Ulloa), the rules and thresholds (from the cited
+  standards), the measurements. No NASA logos or branding are used.
+
 ## Repository
 
 | Folder | Content |

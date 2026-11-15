@@ -41,7 +41,9 @@ Repetir con `--idioma en` y `--formato horizontal` para las otras versiones.
 `node video/grabar.mjs … --cuadros 7,18,24` captura sólo esos segundos como imágenes, para revisar
 el encuadre antes de grabar los 900 cuadros.
 
-**Narración:** voz neuronal de Microsoft mediante `edge-tts`: `es-CL-CatalinaNeural` (español de
+**Narración:** voz sintética de IA (neuronal de Microsoft) mediante `edge-tts`. Como exige Space Apps, cada
+video lo indica con un rótulo visible ("Narración: voz IA" / "Narration: AI voice") y en sus metadatos
+(`comment`, `description`). Voces: `es-CL-CatalinaNeural` (español de
 Chile) y `en-US-AndrewNeural` (inglés). Los guiones están en `narracion.es.json` y
 `narracion.en.json`; los subtítulos se sincronizan con cada frase hablada.
 
