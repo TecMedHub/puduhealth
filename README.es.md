@@ -9,10 +9,23 @@
 **Reto:** [Create Health Monitoring Software for Astronauts on Space Missions](https://www.spaceappschallenge.org/2026/challenges/health-monitoring-software/)
 **Equipo:** [TecMedHub](https://www.spaceappschallenge.org/2026/find-a-team/tecmedhub/) · **Sede local:** Quemchi, Chiloé, Chile
 
-**Pruébala:** [abre la app](https://tecmedhub.github.io/puduhealth/app/) en el celular e
-instálala, o ve directo a la [misión de ejemplo a Marte](https://tecmedhub.github.io/puduhealth/app/?demo=1).
-**Pitch:** [7 diapositivas](https://tecmedhub.github.io/puduhealth/pitch/es/) con la app funcionando adentro.
-**Video (30 s):** español [16:9](video/salida/puduhealth-es-horizontal.mp4) · [9:16](video/salida/puduhealth-es-vertical.mp4) · inglés [16:9](video/salida/puduhealth-en-horizontal.mp4) · [9:16](video/salida/puduhealth-en-vertical.mp4)
+<p align="center">
+  <a href="https://tecmedhub.github.io/puduhealth/app/"><b>▶&nbsp;Abrir la app</b></a> &nbsp;·&nbsp;
+  <a href="https://tecmedhub.github.io/puduhealth/pitch/es/"><b>🎤&nbsp;Pitch (7 diapositivas)</b></a> &nbsp;·&nbsp;
+  <a href="https://tecmedhub.github.io/puduhealth/app/?demo=1"><b>🚀&nbsp;Misión de ejemplo a Marte</b></a> &nbsp;·&nbsp;
+  <a href="https://tecmedhub.github.io/puduhealth/?lang=es"><b>🌐&nbsp;Sitio del proyecto</b></a>
+</p>
+
+<p align="center">
+  <a href="https://tecmedhub.github.io/puduhealth/app/?demo=1"><img src="docs/img/vista-app.png" alt="PuduHealth en un celular: acompañante, riesgos de hoy, indicadores y tendencias" width="100%"></a>
+</p>
+
+| Video de 30 segundos (desde la app real) | Pitch con la app funcionando adentro |
+|---|---|
+| <a href="https://tecmedhub.github.io/puduhealth/?lang=es"><img src="docs/img/demo.gif" alt="Vista previa del video" width="100%"></a> | <a href="https://tecmedhub.github.io/puduhealth/pitch/es/"><img src="docs/img/vista-pitch.png" alt="Diapositiva del pitch con la app en vivo" width="100%"></a> |
+| Español [16:9](video/salida/puduhealth-es-horizontal.mp4) · [9:16](video/salida/puduhealth-es-vertical.mp4) · inglés [16:9](video/salida/puduhealth-en-horizontal.mp4) · [9:16](video/salida/puduhealth-en-vertical.mp4) | Español: [pitch/es/](https://tecmedhub.github.io/puduhealth/pitch/es/) · inglés: [pitch/](https://tecmedhub.github.io/puduhealth/pitch/) |
+
+En el celular, abre la app y elige *Instalar*: queda como cualquier otra app y funciona sin conexión.
 
 ---
 
@@ -266,6 +279,7 @@ y 25) y límites conocidos: [tratamiento de datos personales](docs/privacidad.es
 
 | Carpeta | Contenido |
 |---|---|
+| [`index.html`](index.html) | Sitio del proyecto: accesos a la app y al pitch, y los videos |
 | [`app/`](app/) | La app web: línea base personal, motor de reglas, interfaz, acompañante, medición con cámara, simulador, con pruebas |
 | [`ml/`](ml/) | Scripts de entrenamiento, calibración y evaluación con conjuntos de datos públicos |
 | [`docs/`](docs/) | Plan del proyecto en [español](docs/plan.es.md) e [inglés](docs/plan.en.md): idea, reglas, fuentes, limitaciones. [Tratamiento de datos personales](docs/privacidad.es.md) ([inglés](docs/privacidad.en.md)). Especificación de conexión de datos |
