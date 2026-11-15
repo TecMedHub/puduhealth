@@ -22,8 +22,8 @@ que tapan los controles de Instagram.
 | 6–9 s | Título: plataforma abierta de salud, con el Astropudú |
 | 9–12,5 s | La plataforma: sensores propios o de terceros → API abierta `puduhealth/v1` → línea base y reglas → app (la cámara, como alternativa) |
 | 12,5–16 s | Registro diario de 10 s; el Astropudú pasa de dormido a contento |
-| 16–26 s | Misión simulada, día 100 → 205: ámbar, alertas, pantalla de atención clínica, rojo con su fuente |
-| 26–30 s | Probado con datos reales y cierre (API abierta · cualquier sensor) |
+| 16–26 s | Misión simulada, día 100 → 205: ámbar, alertas, pantalla clínica ("si hay riesgo, te dice a quién avisar"), rojo con su fuente |
+| 26–30 s | El modelo entrenado (estrés agudo, AUC 0,93) y otros resultados con datos reales; cierre (API abierta · cualquier sensor) |
 
 ## Generar
 

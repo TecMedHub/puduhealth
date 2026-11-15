@@ -7,9 +7,9 @@
     { "t": 9.1, "texto": "Any medical sensor plugs in through one open API." },
     { "t": 12.6, "texto": "Ten seconds a day with Astropudú.", "voz": "Ten seconds a day with Astro Pudú." },
     { "t": 16.0, "texto": "In a simulated mission, her drift shows up 55 days before the NASA limit." },
-    { "t": 21.9, "texto": "Mental health: a sober next step." },
+    { "t": 21.9, "texto": "If there's a risk, it says who to call." },
     { "t": 23.9, "texto": "Every alert cites its source." },
-    { "t": 25.7, "texto": "Calibrated on real data.", "subtitulo": false },
+    { "t": 25.7, "texto": "A model trained on real data.", "subtitulo": false },
     { "t": 27.4, "texto": "Encrypted, open source, from Chile.", "subtitulo": false }
   ]
 }

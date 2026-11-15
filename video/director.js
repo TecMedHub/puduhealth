@@ -184,12 +184,13 @@
 
   function escenaValidacion(t) {
     dibujarEstrellas(t + 20);
-    pintarPudu(poseDeEstado('despierto', t * 1000 + 500), D(6, 22), D(1, 2));
+    pintarPudu(poseDeEstado('despierto', t * 1000 + 500), D(4, 20), D(1, 2));
     const b = (v) => `<b style="color:#ffb84d">${v}</b>`;
-    return txt(D(42, 44), L('PROBADO CON DATOS REALES', 'TESTED ON REAL DATA'), { tam: D(28, 15), pix: true })
-      + txt(D(56, 54), L(`Modelo de estrés: ${b('AUC 0,93')} · 15 personas (WESAD)`, `Stress model: ${b('AUC 0.93')} · 15 people (WESAD)`), { tam: D(34, 18) })
-      + txt(D(67, 63), L(`Falsas alarmas: ${b('21 % → 2,5 %')} · 14 personas (PMData)`, `False alarms: ${b('21 % → 2.5 %')} · 14 people (PMData)`), { tam: D(34, 18) })
-      + txt(D(78, 72), L(`Infecciones reales: la FC sube ${b('+2 lpm')} (Welltory)`, `Real infections: heart rate rises ${b('+2 bpm')} (Welltory)`), { tam: D(34, 18) });
+    return txt(D(38, 40), L('MODELO ENTRENADO', 'TRAINED MODEL'), { tam: D(24, 14), pix: true, color: '#ff8a3d' })
+      + txt(D(50, 49.5), VERTICAL ? L('Estrés agudo<br>AUC 0,93', 'Acute stress<br>AUC 0.93') : L('Estrés agudo · AUC 0,93', 'Acute stress · AUC 0.93'), { tam: D(52, 26), extra: 'font-weight:800; line-height:1.15' })
+      + txt(D(61, 58.5), L('ECG de 15 personas (WESAD) · corre en el teléfono con cualquier sensor', 'ECG from 15 people (WESAD) · runs on the phone with any sensor'), { tam: D(26, 14), color: '#cfc6f2' })
+      + txt(D(74, 68), L(`Falsas alarmas del detector: ${b('21 % → 2,5 %')} (PMData)`, `Detector false alarms: ${b('21 % → 2.5 %')} (PMData)`), { tam: D(28, 15) })
+      + txt(D(83, 76), L(`Infecciones reales: la FC sube ${b('+2 lpm')} (Welltory)`, `Real infections: heart rate rises ${b('+2 bpm')} (Welltory)`), { tam: D(28, 15) });
   }
 
   function escenaCierre(t) {

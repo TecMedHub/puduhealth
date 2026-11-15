@@ -7,9 +7,9 @@
     { "t": 9.1, "texto": "Cualquier sensor médico se conecta por una API abierta.", "voz": "Cualquier sensor médico se conecta por una A P I abierta." },
     { "t": 12.6, "texto": "Diez segundos al día con el Astropudú." },
     { "t": 16.0, "texto": "En una misión simulada, su deriva aparece 55 días antes del límite de NASA.", "voz": "En una misión simulada, su deriva aparece cincuenta y cinco días antes del límite de la NASA." },
-    { "t": 21.9, "texto": "Salud mental: un paso sobrio." },
+    { "t": 21.9, "texto": "Si hay riesgo, te dice a quién avisar." },
     { "t": 23.9, "texto": "Cada alerta cita su fuente." },
-    { "t": 25.7, "texto": "Calibrado con datos reales.", "subtitulo": false },
+    { "t": 25.7, "texto": "Un modelo entrenado con datos reales.", "subtitulo": false },
     { "t": 27.4, "texto": "Cifrado y abierto, desde Chile.", "subtitulo": false }
   ]
 }
