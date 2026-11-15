@@ -89,7 +89,7 @@ months away. Three things make this worse today:
 
 ### Back on Earth: Chiloé
 
-We built this in Quemchi, in the Chiloé archipelago, where the same problem exists closer to home.
+We built this in Quemchi, in the Chiloé archipelago, the venue of our local Space Apps event, where the same problem exists on Earth.
 On the islands of the commune, rural health posts are run by paramedic technicians. Doctors and
 specialists arrive by sea on scheduled rounds, and bad weather can delay a boat.
 

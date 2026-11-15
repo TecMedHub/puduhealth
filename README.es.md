@@ -91,7 +91,7 @@ ayuda está a meses de distancia. Hoy, tres cosas lo empeoran:
 
 ### De vuelta en la Tierra: Chiloé
 
-Lo construimos en Quemchi, en el archipiélago de Chiloé, donde el mismo problema existe más cerca.
+Lo construimos en Quemchi, en el archipiélago de Chiloé, sede local de Space Apps, donde el mismo problema existe en la Tierra.
 En las islas de la comuna, las postas rurales las atienden técnicos paramédicos. Los médicos y
 especialistas llegan por mar en rondas programadas, y el mal tiempo puede atrasar una lancha.
 
