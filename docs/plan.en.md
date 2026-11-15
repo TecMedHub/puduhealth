@@ -331,7 +331,7 @@ round display                        models and rules engine
 - OCHMO TB-030 Bone loss: https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-030-bone-loss.pdf
 - EIMO: https://ntrs.nasa.gov/citations/20230016189
 - Human Exploration of Mars Design Reference Architecture 5.0, NASA/SP-2009-566: https://www.nasa.gov/pdf/373665main_NASA-SP-2009-566.pdf
-- OCHMO-TB-014 Behavioral Health Mishaps, Rev. B (2023): https://www.nasa.gov/sites/default/files/atoms/files/behavioral_health_mishaps_technical_brief_ochmo.pdf
+- OCHMO-TB-014 Behavioral Health Mishaps, Rev. B (2023): https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-014-behavioral-health-mishaps.pdf
 - Institute of Medicine 2001, *Safe Passage: Astronaut Care for Exploration Missions*, ch. 5 (p. 140) and 6 (pp. 174 and 183), symptom underreporting: https://doi.org/10.17226/10218
 - What's Mars Solar Conjunction, and Why Does It Matter? (NASA): https://www.nasa.gov/solar-system/whats-mars-solar-conjunction-and-why-does-it-matter/
 - Cognitive and behavioral risk: https://www.nasa.gov/directorates/esdmd/hhp/risk-of-adverse-cognitive-or-behavioral-conditions-and-psychiatric-disorders

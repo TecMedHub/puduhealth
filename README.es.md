@@ -59,8 +59,16 @@ ayuda está a meses de distancia. Hoy, tres cosas lo empeoran:
   vuelo" se dispara cuando la pérdida ya ocurrió. Las personas son muy distintas, así que un límite
   poblacional queda demasiado holgado para unos o demasiado estricto para otros.
 - **Los síntomas no se informan.** Se sabe que los astronautas informan de menos sus síntomas
-  físicos y conductuales a los médicos de vuelo, por miedo a perder futuras misiones (Institute of
-  Medicine 2001; NASA OCHMO-TB-014).
+  físicos y conductuales a los médicos de vuelo, por miedo a perder futuras misiones:
+  > *"The fear of mission disqualification increases their reluctance to report medical
+  > information."* ("El miedo a quedar fuera de una misión aumenta su reticencia a informar datos
+  > médicos". Institute of Medicine, [*Safe Passage*](https://doi.org/10.17226/10218), 2001, cap. 6,
+  > p. 174; también cap. 5, p. 140, y cap. 6, p. 183)
+
+  > *"…the actual incidence may be underestimated due to the reluctance of astronauts to report
+  > them."* ("La incidencia real puede estar subestimada por la reticencia de los astronautas a
+  > informarlos". NASA, [OCHMO-TB-014 Behavioral Health Mishaps](https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-014-behavioral-health-mishaps.pdf), Rev. B, 2023, resumen ejecutivo)
+
 - **El enlace se corta.** Cada dos años el Sol bloquea la comunicación con Marte durante unas dos
   semanas (conjunción solar). Un software que depende de la Tierra deja de ayudar justo entonces.
 

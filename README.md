@@ -59,8 +59,14 @@ months away. Three things make this worse today:
   fires when the loss has already happened. People differ widely, so a population limit is
   either too loose for some or too strict for others.
 - **Symptoms go unreported.** Astronauts are known to under-report physical and behavioral
-  symptoms to flight surgeons, fearing it may cost them future flights (Institute of Medicine 2001;
-  NASA OCHMO-TB-014).
+  symptoms to flight surgeons, fearing it may cost them future flights:
+  > *"The fear of mission disqualification increases their reluctance to report medical
+  > information."* (Institute of Medicine, [*Safe Passage*](https://doi.org/10.17226/10218), 2001,
+  > ch. 6, p. 174; also ch. 5, p. 140 and ch. 6, p. 183)
+
+  > *"…the actual incidence may be underestimated due to the reluctance of astronauts to report
+  > them."* (NASA, [OCHMO-TB-014 Behavioral Health Mishaps](https://www.nasa.gov/wp-content/uploads/2023/12/ochmo-tb-014-behavioral-health-mishaps.pdf), Rev. B, 2023, executive summary)
+
 - **The link fails.** Every two years the Sun blocks communication with Mars for about two weeks
   (solar conjunction). Software that needs the ground stops helping exactly then.
 
