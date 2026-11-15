@@ -1,5 +1,5 @@
 {
-  "voz": "es-CL-LorenzoNeural",
+  "voz": "es-CL-CatalinaNeural",
   "velocidad": "+8%",
   "frases": [
     { "t": 0.3, "texto": "Los límites de salud fijos avisan tarde, y los astronautas suelen callar sus síntomas." },
@@ -10,6 +10,6 @@
     { "t": 21.9, "texto": "Salud mental: un paso sobrio." },
     { "t": 23.9, "texto": "Cada alerta cita su fuente." },
     { "t": 25.7, "texto": "Calibrado con datos reales.", "subtitulo": false },
-    { "t": 27.4, "texto": "Cifrado, abierto, desde Quemchi, Chile.", "subtitulo": false }
+    { "t": 27.4, "texto": "Cifrado y abierto, desde Chile.", "subtitulo": false }
   ]
 }

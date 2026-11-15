@@ -41,7 +41,7 @@ Repetir con `--idioma en` y `--formato horizontal` para las otras versiones.
 `node video/grabar.mjs … --cuadros 7,18,24` captura sólo esos segundos como imágenes, para revisar
 el encuadre antes de grabar los 900 cuadros.
 
-**Narración:** voz neuronal de Microsoft mediante `edge-tts`: `es-CL-LorenzoNeural` (español de
+**Narración:** voz neuronal de Microsoft mediante `edge-tts`: `es-CL-CatalinaNeural` (español de
 Chile) y `en-US-AndrewNeural` (inglés). Los guiones están en `narracion.es.json` y
 `narracion.en.json`; los subtítulos se sincronizan con cada frase hablada.
 

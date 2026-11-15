@@ -256,7 +256,9 @@ descarga y procesa. Lista completa con enlaces: [plan del proyecto](docs/plan.es
 
 ## 5. La app
 
-- **API abierta para equipos.** Sensores y equipos envían mediciones en el formato `puduhealth/v1`;
+- **API abierta para equipos.** *Conectar sensor*, en la pantalla principal, muestra las fuentes con
+  su estado (Bluetooth estándar: diseñado; importar de un equipo y API para desarrolladores:
+  funcionan; cámara del celular: alternativa). Sensores y equipos envían mediciones en el formato `puduhealth/v1`;
   la app las muestra con la misma línea base y las mismas reglas, venga de donde venga ([wiki de la API](https://github.com/TecMedHub/puduhealth/wiki)).
 - **Celular primero, instalable.** Cuatro secciones en una barra inferior: **Pudú** (acompañante,
   registro, medición), **Hoy** (estado general, cinco riesgos, alertas), **Datos** (indicadores con

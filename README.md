@@ -248,7 +248,9 @@ processes them. Full list with links: [project plan](docs/plan.en.md), section 1
 
 ## 5. The app
 
-- **Open API for devices.** Sensors and equipment send measurements in the `puduhealth/v1` format;
+- **Open API for devices.** *Connect a sensor*, on the main screen, lists the sources with their
+  status (standard Bluetooth: designed; device import and developer API: working; phone camera:
+  fallback). Sensors and equipment send measurements in the `puduhealth/v1` format;
   the app shows them with the same baseline and rules whatever the source ([API wiki](https://github.com/TecMedHub/puduhealth/wiki)).
 - **Phone first, installable.** Four sections in a bottom bar: **Pudú** (companion, check-in,
   measurement), **Today** (overall status, five risks, alerts), **Data** (indicators with a
